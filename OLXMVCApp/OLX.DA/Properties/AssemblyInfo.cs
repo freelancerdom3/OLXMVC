@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OLX.DataAccess")]
+[assembly: AssemblyTitle("OLX.DA")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OLX.DataAccess")]
+[assembly: AssemblyProduct("OLX.DA")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6f06ca2c-c8a6-4e81-a285-f4801ab99e0a")]
+[assembly: Guid("21e03a2d-a1ab-4940-ae23-d8481ab8af32")]
 
 // Version information for an assembly consists of the following four values:
 //
