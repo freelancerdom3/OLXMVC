@@ -11,13 +11,13 @@
 
 
 <style>
-    /* Center the form on the page */
+  
     .centered-form {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 50vh; /* Set to full viewport height */
+        height: 50vh; 
     }
 
     .form-container {
@@ -94,15 +94,7 @@
                             url = '/Admin/Dashboard';
                             window.location.href = url;
                         }
-                        @*else {
-                            // Check if there is a ViewBag message and display it in an alert
-                            var errorMessage = '@ViewBag.m';
-                            if (errorMessage) {
-                                alert(errorMessage);
-                            } else {
-                                alert("Invalid Credential!!");
-                            }
-                        }*@
+                        
                         else if (data == 3) {
                             alert("Email not exist.")
                         }
