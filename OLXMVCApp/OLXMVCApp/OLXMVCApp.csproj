@@ -126,7 +126,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin\Class1.cs" />
     <Compile Include="Models\UsersModel.cs" />
+    <Compile Include="Models\User\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +187,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Users\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\Admin\" />
-    <Folder Include="Models\Users\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\Users\" />
