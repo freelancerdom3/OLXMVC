@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,10 +183,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\User\loginType.cshtml" />
+    <Content Include="Views\User\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Users\" />
     <Folder Include="Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Default\" />
@@ -222,6 +224,10 @@
     <ProjectReference Include="..\OLX.DA\OLX.DA.csproj">
       <Project>{21e03a2d-a1ab-4940-ae23-d8481ab8af32}</Project>
       <Name>OLX.DA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OLX.Models\OLX.Models.csproj">
+      <Project>{65cdaabb-afc5-4b7e-a4cd-b2558870c6e5}</Project>
+      <Name>OLX.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
