@@ -7,5 +7,6 @@ namespace OLXMVCApp.Models
 {
     public class UsersModel
     {
+
     }
 }
