@@ -20,7 +20,7 @@ namespace OLX.DA.User
             con = new SqlConnection(constr);
 
         }
-        public bool authLogin(UsersModel model, out string validationmsg)
+        public bool authLogin(UsersModel model, out string validationmsg,out int id)
         {
             connection();
             //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
@@ -34,29 +34,45 @@ namespace OLX.DA.User
             if (count == 0)
             {
                 validationmsg = "UserEmail doesn't Exist";
+
+            }
+            if (count == 1)
+            {
+
+                string useridQuery = "SELECT TOP 1 userid FROM Users WHERE userEmail = @userEmail";
+                SqlCommand useridCmd = new SqlCommand(useridQuery, con);
+                useridCmd.Parameters.AddWithValue("@userEmail", model.userEmail);
+                con.Open();
+                id = (int)useridCmd.ExecuteScalar();
+                con.Close();
+
+                string query = "select count(*) from Users where userEmail=@userEmail and userPassword=@userPassword";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@userEmail", model.userEmail);
+                cmd.Parameters.AddWithValue("@userPassword", model.userPassword);
+                con.Open();
+                count = (int)cmd.ExecuteScalar();
+                con.Close();
+
+                validationmsg = count == 1 ? "Login Successful" : "Invalid credentials";
+
+                if (count == 1)
+                {
+                    bool isadmin = IsAdmin(model.userEmail);
+                    if (isadmin)
+                    {
+                        return true;
+                    }
+                }
+                return count > 0;
+            }
+            else
+            {
+                validationmsg = "UserEmail doesn't Exist";
+                id = 0; // Set firstName to an empty string if the user doesn't exist
                 return false;
             }
 
-
-
-
-            string query = "select count(*) from Users where userEmail=@userEmail and Password=@userPassword";
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@userEmail", model.userEmail);
-            cmd.Parameters.AddWithValue("@userPassword", model.userPassword);
-            con.Open();
-            count = (int)cmd.ExecuteScalar();
-            con.Close();
-            validationmsg = count == 0 ? "invalid credintials" : string.Empty;
-            if (count > 0)
-            {
-                bool isadmin = IsAdmin(model.userEmail);
-                if (isadmin)
-                {
-                    return true;
-                }
-            }
-            return count > 0;
             //if (rows == 0)
             //{  
 
