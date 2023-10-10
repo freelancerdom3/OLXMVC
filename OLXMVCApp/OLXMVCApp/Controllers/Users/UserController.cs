@@ -37,7 +37,7 @@ namespace OLXMVCApp.Controllers.Users
         public ActionResult login(UsersModel loginModel)
         {
             
-            bool result = access.authLogin(loginModel, out string msg);
+            bool result = access.authLogin(loginModel, out string msg,out int id);
             if (result)
             {
 
@@ -51,6 +51,7 @@ namespace OLXMVCApp.Controllers.Users
                 {
 
                     //return RedirectToAction("About", "Home");
+                    Session["userid"] = id;
                     return Json(1);
                 }
 
