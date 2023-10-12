@@ -69,7 +69,7 @@ namespace OLX.DA.User
             else
             {
                 validationmsg = "UserEmail doesn't Exist";
-                id = 0; // Set firstName to an empty string if the user doesn't exist
+                id = 0; 
                 return false;
             }
 
@@ -121,9 +121,28 @@ namespace OLX.DA.User
 
                 return count;
             }
-            // Set the out parameter here
+          
 
         }
+        public int getuserid(int loginid)
+        {
+            connection();
+            string query = "select u.userId from LoginUser lu \r\n  join Users u \r\n  on lu.userIdByLoginUser=u.userId\r\n where lu.LoginUserId=@loginuserid";
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            cmd.Parameters.AddWithValue("@loginuserid", loginid);
+            con.Open();
+            int i = (int)cmd.ExecuteScalar();
+            con.Close();
+
+            if (i > 0)
+            {
+                return i;
+            }
+            else
+                return 0;
+        }
+
         public int getidfromOtp(int userotp, out string msg)
         {
 
