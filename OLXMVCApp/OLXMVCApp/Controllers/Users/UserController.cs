@@ -126,9 +126,12 @@ namespace OLXMVCApp.Controllers.Users
             {   //string stored = user.GetOtp(userid);
 
                 int stored = access.GetOtp(userid, out string message);
+                int id = access.getuserid(userid);
+
                 //bool otp = user.verifyOTP(userotp,out stored);
                 if (LoginOtp == stored)
                 {
+                    Session["idbyotp"] = id;
                     return Json(1);
                     //return Json(new { message = "login" });
                 }
