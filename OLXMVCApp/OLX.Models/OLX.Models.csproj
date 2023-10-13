@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdvertiseImagesModel.cs" />
+    <Compile Include="Admin\AdvertiseModel.cs" />
+    <Compile Include="Admin\MyAdvertiseModel.cs" />
     <Compile Include="Admin\ProductListModel.cs" />
     <Compile Include="Admin\UserList.cs" />
     <Compile Include="Admin\ProductSubCategoryModeljoin.cs" />

@@ -219,6 +219,7 @@ namespace OLXMVCApp.Controllers.Admin
                 subCategory.ImageBytes = subCategory.imageData;
             }
 
+
             return View(viewModel);
         }
         public ActionResult Delete(int advertiseId, int advertiseImageId)
@@ -227,9 +228,8 @@ namespace OLXMVCApp.Controllers.Admin
             d.Deleteproduct(advertiseId, advertiseImageId);
 
             // Redirect to the Index action to show the updated list
-            return RedirectToAction("Advertise");
+            return RedirectToAction("Index");
         }
-
 
 
     }

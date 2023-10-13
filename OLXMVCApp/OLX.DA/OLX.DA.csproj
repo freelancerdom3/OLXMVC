@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminDA.cs" />
+    <Compile Include="Admin\AdvertiseDA.cs" />
     <Compile Include="Admin\ProductListDA.cs" />
     <Compile Include="Admin\UserList_Data_Access.cs" />
     <Compile Include="Class2.cs" />
