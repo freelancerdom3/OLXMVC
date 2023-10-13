@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\UserList.cs" />
     <Compile Include="Admin\ProductSubCategoryModeljoin.cs" />
     <Compile Include="LoginUserModel.cs" />
     <Compile Include="UsersModel.cs" />

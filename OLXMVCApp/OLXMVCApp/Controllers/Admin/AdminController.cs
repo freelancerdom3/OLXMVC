@@ -93,5 +93,85 @@ namespace OLXMVCApp.Controllers.Admin
                 return View();
             }
         }
+
+        UserList_Data_Access uda = new UserList_Data_Access();
+
+        // GET: olx
+        public ActionResult UserIndex()
+        {
+            IEnumerable<UserList> ul = uda.GetAllUser();
+            return View("UserIndex", "admin_layout", ul);
+            // return View(ul);
+        }
+
+        //// GET: olx/Details/5
+        public ActionResult UserDetails(int? id)
+        {
+            UserList product = uda.GetUserData(id);
+            return View("UserDetails", "admin_layout", product);
+            // return View();
+        }
+
+        // GET: olx/Create
+
+        // GET: olx/Edit/5
+        public ActionResult UserEdit(int id)
+        {
+
+            UserList user = uda.GetUserData(id);
+            TempData["AlertMessage"] = "User Edited successfully......";
+            return View("UserEdit", "admin_layout", user);
+        }
+
+        //// POST: olx/Edit/5
+        [HttpPost]
+        public ActionResult UserEdit(UserList ul)
+        {
+            try
+            {
+                uda.Updateuser(ul);
+
+                return RedirectToAction(nameof(UserIndex));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        
+        
+
+
+        // GET: olx/Delete/5
+        public ActionResult UserDelete(int? id)
+        {
+            UserList userList = uda.GetUserData(id);
+            return View("UserDelete", "admin_layout", userList);
+        }
+
+        // POST: olx/Delete/5
+        [HttpPost]
+        public ActionResult UserDelete(int id)
+        {
+            try
+            {
+
+                // TODO: Add delete logic here
+                uda.DeleteUser(id);
+                TempData["AlertMessage"] = "user deleted successfully......";
+                return RedirectToAction(nameof(UserIndex));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+       
+
+
+       
     }
+
 }
