@@ -206,7 +206,29 @@ namespace OLXMVCApp.Controllers.Admin
                 return View();
             }
         }
+        public ActionResult Advertise()
+        {
+            AdvertiseDA d1 = new AdvertiseDA();
+            AdvertiseModel viewModel = new AdvertiseModel();
 
+            viewModel.Products = d1.GetProductsFromDatabase();
+            viewModel.SubCategories = d1.GetProductsFromDatabase1();
+
+            foreach (var subCategory in viewModel.SubCategories)
+            {
+                subCategory.ImageBytes = subCategory.imageData;
+            }
+
+            return View(viewModel);
+        }
+        public ActionResult Delete(int advertiseId, int advertiseImageId)
+        {
+            AdvertiseDA d = new AdvertiseDA();
+            d.Deleteproduct(advertiseId, advertiseImageId);
+
+            // Redirect to the Index action to show the updated list
+            return RedirectToAction("Advertise");
+        }
 
 
 

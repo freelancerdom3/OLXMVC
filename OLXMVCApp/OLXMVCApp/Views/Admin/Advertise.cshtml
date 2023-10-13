@@ -1,0 +1,74 @@
+﻿
+@model OLX.Models.Admin.AdvertiseModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .advertisement-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .advertisement-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            max-width: 300px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+            .advertisement-card img {
+                max-width: 300px;
+                height: 250px;
+                border-radius: 5px;
+            }
+
+        .advertisement-details h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .advertisement-details p {
+            font-size: 0.9em;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="flex-container">
+        <div class="advertisement-list">
+            @for (int i = 0; i < Model.Products.Count; i++)
+            {
+                <div class="advertisement-card">
+                    <div class="advertisement-content">
+                        @if (Model.SubCategories.Any(sc => sc.advertiseId == Model.Products[i].advertiseId))
+                        {
+                            var image = Model.SubCategories.First(sc => sc.advertiseId == Model.Products[i].advertiseId);
+                            <img src="data:image/png;base64,@(Convert.ToBase64String(image.ImageBytes))" alt="abc" />
+                        }
+                        <p><h3>Product Name:&nbsp;@Model.Products[i].advertiseTitle</h3></p>
+                        <h3>Product Price:&nbsp;</h3>@Model.Products[i].advertisePrice
+                        <p><b>Product Description:&nbsp;</b>@Model.Products[i].advertiseDescription</p>
+                        <form action="@Url.Action("Delete", "Admin")" method="post">
+                            <input type="hidden" name="advertiseId" value="@Model.Products[i].advertiseId" />
+                            <input type="hidden" name="advertiseImageId" value="@Model.SubCategories[i].advertiseImageId" />
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>
