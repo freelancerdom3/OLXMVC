@@ -228,7 +228,7 @@ namespace OLXMVCApp.Controllers.Admin
             d.Deleteproduct(advertiseId, advertiseImageId);
 
             // Redirect to the Index action to show the updated list
-            return RedirectToAction("Index");
+            return RedirectToAction("Advertise");
         }
 
 
