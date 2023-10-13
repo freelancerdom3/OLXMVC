@@ -10,11 +10,9 @@ namespace OLXMVCApp.Controllers.Admin
 {
     public class AdminController : Controller
     {
-        AdminDA productCatRepository = null;
-        public AdminController()
-        {
-            productCatRepository = new AdminDA();
-        }
+        ProductListDA dataAccess = new ProductListDA();
+        UserList_Data_Access uda = new UserList_Data_Access();
+        AdminDA productCatRepository = new AdminDA();     
 
 
         public ActionResult SubCategoryList()
@@ -94,27 +92,21 @@ namespace OLXMVCApp.Controllers.Admin
             }
         }
 
-        UserList_Data_Access uda = new UserList_Data_Access();
 
-        // GET: olx
+
+
         public ActionResult UserIndex()
         {
             IEnumerable<UserList> ul = uda.GetAllUser();
             return View("UserIndex", "admin_layout", ul);
-            // return View(ul);
         }
 
-        //// GET: olx/Details/5
         public ActionResult UserDetails(int? id)
         {
             UserList product = uda.GetUserData(id);
             return View("UserDetails", "admin_layout", product);
-            // return View();
         }
 
-        // GET: olx/Create
-
-        // GET: olx/Edit/5
         public ActionResult UserEdit(int id)
         {
 
@@ -123,7 +115,6 @@ namespace OLXMVCApp.Controllers.Admin
             return View("UserEdit", "admin_layout", user);
         }
 
-        //// POST: olx/Edit/5
         [HttpPost]
         public ActionResult UserEdit(UserList ul)
         {
@@ -139,25 +130,17 @@ namespace OLXMVCApp.Controllers.Admin
             }
         }
 
-        
-        
-
-
-        // GET: olx/Delete/5
         public ActionResult UserDelete(int? id)
         {
             UserList userList = uda.GetUserData(id);
             return View("UserDelete", "admin_layout", userList);
         }
 
-        // POST: olx/Delete/5
         [HttpPost]
         public ActionResult UserDelete(int id)
         {
             try
             {
-
-                // TODO: Add delete logic here
                 uda.DeleteUser(id);
                 TempData["AlertMessage"] = "user deleted successfully......";
                 return RedirectToAction(nameof(UserIndex));
@@ -168,10 +151,65 @@ namespace OLXMVCApp.Controllers.Admin
             }
         }
 
-       
 
 
-       
+
+        public ActionResult ProductList(string SearchItem, int? i)
+        {
+            IEnumerable<ProductListModel> products = dataAccess.GetAllProductList();
+            return View("ProductList", "admin_layout", products);
+        }
+
+        public ActionResult ProductListDetails(int advertiseId)
+        {
+            ProductListModel product = dataAccess.GetProductList(advertiseId);
+            return View("ProductListDetails", "admin_layout", product);
+        }
+        public ActionResult ProductlistEdit(int advertiseId)
+        {
+            ProductListModel product = dataAccess.GetProductList(advertiseId);
+            return View("ProductlistEdit", "admin_layout", product);
+        }
+
+        [HttpPost]
+        public ActionResult ProductlistEdit(ProductListModel product)
+        {
+            try
+            {
+                TempData["AlertMessage"] = "Product-List Edited successfully......";
+                dataAccess.UpdateProductList(product);
+                return RedirectToAction(nameof(ProductList));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult ProductListDelete(int advertiseId)
+        {
+            TempData["AlertMessage"] = "Product-List Data Deleted successfully......";
+            ProductListModel product = dataAccess.GetProductList(advertiseId);
+            return View("ProductListDelete", "admin_layout", product);
+        }
+
+        [HttpPost]
+        public ActionResult ProductListDelete(ProductListModel product)
+        {
+            try
+            {
+                dataAccess.DeleteProductList(product.advertiseId);
+                return RedirectToAction(nameof(ProductList));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
     }
 
 }
