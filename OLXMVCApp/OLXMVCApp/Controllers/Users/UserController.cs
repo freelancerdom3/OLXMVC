@@ -158,7 +158,7 @@ namespace OLXMVCApp.Controllers.Users
         public ActionResult Logout()
         {
             Session.Clear();
-            return View("Index");
+            return View("logintype");
         }
 
         public ActionResult Registration()
