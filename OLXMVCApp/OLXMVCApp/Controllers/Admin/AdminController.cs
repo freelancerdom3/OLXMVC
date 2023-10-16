@@ -222,12 +222,12 @@ namespace OLXMVCApp.Controllers.Admin
 
             return View(viewModel);
         }
+        [HttpPost] 
         public ActionResult Delete(int advertiseId, int advertiseImageId)
         {
             AdvertiseDA d = new AdvertiseDA();
             d.Deleteproduct(advertiseId, advertiseImageId);
 
-            // Redirect to the Index action to show the updated list
             return RedirectToAction("Advertise");
         }
 
