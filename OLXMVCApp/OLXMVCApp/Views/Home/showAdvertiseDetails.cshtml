@@ -165,10 +165,10 @@
         </div>
         <div class="buttondiv">
             <div>
-                <a href="@Url.Action("chatWithSeller", new { userId = item.userId })" style="text-decoration:none; color:black">
-                    <button class="but"> @Html.DisplayFor(modelItem => item.firstName)  </button>
-
+                <a href="@Url.Action("select", "Chat", new { userId = item.userId })" style="text-decoration:none; color:black">
+                    <button class="but">@Html.DisplayFor(modelItem => item.firstName)</button>
                 </a>
+
 
                 <a href="@Url.Action("BuyProduct", new { advertiseId = item.advertiseId })" style="text-decoration:none; color:black">
                     <button class="but"> Buy  </button>

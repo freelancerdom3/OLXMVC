@@ -69,7 +69,7 @@
             font-size: xx-large;
         }
 
-        .dropdown-content a {
+        .dropdown-content {
             display: block;
             margin-left: 60px;
             text-transform: capitalize;
@@ -145,11 +145,17 @@
                 position: relative;
                 z-index: 1;
             }
+            .space{
+                width:100%;
+            }
+        .imageSpace{
+            width:60%;
+        }
     </style>
 </head>
 <body>
 
-    <div>
+    <div class="space">
         <div class="sidebar">
             <div class="box1">
                 <div class="d">
@@ -166,32 +172,17 @@
                         <a href="#">Category</a>
                         <a href="#">Category</a>
                         <a href="#">Category</a>
-                        <a href="#">Category</a>
-                        <a href="#">Category</a>
-                        <a href="#">Category</a>
                     </div>
                 </div>
             </div>
 
             <div class="box2">
-                <div class="cat">
-                    <span>Locations</span>
-                    <span class="ccc">^</span>
-
-                </div>
+               
 
                 <div>
-                    <div class="dropdown-content">
+                    <div class="dropdown-contentt">
                         <!-- Add your category options here -->
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
-                        <a href="#">Location</a>
+                        @{Html.RenderAction("showLocation");}
                     </div>
                 </div>
             </div>
@@ -212,55 +203,58 @@
                 </div>
 
             </div>
-            <div>
-                @{Html.RenderAction("newfilter");}
+        </div>
+
+            <div class="imageSpace">
+                <div>
+                    @{Html.RenderAction("newfilter");}
+                </div>
+
             </div>
-
-
-
+    </div>
 
             <script>
-  const priceSliderMin = document.getElementById("priceSliderMin");
-  const priceSliderMax = document.getElementById("priceSliderMax");
-  const applyButton = document.getElementById("applyButton");
-  const selectedPriceRange = document.getElementById("selectedPriceRange");
-  const productList = document.getElementById("productList");
+                const priceSliderMin = document.getElementById("priceSliderMin");
+                const priceSliderMax = document.getElementById("priceSliderMax");
+                const applyButton = document.getElementById("applyButton");
+                const selectedPriceRange = document.getElementById("selectedPriceRange");
+                const productList = document.getElementById("productList");
 
-  const products = [
-    { name: "Product 1", price: 20 },
-    { name: "Product 2", price: 40 },
-    { name: "Product 3", price: 60 },
-    { name: "Product 4", price: 80 },
-    { name: "Product 5", price: 100 },
-  ];
+                const products = [
+                    { name: "Product 1", price: 20 },
+                    { name: "Product 2", price: 40 },
+                    { name: "Product 3", price: 60 },
+                    { name: "Product 4", price: 80 },
+                    { name: "Product 5", price: 100 },
+                ];
 
-  // Initial product display
-  displayProducts();
+                // Initial product display
+                displayProducts();
 
-  applyButton.addEventListener("click", applyFilter);
+                applyButton.addEventListener("click", applyFilter);
 
-  function displayProducts() {
-    productList.innerHTML = "";
+                function displayProducts() {
+                    productList.innerHTML = "";
 
-    const minValue = parseFloat(priceSliderMin.value);
-    const maxValue = parseFloat(priceSliderMax.value);
+                    const minValue = parseFloat(priceSliderMin.value);
+                    const maxValue = parseFloat(priceSliderMax.value);
 
-    selectedPriceRange.textContent = `Selected Price Range: $${minValue} - $${maxValue}`;
+                    selectedPriceRange.textContent = `Selected Price Range: $${minValue} - $${maxValue}`;
 
-    const filteredProducts = products.filter((product) => {
-      return product.price >= minValue && product.price <= maxValue;
-    });
+                    const filteredProducts = products.filter((product) => {
+                        return product.price >= minValue && product.price <= maxValue;
+                    });
 
-    filteredProducts.forEach((product) => {
-      const productElement = document.createElement("div");
-      productElement.textContent = `${product.name} - $${product.price}`;
-      productList.appendChild(productElement);
-    });
-  }
+                    filteredProducts.forEach((product) => {
+                        const productElement = document.createElement("div");
+                        productElement.textContent = `${product.name} - $${product.price}`;
+                        productList.appendChild(productElement);
+                    });
+                }
 
-  function applyFilter() {
-    displayProducts();
-  }
+                function applyFilter() {
+                    displayProducts();
+                }
             </script>
 
 </body>
