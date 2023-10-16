@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using OLX.DA.Admin;
 using OLX.DA.User;
-using OLX.Models.User;
+
 
 namespace OLXMVCApp.Controllers.Users
 {
