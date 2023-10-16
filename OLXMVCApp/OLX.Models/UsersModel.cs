@@ -12,7 +12,7 @@ namespace OLX.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string userEmail { get; set; }
-        public string userPassword { get; set; }
+        public string Password { get; set; }
 
         public string MobileNo { get; set; }
         public string Gender { get; set; }
