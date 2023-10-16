@@ -51,11 +51,9 @@
     <Compile Include="LoginUserModel.cs" />
     <Compile Include="UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-
     <Compile Include="User\ChatModel.cs" />
-
+    <Compile Include="User\RegistrationModel.cs" />
     <Compile Include="User\UserBuyModel.cs" />
-
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

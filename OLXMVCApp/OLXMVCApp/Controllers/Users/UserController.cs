@@ -9,7 +9,7 @@ using Microsoft.SqlServer.Server;
 using OLX.DA;
 using OLX.DA.User;
 using OLX.Models;
-
+using OLX.Models.User;
 
 namespace OLXMVCApp.Controllers.Users
 {
@@ -159,6 +159,36 @@ namespace OLXMVCApp.Controllers.Users
         {
             Session.Clear();
             return View("Index");
+        }
+
+        public ActionResult Registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Registration(RegistrationModel model)
+        {
+            RegistrationDA repo = new RegistrationDA();
+            var isemailalreadyexists = repo.IsEmailAlreadyExists(model.@userEmail);
+            if (isemailalreadyexists)
+            {
+                ModelState.AddModelError("useremail", "this email already exists.");
+            }
+            else
+            {
+                bool registrationResult = repo.InsertUser(model);
+                if (registrationResult)
+                {
+                    //ModelState.AddModelError(string.Empty, "Registration Success");
+                    return RedirectToAction("loginType");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Registration failed. Please try again.");
+                    return View(model);
+                }
+            }
+            return View(model);
         }
     }
 }

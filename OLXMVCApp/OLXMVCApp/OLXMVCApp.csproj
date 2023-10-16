@@ -158,6 +158,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ImageLogo\OLX-Logo.png" />
     <Content Include="imagess\add2.png" />
     <Content Include="imagess\olx-logo-vector.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -218,6 +219,7 @@
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
