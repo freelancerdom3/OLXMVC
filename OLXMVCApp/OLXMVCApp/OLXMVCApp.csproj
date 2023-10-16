@@ -128,6 +128,7 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Users\ChatController.cs" />
+    <Compile Include="Controllers\Users\SellController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,7 +220,11 @@
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\User\Registration.cshtml" />
+=======
+    <Content Include="Views\Sell\Sell.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
