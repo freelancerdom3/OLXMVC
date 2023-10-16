@@ -55,7 +55,7 @@
 }
 <style>
     .location{
-        height:250px;
+        height:450px;
     }
     .second-header {
         width: 100%;
@@ -66,11 +66,12 @@
         background-color: #f3f3f3;
         /* border:2px solid red; */
     }
-
+   
     .dropdown-menu.show {
         background-color: #f3f3f3;
         WIDTH: max-content;
         position: absolute;
+       
     }
 
     .second-header a {
@@ -86,39 +87,35 @@
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
             Location
         </button>
-        <ul class="dropdown-menu" style="color:black">
+        <ul class="dropdown-menu" style="color: black">
             @{
                 var groupedStates = Model.GroupBy(item => item.stateName);
-            }
-            @{
-                // Group the ModelProductSubCategory objects by productCategoryName
-                var groupedcities = Model.GroupBy(item => item.cityName);
-                //var groupedCategories1 = Model.GroupBy(item => item.productCategoryId);
             }
             @foreach (var group in groupedStates)
             {
                 <a href="filterproduct?stateId=@group.First().stateId">
                     <h2>@group.Key</h2>
                 </a>
-
                 <ul>
-                    @foreach (var city in groupedcities)
+                    @{
+                        // Group the cities within this state
+                        var groupedCitiesInState = group.GroupBy(item => item.cityName);
+                    }
+                    @foreach (var cityGroup in groupedCitiesInState)
                     {
-                        <li>
-                            <a href="filterproduct?cityId=@city.First().cityId">
-                                @city.Key
-                            </a>
-                            <ul>
-                                @foreach (var area in city)
-                                {
-                                    <li>
-                                        <a href="filterproduct?areaId=@area.areaId">
-                                            @area.areaName
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
+                        <a href="filterproduct?cityId=@cityGroup.First().cityId">
+                            @cityGroup.Key
+                        </a>
+                        <ul>
+                            @foreach (var area in cityGroup)
+                            {
+                                <li>
+                                    <a href="filterproduct?areaId=@area.areaId">
+                                        @area.areaName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     }
                 </ul>
             }
