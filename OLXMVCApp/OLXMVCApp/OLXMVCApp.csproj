@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Users\ChatController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,10 +208,14 @@
     <Content Include="Views\Admin\ProductListDetails.cshtml" />
     <Content Include="Views\Admin\ProductlistEdit.cshtml" />
     <Content Include="Views\Admin\ProductListDelete.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Admin\Advertise.cshtml" />
     <Content Include="Views\User\sendotp.cshtml" />
     <Content Include="Views\User\MatchOtp.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
+=======
+    <Content Include="Views\Chat\select.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

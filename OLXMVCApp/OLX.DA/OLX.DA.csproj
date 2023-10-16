@@ -50,6 +50,7 @@
     <Compile Include="Class3.cs" />
     <Compile Include="Class4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\Chat.cs" />
     <Compile Include="User\LoginDA.cs" />
   </ItemGroup>
   <ItemGroup>
