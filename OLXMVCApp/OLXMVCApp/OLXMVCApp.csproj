@@ -220,11 +220,11 @@
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
-<<<<<<< Updated upstream
+
     <Content Include="Views\User\Registration.cshtml" />
-=======
+
     <Content Include="Views\Sell\Sell.cshtml" />
->>>>>>> Stashed changes
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
