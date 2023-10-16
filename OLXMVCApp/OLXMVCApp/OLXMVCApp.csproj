@@ -213,9 +213,16 @@
     <Content Include="Views\User\sendotp.cshtml" />
     <Content Include="Views\User\MatchOtp.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
+<<<<<<< Updated upstream
 
     <Content Include="Views\Chat\select.cshtml" />
 
+=======
+    <Content Include="Views\Home\showcatsub.cshtml" />
+    <Content Include="Views\Home\newfilter.cshtml" />
+    <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
+    <Content Include="Views\Home\showLocation.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

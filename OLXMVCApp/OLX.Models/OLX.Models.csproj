@@ -51,7 +51,11 @@
     <Compile Include="LoginUserModel.cs" />
     <Compile Include="UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< Updated upstream
     <Compile Include="User\ChatModel.cs" />
+=======
+    <Compile Include="User\UserBuyModel.cs" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

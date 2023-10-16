@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>newfilter</title>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.advertiseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.areaName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.advertiseTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.advertiseDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.advertisePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imageData)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.advertiseId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.areaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.advertiseTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.advertiseDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.advertisePrice)
+                </td>
+                <td>
+                    @if (item.imageData != null && item.imageData.Length > 0)
+                    {
+                        var base64Image = Convert.ToBase64String(item.imageData);
+                        <img src="data:image/png;base64, @base64Image" alt="Image" style="height:200px; width:200px " />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

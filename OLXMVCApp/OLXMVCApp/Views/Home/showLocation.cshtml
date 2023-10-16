@@ -1,0 +1,49 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+@{
+    ViewBag.Title = "showLocation";
+}
+
+<h2>showLocation</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.stateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.areaName)
+        </th>
+    </tr>
+
+    @foreach (var stateGroup in Model.GroupBy(item => item.stateName))
+    {
+        var firstGroupedItem = stateGroup.First();
+        <tr>
+            <td rowspan="@stateGroup.Count()">
+                @Html.DisplayFor(modelItem => firstGroupedItem.stateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => firstGroupedItem.cityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => firstGroupedItem.areaName)
+            </td>
+        </tr>
+        foreach (var item in stateGroup.Skip(1))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.areaName)
+                </td>
+            </tr>
+        }
+    }
+</table>
+

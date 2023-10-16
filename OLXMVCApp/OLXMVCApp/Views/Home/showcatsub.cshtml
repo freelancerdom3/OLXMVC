@@ -1,0 +1,42 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category with Subcategories</title>
+</head>
+<body>
+    <h2>Categories with Subcategories</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>SubcategoryID</th>
+                <th>CategoryId</th>
+                <th>Subcategory Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.GroupBy(c => c.productCategoryId))
+            {
+                <tr>
+                    <td>@category.First().productCategoryName</td>
+
+                </tr>
+                foreach (var subcategory in category)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@category.First().productCategoryId</td>
+                        <td>@subcategory.productSubCategoryId</td>
+                        <td>@subcategory.productSubCategoryName</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+</body>
+</html>

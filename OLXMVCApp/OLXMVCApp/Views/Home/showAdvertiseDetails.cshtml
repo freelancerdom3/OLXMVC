@@ -1,0 +1,90 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+
+@{
+    ViewBag.Title = "shoeAdvertiseDetails";
+}
+
+<h2>showAdvertiseDetails</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.advertiseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stateName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.cityName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.areaName)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.advertiseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.advertiseDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.advertisePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageData)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.advertiseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stateName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.cityName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.areaName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.advertiseTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.advertiseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.advertisePrice)
+            </td>
+
+            <td>
+                <img src="data:image/png;base64, @Convert.ToBase64String(item.imageData)" alt="Image" style="height:200px; width:200px" />
+
+            </td>
+        </tr>
+    }
+
+</table>
