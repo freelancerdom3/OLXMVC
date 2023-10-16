@@ -78,7 +78,8 @@ namespace OLXMVCApp.Controllers.Users
             bool ismobile = access.MobileNumberExists(Mobileno);
             if (!ismobile)
             {
-                return Json(new { success = false, message = "Invalid phone number format." });
+                //return Json(new { success = false, message = "Invalid phone number format." });
+                return Json(2);
             }
             Random rand = new Random();
             int value = rand.Next(100001, 999999);
@@ -104,7 +105,7 @@ namespace OLXMVCApp.Controllers.Users
             }
             // return RedirectToAction("verify", "User");
             // return Json(new { success = true, message = "OTP sent successfully." });
-            return Json(10);
+            return Json(0);
         }
         public ActionResult MatchOtp()
         {
