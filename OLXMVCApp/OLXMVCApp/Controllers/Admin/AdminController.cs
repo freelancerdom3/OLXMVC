@@ -12,8 +12,13 @@ namespace OLXMVCApp.Controllers.Admin
     {
         ProductListDA dataAccess = new ProductListDA();
         UserList_Data_Access uda = new UserList_Data_Access();
-        AdminDA productCatRepository = new AdminDA();     
+        AdminDA productCatRepository = new AdminDA();
 
+        public ActionResult Dashboard()
+        {
+            
+            return View("Dashboard", "Admin_Layout");
+        }
 
         public ActionResult SubCategoryList()
         {
