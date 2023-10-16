@@ -62,5 +62,10 @@ namespace OLXMVCApp.Controllers
 
             return View(location);
         }
+
+        public ActionResult filterproduct()
+        {
+            return View();
+        }
     }
 }
