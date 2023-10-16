@@ -46,10 +46,10 @@ namespace OLX.DA.User
                 id = (int)useridCmd.ExecuteScalar();
                 con.Close();
 
-                string query = "select count(*) from Users where userEmail=@userEmail and userPassword=@userPassword";
+                string query = "select count(*) from Users where userEmail=@userEmail and Password=@Password";
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@userEmail", model.userEmail);
-                cmd.Parameters.AddWithValue("@userPassword", model.userPassword);
+                cmd.Parameters.AddWithValue("@Password", model.Password);
                 con.Open();
                 count = (int)cmd.ExecuteScalar();
                 con.Close();
