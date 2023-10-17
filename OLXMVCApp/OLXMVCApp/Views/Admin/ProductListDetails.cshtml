@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "AdvDetails";
 }
-<div>
+<div  class="scroll-container">
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -100,3 +100,15 @@
     @Html.ActionLink("Edit", "ProductListEdit", new { advertiseId = Model.advertiseId })
     @Html.ActionLink("Back to List", "ProductList")
 </p>
+<style>
+
+    .scroll-container {
+        overflow: auto;
+        height: 500px;
+        max-height: 700px;
+    }
+
+    /*.scroll-container::-webkit-scrollbar-thumb:hover {
+                background: #555;*/ /* Thumb color on hover */
+    /*}*/
+</style>
