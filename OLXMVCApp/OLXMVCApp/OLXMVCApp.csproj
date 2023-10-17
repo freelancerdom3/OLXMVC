@@ -216,18 +216,17 @@
     <Content Include="Views\User\sendotp.cshtml" />
     <Content Include="Views\User\MatchOtp.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
-<<<<<<< Updated upstream
+
     <Content Include="Views\Chat\select.cshtml" />
     <Content Include="Views\Home\showcatsub.cshtml" />
     <Content Include="Views\Home\newfilter.cshtml" />
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
-<<<<<<< HEAD
-=======
+
+
     <Content Include="Views\User\Sell.cshtml" />
->>>>>>> Stashed changes
-=======
+
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\Sell\Sell.cshtml" />
     <Content Include="Views\Sell\Success.cshtml" />
