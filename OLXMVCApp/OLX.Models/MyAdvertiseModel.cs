@@ -29,12 +29,7 @@ namespace OLX.Models
         public List<byte[]> ImageDataList { get; set; }
         public DateTime createdOn { get; set; }
         public DateTime updatedOn { get; set; }
-       
+
     }
-
-      
-    
-   
-
 
 }

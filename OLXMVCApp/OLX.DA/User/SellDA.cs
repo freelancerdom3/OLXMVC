@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebApplication1.Models
+namespace OLX.DA.User
 {
-    public class SellDA : IDisposable
+    public class SellDA
     {
         private SqlConnection con;
         private SqlTransaction transaction;
 
         public SellDA()
         {
-            // Initialize the connection in the constructor
+
             string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
             con = new SqlConnection(constr);
         }
@@ -26,9 +29,9 @@ namespace WebApplication1.Models
             try
             {
                 con.Open();
-                transaction = con.BeginTransaction(); // Start a new transaction
+                transaction = con.BeginTransaction();
 
-                // Create a SQL command to insert data into the Advertise table
+
                 SqlCommand cmd = new SqlCommand("INSERT INTO tbl_MyAdvertise (productSubCategoryId, advertiseTitle, advertiseDescription, advertisePrice, areaId, userId, advertiseStatus,advertiseApproved, createdOn, updatedOn) OUTPUT INSERTED.advertiseId VALUES (@productSubCategoryId, @advertiseTitle, @advertiseDescription, @advertisePrice, @areaId, @userId, DEFAULT,DEFAULT, GETDATE(), GETDATE())", con, transaction);
 
                 cmd.Parameters.AddWithValue("@productSubCategoryId", advertise.productSubCategoryId);
@@ -38,17 +41,14 @@ namespace WebApplication1.Models
                 cmd.Parameters.AddWithValue("@areaId", advertise.areaId);
                 cmd.Parameters.AddWithValue("@userId", advertise.userId);
 
-
-
-
                 advertiseId = (int)cmd.ExecuteScalar();
 
-                // Commit the transaction
+
                 transaction.Commit();
             }
             catch (Exception ex)
             {
-                // Handle exceptions and roll back the transaction
+
                 if (transaction != null)
                 {
                     transaction.Rollback();
@@ -68,9 +68,9 @@ namespace WebApplication1.Models
             try
             {
                 con.Open();
-                transaction = con.BeginTransaction(); // Start a new transaction
+                transaction = con.BeginTransaction();
 
-                // Create a SQL command to insert data into the AdvertiseImages table
+
                 SqlCommand cmd = new SqlCommand("INSERT INTO tbl_AdvertiseImages(advertiseId, imageData,createdOn, updatedOn) VALUES (@advertiseId, @imageData,GETDATE(), GETDATE())", con, transaction);
                 cmd.Parameters.AddWithValue("@advertiseId", image.advertiseId);
 
@@ -81,12 +81,12 @@ namespace WebApplication1.Models
                     cmd.ExecuteNonQuery();
                 }
 
-                // Commit the transaction
+
                 transaction.Commit();
             }
             catch (Exception ex)
             {
-                // Handle exceptions and roll back the transaction
+
                 if (transaction != null)
                 {
                     transaction.Rollback();
@@ -98,9 +98,10 @@ namespace WebApplication1.Models
                 con.Close();
             }
         }
+
         public List<MyAdvertiseModel> GetAdvertiseDetails()
         {
-            connection();
+
             SqlCommand com = new SqlCommand("GetAdvertiseDetails", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -113,13 +114,13 @@ namespace WebApplication1.Models
                 MyAdvertiseModel product = new MyAdvertiseModel();
                 product.advertiseId = Convert.ToInt32(reader["advertiseId"]);
                 //product.productSubCategoryName = Convert.ToString(reader["productSubCategoryName"]);
-                product.productSubCategoryId = Convert.ToInt32(reader["productSubCategoryId"]);
+                //product.productSubCategoryId = Convert.ToInt32(reader["productSubCategoryId"]);
                 product.advertiseTitle = Convert.ToString(reader["advertiseTitle"]);
                 product.advertiseDescription = Convert.ToString(reader["advertiseDescription"]);
                 // product.imageData = (byte[])reader["imageData"];
                 product.imageData = reader["imageData"] != DBNull.Value ? (byte[])reader["imageData"] : null;
                 //product.areaName = Convert.ToString(reader["areaName"]);
-                product.areaId = Convert.ToInt32(reader["areaId"]);
+                //product.areaId=Convert.ToInt32(reader["areaId"]);
                 product.advertisePrice = reader.GetDecimal(reader.GetOrdinal("advertisePrice"));
 
                 //product.advertiseStatus= Convert.ToBoolean(reader["advertiseStatus"]);
@@ -134,14 +135,7 @@ namespace WebApplication1.Models
             return productList;
         }
 
-        private void connection()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Dispose()
-        {
-            con.Dispose();
-        }
+        
     }
 }

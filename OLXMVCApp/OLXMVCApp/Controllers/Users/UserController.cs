@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OLX.DA.User;
 using OLX.Models;
 using OLX.Models.User;
-using WebApplication1.Models;
 
 namespace OLXMVCApp.Controllers.Users
 {
