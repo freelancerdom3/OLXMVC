@@ -98,7 +98,44 @@ namespace OLX.DA.User
                 con.Close();
             }
         }
+        
+            public List<MyAdvertiseModel> GetAdvertiseDetails()
+            {
+              
+                SqlCommand com = new SqlCommand("GetAdvertiseDetails", con);
+                com.CommandType = CommandType.StoredProcedure;
 
+                List<MyAdvertiseModel> productList = new List<MyAdvertiseModel>();
+
+                con.Open();
+                SqlDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    MyAdvertiseModel product = new MyAdvertiseModel();
+                    product.advertiseId = Convert.ToInt32(reader["advertiseId"]);
+                    //product.productSubCategoryName = Convert.ToString(reader["productSubCategoryName"]);
+                    //product.productSubCategoryId = Convert.ToInt32(reader["productSubCategoryId"]);
+                    product.advertiseTitle = Convert.ToString(reader["advertiseTitle"]);
+                    product.advertiseDescription = Convert.ToString(reader["advertiseDescription"]);
+                    // product.imageData = (byte[])reader["imageData"];
+                    product.imageData = reader["imageData"] != DBNull.Value ? (byte[])reader["imageData"] : null;
+                    //product.areaName = Convert.ToString(reader["areaName"]);
+                    //product.areaId=Convert.ToInt32(reader["areaId"]);
+                    product.advertisePrice = reader.GetDecimal(reader.GetOrdinal("advertisePrice"));
+
+                    //product.advertiseStatus= Convert.ToBoolean(reader["advertiseStatus"]);
+                    // product.firstName= Convert.ToString(reader["firstName"]);
+                    //product.userId=Convert.ToInt32(reader["userId"]);
+                    // product.advertiseapproved= Convert.ToBoolean(reader["advertiseapproved"]);
+                    product.createdOn = Convert.ToDateTime(reader["createdOn"]);
+                    product.updatedOn = Convert.ToDateTime(reader["updatedOn"]);
+                    productList.Add(product);
+                }
+                con.Close();
+                return productList;
+            }
+
+        
         public void Dispose()
         {
             con.Dispose();

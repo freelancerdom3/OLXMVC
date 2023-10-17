@@ -10,6 +10,14 @@ namespace OLXMVCApp.Controllers.Users
 {
     public class SellController : Controller
     {
+        public ActionResult ViewMyAds()
+        {
+
+            SellDA product = new SellDA();
+            List<MyAdvertiseModel> prc = product.GetAdvertiseDetails();
+            return View(prc);
+
+        }
         // GET: Sell
         public ActionResult Sell()
         {
@@ -58,6 +66,12 @@ namespace OLXMVCApp.Controllers.Users
         }
         public ActionResult Success()
         {
+            string successMessage = TempData["SuccessMessage"] as string;
+
+            if (!string.IsNullOrEmpty(successMessage))
+            {
+                ViewBag.SuccessMessage = successMessage;
+            }
             return View();
         }
 
