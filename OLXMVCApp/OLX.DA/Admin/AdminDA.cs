@@ -140,11 +140,12 @@ namespace OLX.DA.Admin
                 }
 
                 // Proceed with the update
-                string sqlUpdate = "UPDATE tbl_ProductSubCategory SET productCategoryId = @productCategoryId, productSubCategoryName = @productSubCategoryName WHERE productSubCategoryId = @productSubCategoryId";
+                string sqlUpdate = "UPDATE tbl_ProductSubCategory SET productCategoryId = @productCategoryId, productSubCategoryName = @productSubCategoryName , updatedOn=getdate() WHERE productSubCategoryId = @productSubCategoryId";
                 SqlCommand cmd = new SqlCommand(sqlUpdate, con);
                 cmd.Parameters.AddWithValue("@productSubCategoryId", productDetails.productSubCategoryId);
                 cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
                 cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+                cmd.Parameters.AddWithValue("@updatedOn", DateTime.Now);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
                 Console.WriteLine("Rows affected: " + rowsAffected);
@@ -159,12 +160,6 @@ namespace OLX.DA.Admin
                 con.Close();
             }
         }
-
-
-
-
-
-
 
         public ProductSubCategoryModeljoin GetProductDetails(int? productSubCategoryId)
         {
