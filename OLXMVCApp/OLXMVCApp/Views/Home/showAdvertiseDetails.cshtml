@@ -173,7 +173,7 @@
         </div>
         <div class="buttondiv">
             <div>
-                <a href="@Url.Action("select", "Chat", new { userId = item.userId })" style="text-decoration:none; color:black">
+                <a href="@Url.Action("select", "Chat", new {advertiseId = item.advertiseId, userId = item.userId  })" style="text-decoration:none; color:black">
                     <button class="but">
                     <h3 style="padding:10PX">Chat With Seller</h3>
                     <h4>@Html.DisplayFor(modelItem => item.firstName)</h4></button>
