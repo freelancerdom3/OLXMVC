@@ -57,7 +57,7 @@
             <div class="formbold-mb-3">
                 <label class="formbold-form-label"> city </label>
                 @Html.DropDownListFor(model => model.City, new SelectList(new[]
-                                    {
+                                         {
                     new SelectListItem { Value = "Select City", Text = "Select City" },
                     new SelectListItem { Value = "Ahmedabad", Text = "Ahmedabad" },
                     new SelectListItem { Value = "Surat", Text = "Surat" },
@@ -101,7 +101,7 @@
         </form>
     </div>
 </div>
-<script>//function onSubmitForm() {
+@*<script>//function onSubmitForm() {
     //    event.preventDefault();
     //    if (validateForm()) {
     //        window.location.href = "/Home/About";
@@ -166,7 +166,61 @@
             return false;
         }
     }
-    }</script>
+    }</script>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$(".attachmentdiv").hide();
+        $(function () {
+            $('#btnSubmit').click(function (event) {
+                /*   debugger;*/
+                event.preventDefault();
+                var authmodel = {
+                    firstName: $('#firstName').val(),
+                    lastName: $('#lastName').val(),
+                    userEmail: $('#userEmail').val(),
+                    Password: $('#Password').val(),
+                    MobileNo: $('#MobileNo').val(),
+                    Gender: $('input[name="Gender"]:checked').val(),
+                    Address: $('#Address').val(),
+                    City: $('#City').val()
+
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/User/Registration",
+                    data: JSON.stringify(authmodel),
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (data == 1) {
+                            var url = window.location.href
+                            url = '/Home/Index';
+                            window.location.href = url;
+                        }
+                        else if (data == 2) {
+                            var url = window.location.href
+                            url = '/User/loginType';
+                            window.location.href = url;
+                        }
+
+                        else if (data == 3) {
+                            alert("Invalid Credential!!")
+                        }
+                    },
+                    error: function () {
+                        alert("Please Enter Details!!")
+                    }
+                });
+            });
+        });
+    });
+</script>
+
 
 
 <style>
