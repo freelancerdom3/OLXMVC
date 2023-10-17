@@ -1,4 +1,5 @@
 ﻿using OLX.DA.Admin;
+using OLX.Models.Admin;
 using OLXMVCApp.Models.Admin;
 using System;
 using System.Collections.Generic;
