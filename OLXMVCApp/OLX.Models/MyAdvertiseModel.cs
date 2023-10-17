@@ -19,7 +19,7 @@ namespace OLX.Models
         public bool advertiseapproved { get; set; }
         public DateTime createdOn { get; set; }
         public DateTime updatedOn { get; set; }
-
+        public byte[] imageData { get; set; }
     }
     public class AdvertiseImagesModel
     {

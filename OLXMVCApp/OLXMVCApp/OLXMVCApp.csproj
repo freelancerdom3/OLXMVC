@@ -220,11 +220,10 @@
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
-
     <Content Include="Views\User\Registration.cshtml" />
-
     <Content Include="Views\Sell\Sell.cshtml" />
-
+    <Content Include="Views\Sell\Success.cshtml" />
+    <Content Include="Views\Sell\ViewMyAds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
