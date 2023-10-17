@@ -52,40 +52,119 @@ namespace OLX.DA.Admin
         }
 
 
+        //public void AddProductDetails(ProductSubCategoryModeljoin productDetails)
+        //{
+        //    connection();
+
+        //    SqlCommand cmd = new SqlCommand("AddNewProductDetails", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
+        //    cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+        //    //cmd.Parameters.AddWithValue("@createdOn","getdate()");
+        //    //cmd.Parameters.AddWithValue("@updatedOn", "getdate()");
+        //    con.Open();
+        //    cmd.ExecuteNonQuery();
+        //    con.Close();
+
+        //}
+
         public void AddProductDetails(ProductSubCategoryModeljoin productDetails)
         {
             connection();
 
+            // Check if the product subcategory already exists
+            SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_ProductSubCategory WHERE productCategoryId = @productCategoryId AND productSubCategoryName = @productSubCategoryName", con);
+            checkCmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
+            checkCmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+            con.Open();
+
+            int existingCount = (int)checkCmd.ExecuteScalar();
+            con.Close();
+
+            if (existingCount > 0)
+            {
+                throw new Exception("Product Subcategory Name Already Exists.");
+            }
+
+            // Add the product subcategory
             SqlCommand cmd = new SqlCommand("AddNewProductDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
             cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
-            //cmd.Parameters.AddWithValue("@createdOn","getdate()");
-            //cmd.Parameters.AddWithValue("@updatedOn", "getdate()");
+
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
-
         }
+
+
+        //public void UpdateProductDetails(ProductSubCategoryModeljoin productDetails)
+        //{
+        //    connection();
+
+        //    SqlCommand cmd = new SqlCommand("spUpdate", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    cmd.Parameters.AddWithValue("@productSubCategoryId", productDetails.productSubCategoryId);
+        //    cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
+        //    cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+        //    //cmd.Parameters.AddWithValue("@createdOn", "getdate()");
+        //    //cmd.Parameters.AddWithValue("@updatedOn", "getdate()");
+        //    con.Open();
+        //    cmd.ExecuteNonQuery();
+        //    con.Close();
+
+        //}
+
 
         public void UpdateProductDetails(ProductSubCategoryModeljoin productDetails)
         {
-            connection();
+            try
+            {
+                connection();
 
-            SqlCommand cmd = new SqlCommand("spUpdate", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+                // Check if the updated product subcategory name already exists
+                SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_ProductSubCategory WHERE productSubCategoryId != @productSubCategoryId AND productCategoryId = @productCategoryId AND productSubCategoryName = @productSubCategoryName", con);
+                checkCmd.Parameters.AddWithValue("@productSubCategoryId", productDetails.productSubCategoryId);
+                checkCmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
+                checkCmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+                con.Open();
 
-            cmd.Parameters.AddWithValue("@productSubCategoryId", productDetails.productSubCategoryId);
-            cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
-            cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
-            //cmd.Parameters.AddWithValue("@createdOn", "getdate()");
-            //cmd.Parameters.AddWithValue("@updatedOn", "getdate()");
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
+                int existingCount = (int)checkCmd.ExecuteScalar();
 
+                if (existingCount > 0)
+                {
+                    throw new Exception("Product Subcategory Name Already Exists.");
+                }
+
+                // Proceed with the update
+                string sqlUpdate = "UPDATE tbl_ProductSubCategory SET productCategoryId = @productCategoryId, productSubCategoryName = @productSubCategoryName WHERE productSubCategoryId = @productSubCategoryId";
+                SqlCommand cmd = new SqlCommand(sqlUpdate, con);
+                cmd.Parameters.AddWithValue("@productSubCategoryId", productDetails.productSubCategoryId);
+                cmd.Parameters.AddWithValue("@productCategoryId", productDetails.productCategoryId);
+                cmd.Parameters.AddWithValue("@productSubCategoryName", productDetails.productSubCategoryName);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine("Rows affected: " + rowsAffected);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;  // Re-throw the exception to be caught in the controller
+            }
+            finally
+            {
+                con.Close();
+            }
         }
+
+
+
+
+
+
 
         public ProductSubCategoryModeljoin GetProductDetails(int? productSubCategoryId)
         {

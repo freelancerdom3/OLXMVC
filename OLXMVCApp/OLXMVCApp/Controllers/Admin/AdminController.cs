@@ -1,12 +1,10 @@
 ﻿using OLX.DA.Admin;
 using OLX.Models.Admin;
-using OLXMVCApp.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 
 namespace OLXMVCApp.Controllers.Admin
 {
@@ -14,13 +12,8 @@ namespace OLXMVCApp.Controllers.Admin
     {
         ProductListDA dataAccess = new ProductListDA();
         UserList_Data_Access uda = new UserList_Data_Access();
-        AdminDA productCatRepository = new AdminDA();
+        AdminDA productCatRepository = new AdminDA();     
 
-        public ActionResult Dashboard()
-        {
-            
-            return View("Dashboard", "Admin_Layout");
-        }
 
         public ActionResult SubCategoryList()
         {
@@ -30,32 +23,47 @@ namespace OLXMVCApp.Controllers.Admin
             return View("SubCategoryList", "Admin_Layout", productDetails);
         }
 
-        public ActionResult SubCategoryListDetails(int productSubCategoryId)
-        {
-            ProductSubCategoryModeljoin productDetails = productCatRepository.GetProductDetails(productSubCategoryId);
-            return View("SubCategoryListDetails", "Admin_Layout", productDetails);
-        }
-
         public ActionResult SubCategoryListCreate()
         {
             return View("SubCategoryListCreate", "Admin_Layout");
         }
+
+        //[HttpPost]
+        //public ActionResult SubCategoryListCreate(ProductSubCategoryModeljoin productDetails)
+        //{
+        //    try
+        //    {
+        //        TempData["AlertMessage"] = "Product Subcategory Added successfully......";
+        //        productCatRepository.AddProductDetails(productDetails);
+
+        //        return RedirectToAction(nameof(SubCategoryList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return View();
+        //    }
+        //}
+
 
         [HttpPost]
         public ActionResult SubCategoryListCreate(ProductSubCategoryModeljoin productDetails)
         {
             try
             {
-                TempData["AlertMessage"] = "Product Subcategory Added successfully......";
+                // Attempt to add the product subcategory
                 productCatRepository.AddProductDetails(productDetails);
+
+                TempData["AlertMessage"] = "Product Subcategory Added successfully......";
 
                 return RedirectToAction(nameof(SubCategoryList));
             }
             catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View("SubCategoryListCreate", "Admin_Layout", productDetails);
             }
         }
+
 
         public ActionResult SubCategoryListEdit(int productSubCategoryId)
         {
@@ -63,20 +71,41 @@ namespace OLXMVCApp.Controllers.Admin
             return View("SubCategoryListEdit", "Admin_Layout", productDetails);
         }
 
+        //[HttpPost]
+        //public ActionResult SubCategoryListEdit(ProductSubCategoryModeljoin productDetails)
+        //{
+        //    try
+        //    {
+        //        TempData["AlertMessage"] = "Product Subcategory Edited successfully......";
+        //        productCatRepository.UpdateProductDetails(productDetails);
+        //        return RedirectToAction(nameof(SubCategoryList));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+
         [HttpPost]
         public ActionResult SubCategoryListEdit(ProductSubCategoryModeljoin productDetails)
         {
             try
             {
-                TempData["AlertMessage"] = "Product Subcategory Edited successfully......";
+                // Attempt to update the product subcategory
                 productCatRepository.UpdateProductDetails(productDetails);
+
+                TempData["AlertMessage"] = "Product Subcategory Edited successfully......";
+
                 return RedirectToAction(nameof(SubCategoryList));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View("SubCategoryListEdit", "Admin_Layout", productDetails);
             }
         }
+
 
         public ActionResult SubCategoryListDelete(int productSubCategoryId)
         {
@@ -106,6 +135,35 @@ namespace OLXMVCApp.Controllers.Admin
         {
             IEnumerable<UserList> ul = uda.GetAllUser();
             return View("UserIndex", "admin_layout", ul);
+        }
+
+        public ActionResult UserDetails(int? id)
+        {
+            UserList product = uda.GetUserData(id);
+            return View("UserDetails", "admin_layout", product);
+        }
+
+        public ActionResult UserEdit(int id)
+        {
+
+            UserList user = uda.GetUserData(id);
+            TempData["AlertMessage"] = "User Edited successfully......";
+            return View("UserEdit", "admin_layout", user);
+        }
+
+        [HttpPost]
+        public ActionResult UserEdit(UserList ul)
+        {
+            try
+            {
+                uda.Updateuser(ul);
+
+                return RedirectToAction(nameof(UserIndex));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         public ActionResult UserDelete(int? id)
