@@ -165,6 +165,11 @@
             <div class="ccc">
                 RS.@Html.DisplayFor(modelItem => item.advertisePrice)
             </div>
+            <div class="ccc">
+
+                <p>@item.areaName</p>
+            </div>
+
         </div>
         <div class="buttondiv">
             <div>
@@ -175,7 +180,7 @@
                 </a>
 
 
-                <a href="@Url.Action("BuyProduct", new { advertiseId = item.advertiseId, userId = item.userId })" style="text-decoration:none; color:black">
+                <a href="@Url.Action("PurchaseProduct","Product", new { advertiseId = item.advertiseId, userId = item.userId })" style="text-decoration:none; color:black">
                     <button class="but"><h2> Buy Product</h2> </button>
 
                 </a>
@@ -189,11 +194,7 @@
 
 
 
-        <div class="ccc" data-area="@item.areaName">
-           
-            <p>@item.areaName</p>
-        </div>
-
+       
 
 </div>
     </div>
