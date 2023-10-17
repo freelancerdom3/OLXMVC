@@ -231,7 +231,7 @@
     <Content Include="Views\Sell\Sell.cshtml" />
     <Content Include="Views\Sell\Success.cshtml" />
     <Content Include="Views\Sell\ViewMyAds.cshtml" />
->>>>>>> 41ed054ba7be3e369ba7103d0d3e427abacc1c5c
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
