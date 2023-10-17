@@ -1,10 +1,11 @@
 ﻿using OLX.DA.Admin;
-using OLX.Models.Admin;
+using OLXMVCApp.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace OLXMVCApp.Controllers.Admin
 {

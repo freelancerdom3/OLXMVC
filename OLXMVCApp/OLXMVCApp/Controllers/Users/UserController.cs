@@ -5,14 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.SqlServer.Server;
-using OLX.DA;
 using OLX.DA.User;
 using OLX.Models;
 
 
+
 namespace OLXMVCApp.Controllers.Users
 {
+
     public class UserController : Controller
     {
         LoginDA access = new LoginDA();
@@ -160,5 +160,55 @@ namespace OLXMVCApp.Controllers.Users
             Session.Clear();
             return View("Index");
         }
+        public ActionResult Sell()
+        {
+          
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Sell(MyAdvertiseModel advertise, AdvertiseImagesModel image)
+        {
+            DataAccess dataAccess = new DataAccess();
+            try
+            {
+                int advertiseId = dataAccess.InsertAdvertise(advertise);
+
+       
+                if (Request.Files.Count > 0)
+                {
+
+                    image.advertiseId = advertiseId;
+                    image.ImageDataList = new List<byte[]>();
+
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        HttpPostedFileBase file = Request.Files[i];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            byte[] imageData = new byte[file.ContentLength];
+                            file.InputStream.Read(imageData, 0, file.ContentLength);
+                            image.ImageDataList.Add(imageData);
+                        }
+                    }
+
+                    dataAccess.InsertAdvertiseImage(image);
+                }
+
+                
+                return RedirectToAction("Success");
+            }
+            catch (Exception ex)
+            {
+               
+                ViewBag.ErrorMessage = "An error occurred while submitting the data: " + ex.Message;
+                return View(); 
+            }
+        }
+        public ActionResult Success()
+        {
+            return View();
+        }
+
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="Admin\UserList.cs" />
     <Compile Include="Admin\ProductSubCategoryModeljoin.cs" />
     <Compile Include="LoginUserModel.cs" />
+    <Compile Include="MyAdvertiseModel.cs" />
     <Compile Include="UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
 
