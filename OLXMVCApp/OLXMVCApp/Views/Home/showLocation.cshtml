@@ -1,49 +1,125 @@
-﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+﻿@*@model IEnumerable<OLX.Models.User.UserBuyModel>
 
-@{
-    ViewBag.Title = "showLocation";
-}
+    @{
+        ViewBag.Title = "showLocation";
+    }
 
-<h2>showLocation</h2>
+    <h2>showLocation</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.stateName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.areaName)
-        </th>
-    </tr>
-
-    @foreach (var stateGroup in Model.GroupBy(item => item.stateName))
-    {
-        var firstGroupedItem = stateGroup.First();
+    <table class="table">
         <tr>
-            <td rowspan="@stateGroup.Count()">
-                @Html.DisplayFor(modelItem => firstGroupedItem.stateName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => firstGroupedItem.cityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => firstGroupedItem.areaName)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.stateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.areaName)
+            </th>
         </tr>
-        foreach (var item in stateGroup.Skip(1))
+
+        @foreach (var stateGroup in Model.GroupBy(item => item.stateName))
         {
+            var firstGroupedItem = stateGroup.First();
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cityName)
+                <td rowspan="@stateGroup.Count()">
+                    @Html.DisplayFor(modelItem => firstGroupedItem.stateName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.areaName)
+                    @Html.DisplayFor(modelItem => firstGroupedItem.cityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => firstGroupedItem.areaName)
                 </td>
             </tr>
+            foreach (var item in stateGroup.Skip(1))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.areaName)
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
+    </table>*@
 
+
+@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+@{
+    Layout = null;
+}
+<style>
+    .location{
+        height:450px;
+    }
+    .second-header {
+        width: 100%;
+        height: 40px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        background-color: #f3f3f3;
+        /* border:2px solid red; */
+    }
+   
+    .dropdown-menu.show {
+        background-color: #f3f3f3;
+        WIDTH: max-content;
+        position: absolute;
+       
+    }
+
+    .second-header a {
+        color: #2866c3;
+    }
+</style>
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="location">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Location
+        </button>
+        <ul class="dropdown-menu" style="color: black">
+            @{
+                var groupedStates = Model.GroupBy(item => item.stateName);
+            }
+            @foreach (var group in groupedStates)
+            {
+                <a href="filterproduct?stateId=@group.First().stateId">
+                    <h2>@group.Key</h2>
+                </a>
+                <ul>
+                    @{
+                        // Group the cities within this state
+                        var groupedCitiesInState = group.GroupBy(item => item.cityName);
+                    }
+                    @foreach (var cityGroup in groupedCitiesInState)
+                    {
+                        <a href="filterproduct?cityId=@cityGroup.First().cityId">
+                            @cityGroup.Key
+                        </a>
+                        <ul>
+                            @foreach (var area in cityGroup)
+                            {
+                                <li>
+                                    <a href="filterproduct?areaId=@area.areaId">
+                                        @area.areaName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </ul>
+            }
+        </ul>
+    </div>
+
+</div>

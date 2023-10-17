@@ -128,6 +128,9 @@
         font-size: xx-large;
         color: red;
     }
+
+
+
 </style>
 
 
@@ -165,13 +168,15 @@
         </div>
         <div class="buttondiv">
             <div>
-                <a href="@Url.Action("chatWithSeller", new { userId = item.userId })" style="text-decoration:none; color:black">
-                    <button class="but"> @Html.DisplayFor(modelItem => item.firstName)  </button>
-
+                <a href="@Url.Action("select", "Chat", new { userId = item.userId })" style="text-decoration:none; color:black">
+                    <button class="but">
+                    <h3 style="padding:10PX">Chat With Seller</h3>
+                    <h4>@Html.DisplayFor(modelItem => item.firstName)</h4></button>
                 </a>
 
-                <a href="@Url.Action("BuyProduct", new { advertiseId = item.advertiseId })" style="text-decoration:none; color:black">
-                    <button class="but"> Buy  </button>
+
+                <a href="@Url.Action("BuyProduct", new { advertiseId = item.advertiseId, userId = item.userId })" style="text-decoration:none; color:black">
+                    <button class="but"><h2> Buy Product</h2> </button>
 
                 </a>
 
@@ -184,49 +189,15 @@
 
 
 
-        <div class="ggg" data-area="@item.areaName">
-            hhhhh
+        <div class="ccc" data-area="@item.areaName">
+           
             <p>@item.areaName</p>
         </div>
 
 
-
-        <div id="map" style="height: 400px; width: 100%;"></div>
-
-
+</div>
     </div>
-</div>}
-
-
-    <script>
-    var map = L.map('map').setView([0, 0], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        var cityElement = document.querySelector(".ggg");
-        var userLocation = cityElement.getAttribute("data-area");
-
-        var openCageApiKey = '41120dd85dfd4ec28bbc32e4b4894fba';
-
-        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${userLocation}&key=${openCageApiKey}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    var latitude = data.results[0].geometry.lat;
-                    var longitude = data.results[0].geometry.lng;
-
-                    L.marker([latitude, longitude]).addTo(map);
-                    map.setView([latitude, longitude], 10);
-                } else {
-                    console.error('Geocoding failed for the given location');
-                }
-            })
-            .catch(error => {
-                console.error('Error during geocoding:', error);
-            });</script>
-
-
+    }
 
 </body>
 
