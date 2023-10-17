@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using OLX.DA.User;
 using OLX.Models;
 using OLX.Models.User;
-
+using WebApplication1.Models;
 
 namespace OLXMVCApp.Controllers.Users
 {
@@ -198,7 +198,7 @@ namespace OLXMVCApp.Controllers.Users
         [HttpPost]
         public ActionResult Sell(MyAdvertiseModel advertise, AdvertiseImagesModel image)
         {
-            DataAccess dataAccess = new DataAccess();
+            SellDA dataAccess = new SellDA();
             try
             {
                 int advertiseId = dataAccess.InsertAdvertise(advertise);

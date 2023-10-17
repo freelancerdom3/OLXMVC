@@ -19,20 +19,6 @@ namespace OLX.Models
         public bool advertiseapproved { get; set; }
         public DateTime createdOn { get; set; }
         public DateTime updatedOn { get; set; }
-<<<<<<< HEAD
-
-    }
-    public class AdvertiseImagesModel
-    {
-        public int advertiseImageId { get; set; }
-        public int advertiseId { get; set; }
-        public byte[] imageData { get; set; }
-        public List<byte[]> ImageDataList { get; set; }
-        public DateTime createdOn { get; set; }
-        public DateTime updatedOn { get; set; }
-
-    }
-=======
         public byte[] imageData { get; set; }
     }
     public class AdvertiseImagesModel
@@ -43,8 +29,12 @@ namespace OLX.Models
         public List<byte[]> ImageDataList { get; set; }
         public DateTime createdOn { get; set; }
         public DateTime updatedOn { get; set; }
-
+       
     }
->>>>>>> 41ed054ba7be3e369ba7103d0d3e427abacc1c5c
+
+      
+    
+   
+
 
 }

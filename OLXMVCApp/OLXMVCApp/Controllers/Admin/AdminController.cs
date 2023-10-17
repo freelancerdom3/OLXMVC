@@ -108,35 +108,6 @@ namespace OLXMVCApp.Controllers.Admin
             return View("UserIndex", "admin_layout", ul);
         }
 
-        public ActionResult UserDetails(int? id)
-        {
-            UserList product = uda.GetUserData(id);
-            return View("UserDetails", "admin_layout", product);
-        }
-
-        public ActionResult UserEdit(int id)
-        {
-
-            UserList user = uda.GetUserData(id);
-            TempData["AlertMessage"] = "User Edited successfully......";
-            return View("UserEdit", "admin_layout", user);
-        }
-
-        [HttpPost]
-        public ActionResult UserEdit(UserList ul)
-        {
-            try
-            {
-                uda.Updateuser(ul);
-
-                return RedirectToAction(nameof(UserIndex));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         public ActionResult UserDelete(int? id)
         {
             UserList userList = uda.GetUserData(id);
