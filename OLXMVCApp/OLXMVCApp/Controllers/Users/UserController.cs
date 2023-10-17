@@ -5,14 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.SqlServer.Server;
-using OLX.DA;
 using OLX.DA.User;
 using OLX.Models;
+using OLX.Models.User;
 
 
 namespace OLXMVCApp.Controllers.Users
 {
+
     public class UserController : Controller
     {
         LoginDA access = new LoginDA();
@@ -158,7 +158,87 @@ namespace OLXMVCApp.Controllers.Users
         public ActionResult Logout()
         {
             Session.Clear();
-            return View("Index");
+            return View("logintype");
         }
+
+        public ActionResult Registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Registration(RegistrationModel model)
+        {
+            RegistrationDA repo = new RegistrationDA();
+            var isemailalreadyexists = repo.IsEmailAlreadyExists(model.@userEmail);
+            if (isemailalreadyexists)
+            {
+                ModelState.AddModelError("useremail", "this email already exists.");
+            }
+            else
+            {
+                bool registrationResult = repo.InsertUser(model);
+                if (registrationResult)
+                {
+                    //ModelState.AddModelError(string.Empty, "Registration Success");
+                    return RedirectToAction("loginType");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Registration failed. Please try again.");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+        public ActionResult Sell()
+        {
+          
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Sell(MyAdvertiseModel advertise, AdvertiseImagesModel image)
+        {
+            DataAccess dataAccess = new DataAccess();
+            try
+            {
+                int advertiseId = dataAccess.InsertAdvertise(advertise);
+
+       
+                if (Request.Files.Count > 0)
+                {
+
+                    image.advertiseId = advertiseId;
+                    image.ImageDataList = new List<byte[]>();
+
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        HttpPostedFileBase file = Request.Files[i];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            byte[] imageData = new byte[file.ContentLength];
+                            file.InputStream.Read(imageData, 0, file.ContentLength);
+                            image.ImageDataList.Add(imageData);
+                        }
+                    }
+
+                    dataAccess.InsertAdvertiseImage(image);
+                }
+
+                
+                return RedirectToAction("Success");
+            }
+            catch (Exception ex)
+            {
+               
+                ViewBag.ErrorMessage = "An error occurred while submitting the data: " + ex.Message;
+                return View(); 
+            }
+        }
+        public ActionResult Success()
+        {
+            return View();
+        }
+
     }
 }

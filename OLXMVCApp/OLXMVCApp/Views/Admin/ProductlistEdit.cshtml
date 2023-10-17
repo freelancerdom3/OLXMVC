@@ -1,8 +1,9 @@
 ﻿@model OLX.Models.Admin.ProductListModel
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="scroll-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>AdvertiseListModel</h4>
@@ -99,16 +100,30 @@
                 @Html.ValidationMessageFor(model => model.updatedOn, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "ProductList")
-</div>
-<script src="~/Scripts/employeeJS.js"></script>
+    <div>
+        @Html.ActionLink("Back to List", "ProductList")
+    </div>
+    </div>
+    <script src="~/Scripts/employeeJS.js"></script>
+
+    <style>
+
+        .scroll-container {
+            overflow: auto;
+            height: 500px;
+            /*max-height: 700px;*/
+        }
+
+        /*.scroll-container::-webkit-scrollbar-thumb:hover {
+                background: #555;*/ /* Thumb color on hover */
+        /*}*/
+    </style>

@@ -29,11 +29,11 @@ namespace OLX.DA.Admin
                     productSubCategoryId = Convert.ToInt32(reader["productSubCategoryId"]),
                     advertiseTitle = reader["advertiseTitle"].ToString(),
                     advertiseDescription = reader["advertiseDescription"].ToString(),
-                    advertisePrice = reader["advertisePrice"].ToString(),
+                    advertisePrice = Convert.ToDecimal(reader["advertisePrice"]),
                     areaId = Convert.ToInt32(reader["areaId"]),
-                    advertiseStatus = (bool)reader["advertiseStatus"],
+                    advertiseStatus = reader.GetBoolean(reader.GetOrdinal("advertiseStatus")),
                     userId = Convert.ToInt32(reader["userId"]),
-                    advertiseapproved = (bool)reader["advertiseapproved"],
+                    advertiseapproved = reader.GetBoolean(reader.GetOrdinal("advertiseapproved"))
                 };
                 products.Add(product);
             }

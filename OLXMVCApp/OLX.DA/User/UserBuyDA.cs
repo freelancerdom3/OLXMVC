@@ -1,4 +1,5 @@
-﻿using OLX.Models.User;
+﻿
+using OLX.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,8 +25,9 @@ namespace OLX.DA.User
             int? areaId, decimal? minprice, decimal? maxprice, int? advertiseId)
         {
             List<UserBuyModel> models = new List<UserBuyModel>();
-            _connection.Open();
             SqlCommand cmd = new SqlCommand("newfilter2", _connection);
+            _connection.Open();
+
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@productCategoryId", productCategoryId);
             cmd.Parameters.AddWithValue("@productsubCategoryId", productSubCategoryId);

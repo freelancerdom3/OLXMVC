@@ -1,42 +1,74 @@
 ﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Category with Subcategories</title>
-</head>
-<body>
-    <h2>Categories with Subcategories</h2>
+@{
+    Layout = null;
+}
+<style>
+    .second-header {
+        width: 100%;
+        height: 40px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        background-color: #f3f3f3;
+        /* border:2px solid red; */
+    }
 
-    <table>
-        <thead>
-            <tr>
-                <th>Category Name</th>
-                <th>SubcategoryID</th>
-                <th>CategoryId</th>
-                <th>Subcategory Name</th>
+    .dropdown-menu.show {
+        background-color: #f3f3f3;
+        WIDTH: max-content;
+        position: absolute;
+    }
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in Model.GroupBy(c => c.productCategoryId))
-            {
-                <tr>
-                    <td>@category.First().productCategoryName</td>
+    .second-header a {
+        color: #2866c3;
+    }
+</style>
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="second-header">
 
-                </tr>
-                foreach (var subcategory in category)
-                {
-                    <tr>
-                        <td></td>
-                        <td>@category.First().productCategoryId</td>
-                        <td>@subcategory.productSubCategoryId</td>
-                        <td>@subcategory.productSubCategoryName</td>
-                    </tr>
-                }
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            All Category
+        </button>
+        <ul class="dropdown-menu" style="color:black">
 
+            @{
+                // Group the ModelProductSubCategory objects by productCategoryName
+                var groupedCategories = Model.GroupBy(item => item.productCategoryName);
+                //var groupedCategories1 = Model.GroupBy(item => item.productCategoryId);
             }
-        </tbody>
-    </table>
-</body>
-</html>
+
+            @foreach (var group in groupedCategories)
+            {
+
+                <a href="filterproduct?categoryId=@group.First().productCategoryId">
+                    <h2>@group.Key</h2>
+                </a>
+                <ul>
+                    @foreach (var subcategory in group)
+                    {
+                        <li><a href="filterproduct?subcategoryId=@subcategory.productSubCategoryId">@subcategory.productSubCategoryName</a></li>
+                    }
+                </ul>
+            }
+
+        </ul>
+    </div>
+    <div class="navbar-nav">
+        <ul>
+            <a href="">bmw</a>
+
+            <a href="">mini copper</a>
+            <a href="">mini copper</a>
+            <a href="">mini copper</a>
+            <a href="">mini copper</a>
+            <a href="">mini copper</a>
+            <a href="">mini copper</a>
+        </ul>
+
+    </div>
+</div>

@@ -12,7 +12,7 @@ namespace OLX.Models.Admin
         public int productSubCategoryId { get; set; }
         public string advertiseTitle { get; set; }
         public string advertiseDescription { get; set; }
-        public string advertisePrice { get; set; }
+        public decimal advertisePrice { get; set; }
         public int areaId { get; set; }
         public bool advertiseStatus { get; set; }
         public int userId { get; set; }

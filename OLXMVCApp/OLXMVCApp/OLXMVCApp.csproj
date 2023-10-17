@@ -65,7 +65,9 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -128,6 +130,7 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Users\ChatController.cs" />
+    <Compile Include="Controllers\Users\SellController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +161,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ImageLogo\OLX-Logo.png" />
     <Content Include="imagess\add2.png" />
     <Content Include="imagess\olx-logo-vector.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -208,20 +212,25 @@
     <Content Include="Views\Admin\ProductListDetails.cshtml" />
     <Content Include="Views\Admin\ProductlistEdit.cshtml" />
     <Content Include="Views\Admin\ProductListDelete.cshtml" />
-
     <Content Include="Views\Admin\Advertise.cshtml" />
     <Content Include="Views\User\sendotp.cshtml" />
     <Content Include="Views\User\MatchOtp.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
 
-
     <Content Include="Views\Chat\select.cshtml" />
-
-
     <Content Include="Views\Home\showcatsub.cshtml" />
     <Content Include="Views\Home\newfilter.cshtml" />
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
+    <Content Include="Views\Home\filterproduct.cshtml" />
+
+
+    <Content Include="Views\User\Sell.cshtml" />
+
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\Sell\Sell.cshtml" />
+    <Content Include="Views\Sell\Success.cshtml" />
+    <Content Include="Views\Sell\ViewMyAds.cshtml" />
 
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +275,9 @@
       <Project>{65cdaabb-afc5-4b7e-a4cd-b2558870c6e5}</Project>
       <Name>OLX.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

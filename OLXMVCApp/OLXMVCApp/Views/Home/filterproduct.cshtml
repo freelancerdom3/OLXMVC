@@ -1,0 +1,265 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+<!DOCTYPE html>
+<html>
+<head>
+    @*<link rel="stylesheet" type="text/css" href="styles.css">*@
+    <style>
+        .advertisement-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .advertisement-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            max-width: 300px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+            .advertisement-card img {
+                max-width: 300px;
+                height: 250px;
+                border-radius: 5px;
+            }
+
+        .advertisement-details h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .advertisement-details p {
+            font-size: 0.9em;
+        }
+
+
+        select {
+            width: 150px;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .sidebar {
+            box-sizing: border-box;
+            width: 30%;
+            border: 5px solid red;
+            height: 40%;
+            position: relative;
+           /* overflow-y: scroll;*/
+            float: left;
+        }
+
+        .a {
+            float: left;
+        }
+
+        .b {
+            float: right;
+            margin-right: 50px;
+        }
+
+        .cd {
+            margin: 15px;
+            font-size: xx-large;
+        }
+
+        .dropdown-content {
+            display: block;
+            margin-left: 60px;
+            text-transform: capitalize;
+            text-decoration: none;
+            font-size: x-large;
+        }
+
+        .box1 {
+            border: 5px solid black;
+            padding: 5px;
+            margin: 10px;
+            overflow-y: scroll;
+            height: 20%;
+            object-fit: cover;
+        }
+
+        .box2 {
+            border: 5px solid yellow;
+            padding: 5px;
+            margin: 10px;
+            overflow-y: scroll;
+            height: 30%;
+        }
+
+        .ccc {
+            margin-left: 200px;
+        }
+
+        .ddd {
+            width: 65%;
+            float: left;
+        }
+
+
+
+
+
+
+
+        .range-slider-container {
+            width: 200px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            background: #d3d3d3;
+            outline: none;
+            position: absolute;
+        }
+
+            .range-slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4CAF50;
+                cursor: pointer;
+                position: relative;
+                z-index: 1;
+            }
+
+            .range-slider::-moz-range-thumb {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4CAF50;
+                cursor: pointer;
+                position: relative;
+                z-index: 1;
+            }
+            .space{
+                width:100%;
+            }
+        .imageSpace{
+            width:60%;
+            align-items:center;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="space">
+        <div class="sidebar">
+            <div class="box1">
+                <div class="d">
+                    Categories
+                    <div class="b"> ^ </div>
+                </div>
+
+                <div>
+                    <span>-</span> <span class="cd"> All Categories</span>
+                    <div class="dropdown-content">
+                        <!-- Add your category options here -->
+                        <a href="#">Category</a>
+                        <a href="#">Category</a>
+                        <a href="#">Category</a>
+                        <a href="#">Category</a>
+                        <a href="#">Category</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box2">
+               
+
+                <div>
+                    <div class="dropdown-contentt">
+                        <!-- Add your category options here -->
+                        @{Html.RenderAction("showLocation");}
+                    </div>
+                </div>
+            </div>
+
+            <div class="box1">
+
+                <div class="range-slider-container">
+                    <input type="range" min="0" max="100" value="30" class="range-slider" id="priceSliderMin">
+                    <input type="range" min="0" max="100" value="70" class="range-slider" id="priceSliderMax">
+                </div>
+
+                <button id="applyButton">Apply</button>
+
+                <p id="selectedPriceRange">Selected Price Range: $30 - $70</p>
+
+                <div id="productList">
+                    <!-- Products will be displayed here -->
+                </div>
+
+            </div>
+        </div>
+
+            <div class="imageSpace">
+                <div>
+                    @{Html.RenderAction("newfilter");}
+                </div>
+
+            </div>
+    </div>
+
+            <script>
+                const priceSliderMin = document.getElementById("priceSliderMin");
+                const priceSliderMax = document.getElementById("priceSliderMax");
+                const applyButton = document.getElementById("applyButton");
+                const selectedPriceRange = document.getElementById("selectedPriceRange");
+                const productList = document.getElementById("productList");
+
+                const products = [
+                    { name: "Product 1", price: 20 },
+                    { name: "Product 2", price: 40 },
+                    { name: "Product 3", price: 60 },
+                    { name: "Product 4", price: 80 },
+                    { name: "Product 5", price: 100 },
+                ];
+
+                // Initial product display
+                displayProducts();
+
+                applyButton.addEventListener("click", applyFilter);
+
+                function displayProducts() {
+                    productList.innerHTML = "";
+
+                    const minValue = parseFloat(priceSliderMin.value);
+                    const maxValue = parseFloat(priceSliderMax.value);
+
+                    selectedPriceRange.textContent = `Selected Price Range: $${minValue} - $${maxValue}`;
+
+                    const filteredProducts = products.filter((product) => {
+                        return product.price >= minValue && product.price <= maxValue;
+                    });
+
+                    filteredProducts.forEach((product) => {
+                        const productElement = document.createElement("div");
+                        productElement.textContent = `${product.name} - $${product.price}`;
+                        productList.appendChild(productElement);
+                    });
+                }
+
+                function applyFilter() {
+                    displayProducts();
+                }
+            </script>
+
+</body>
+</html>
+
+
