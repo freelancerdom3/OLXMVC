@@ -262,7 +262,7 @@ namespace OLXMVCApp.Controllers.Admin
         public ActionResult Delete(int advertiseId, int advertiseImageId)
         {
             AdvertiseDA d = new AdvertiseDA();
-            d.Deleteproduct(advertiseId, advertiseImageId);
+            d.Deleteproduct(advertiseId,advertiseImageId);
 
             return RedirectToAction("Advertise");
         }

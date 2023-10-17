@@ -70,16 +70,16 @@ namespace OLX.DA.Admin
                 // Perform the delete operation using ADO.NET
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
-                string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId";
-                SqlCommand command = new SqlCommand(query, sqlConnection);
-                command.Parameters.AddWithValue("@advertiseId", advertiseId);
+            string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId";
+            SqlCommand command = new SqlCommand(query, sqlConnection);
+            command.Parameters.AddWithValue("@advertiseId", advertiseId);
 
-                string query1 = "DELETE FROM tbl_AdvertiseImages WHERE advertiseImageId = @advertiseImageId";
+            string query1 = "DELETE FROM tbl_AdvertiseImages WHERE advertiseImageId = @advertiseImageId";
                 SqlCommand command1 = new SqlCommand(query1, sqlConnection);
                 command1.Parameters.AddWithValue("@advertiseImageId", advertiseImageId);
                 sqlConnection.Open();
-                int rowsAffected1 = command.ExecuteNonQuery();
-                int rowsAffected2 = command1.ExecuteNonQuery();
+            int rowsAffected1 = command.ExecuteNonQuery();
+            int rowsAffected2 = command1.ExecuteNonQuery();
                 sqlConnection.Close();
 
             }
