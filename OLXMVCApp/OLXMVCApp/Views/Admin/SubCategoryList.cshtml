@@ -23,29 +23,29 @@
 <div class="scroll-container">
     <div class="form-group">
         <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input type="text" id="Search" placeholder="Search" class="form-control" />
+            @*<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>*@
         </div>
     </div>
     <p style=" margin: 0 755px 10px;">
         <a href="@Url.Action("SubCategoryListCreate")" class="btn btn-success">Create</a>
     </p>
     <table class="table table-striped table-bordered" style="width:auto">
-        <tr>
+        <tr style="text-align:center">
             @*<th>
                     @Html.DisplayNameFor(model => model.productSubCategoryId)
                 </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.productCategoryName)
+                ProductCategoryName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productSubCategoryName)
+                ProductSubCategoryName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.createdOn)
+                CreatedOn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.updatedOn)
+                UpdatedOn
             </th>
             <th>Action</th>
         </tr>
