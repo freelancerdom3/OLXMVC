@@ -67,5 +67,13 @@ namespace OLXMVCApp.Controllers
         {
             return View();
         }
+
+        public ActionResult Reloadcategory()
+        {
+
+            List<UserBuyModel> categorywithsub = dataAccess.GetCategoryWithSubcategories();
+
+            return View(categorywithsub);
+        }
     }
 }
