@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
         }
 
             .advertisement-card img {
-                max-width: 300px;
+                max-width: 250px;
                 height: 250px;
                 border-radius: 5px;
             }
@@ -56,6 +56,7 @@
                             var image = Model.SubCategories.First(sc => sc.advertiseId == Model.Products[i].advertiseId);
                             <img src="data:image/png;base64,@(Convert.ToBase64String(image.ImageBytes))" alt="abc" />
                         }
+                      
                         <p><h3>Product Name:&nbsp;@Model.Products[i].advertiseTitle</h3></p>
                         <h3>Product Price:&nbsp;</h3>@Model.Products[i].advertisePrice
                         <p><b>Product Description:&nbsp;</b>@Model.Products[i].advertiseDescription</p>
