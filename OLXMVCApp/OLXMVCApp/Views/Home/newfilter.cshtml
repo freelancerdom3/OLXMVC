@@ -45,7 +45,8 @@
 <body>
     <div class="flex-container">
         <div class="advertisement-list">
-            @foreach (var item in Model)
+            @if (Model.Any()) {
+            foreach (var item in Model)
             {
                 <a href="@Url.Action("showAdvertiseDetails", new { advertiseId = item.advertiseId })" style="text-decoration:none; color:black">
                     <div class="advertisement-card">
@@ -64,6 +65,11 @@
                         </div>
                     </div>
                 </a>
+            }
+            }
+            else
+            {
+                <h3 style="padding-top:150px;">Product is Not available for your search</h3>
             }
         </div>
     </div>

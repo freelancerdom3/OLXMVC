@@ -1,0 +1,109 @@
+﻿
+@model IEnumerable<
+@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Success</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <p class="alert alert-success">@ViewBag.SuccessMessage</p>
+}
+
+@Html.ActionLink("Back to List", "Index")
+
+@{
+    ViewBag.Title = "ViewMyAds";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<h2>My Ads</h2>
+@*------------searchbox input--------------------*@
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search by Ad Title" class="form-control" />
+        </div>
+    </div>
+    @*------------End searchbox input--------------------*@
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>Advertise Id</th>
+            <th>Images</th>
+            <th>Product Subcategory</th>
+            <th>Advertise Title</th>
+            <th>Advertise Description</th>
+            <th>Advertise Price</th>
+            <th>Advertise Status</th>
+            <th>Advertise Approved</th>
+            <th>Created On</th>
+            <th>Updated On</th>
+            <th></th>
+        </tr>
+
+        @foreach (var group in Model.GroupBy(item => item.advertiseId))
+        {
+            var firstItem = group.First();
+            <tr>
+                <td>@firstItem.advertiseId</td>
+                <td>
+                    @foreach (var item in group)
+                    {
+                        if (item.imageData != null && item.imageData.Length > 0)
+                        {
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.imageData)" alt="Ad Image" style="max-width:150px; max-height: 150px;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    }
+                </td>
+                <td>@firstItem.productSubCategoryName</td>
+                <td>@firstItem.advertiseTitle</td>
+                <td>@firstItem.advertiseDescription</td>
+                <td>@firstItem.advertisePrice.ToString("0.00")</td>
+                <td>@firstItem.advertiseStatus</td>
+                <td>@firstItem.advertiseapproved</td>
+                <td>@firstItem.createdOn</td>
+                <td>@firstItem.updatedOn</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditAdvertiseDetails", new { advertiseId = firstItem.advertiseId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Remove", "DeleteAdvertiseDetails", new { advertiseId = firstItem.advertiseId }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@*------------------------script for searchbox-----------------------------------------*@
+<script>
+    $(document).ready(function () {
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+
+            });
+
+        });
+
+    });
+
+</script>
+

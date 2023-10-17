@@ -130,6 +130,7 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Users\ChatController.cs" />
+    <Compile Include="Controllers\Users\SellController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -160,6 +161,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ImageLogo\OLX-Logo.png" />
     <Content Include="imagess\add2.png" />
     <Content Include="imagess\olx-logo-vector.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -221,9 +223,16 @@
     <Content Include="Views\Home\showAdvertiseDetails.cshtml" />
     <Content Include="Views\Home\showLocation.cshtml" />
     <Content Include="Views\Home\filterproduct.cshtml" />
+<<<<<<< HEAD
 =======
     <Content Include="Views\User\Sell.cshtml" />
 >>>>>>> Stashed changes
+=======
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\Sell\Sell.cshtml" />
+    <Content Include="Views\Sell\Success.cshtml" />
+    <Content Include="Views\Sell\ViewMyAds.cshtml" />
+>>>>>>> 41ed054ba7be3e369ba7103d0d3e427abacc1c5c
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

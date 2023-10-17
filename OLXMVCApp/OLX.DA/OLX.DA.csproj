@@ -56,6 +56,11 @@
     <Compile Include="User\SellDA.cs" />
 >>>>>>> Stashed changes
     <Compile Include="User\LoginDA.cs" />
+
+    <Compile Include="User\RegistrationDA.cs" />
+
+    <Compile Include="User\SellDA.cs" />
+
     <Compile Include="User\UserBuyDA.cs" />
   </ItemGroup>
   <ItemGroup>
