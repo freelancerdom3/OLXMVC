@@ -196,18 +196,18 @@ namespace OLXMVCApp.Controllers.Admin
         public ActionResult ProductList(string SearchItem, int? i)
         {
             IEnumerable<ProductListModel> products = dataAccess.GetAllProductList();
-            return View("ProductList", "admin_layout", products);
+            return View("ProductList", "Admin_Layout", products);
         }
 
         public ActionResult ProductListDetails(int advertiseId)
         {
             ProductListModel product = dataAccess.GetProductList(advertiseId);
-            return View("ProductListDetails", "admin_layout", product);
+            return View("ProductListDetails", "Admin_Layout", product);
         }
         public ActionResult ProductlistEdit(int advertiseId)
         {
             ProductListModel product = dataAccess.GetProductList(advertiseId);
-            return View("ProductlistEdit", "admin_layout", product);
+            return View("ProductlistEdit", "Admin_Layout", product);
         }
 
         [HttpPost]
@@ -229,7 +229,7 @@ namespace OLXMVCApp.Controllers.Admin
         {
             TempData["AlertMessage"] = "Product-List Data Deleted successfully......";
             ProductListModel product = dataAccess.GetProductList(advertiseId);
-            return View("ProductListDelete", "admin_layout", product);
+            return View("ProductListDelete", "Admin_Layout", product);
         }
 
         [HttpPost]
@@ -259,7 +259,7 @@ namespace OLXMVCApp.Controllers.Admin
             }
 
 
-            return View(viewModel);
+            return View("Advertise", "Admin_Layout", viewModel);
         }
         [HttpPost] 
         public ActionResult Delete(int advertiseId, int advertiseImageId)
