@@ -21,7 +21,6 @@ namespace OLX.DA.User
         {
             if (string.IsNullOrEmpty(userEmail))
             {
-                // Handle validation for empty email
                 return false;
             }
 
@@ -51,7 +50,7 @@ namespace OLX.DA.User
 
         public bool InsertUser(RegistrationModel obj)
         {
-            connection(); // Initialize and open the connection
+            connection(); 
 
             using (SqlCommand cmd = new SqlCommand("insertuser", con))
             {
@@ -67,12 +66,10 @@ namespace OLX.DA.User
 
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.Open(); // Ensure the connection is open
+                    con.Open(); 
                 }
 
                 int rowsAffected = cmd.ExecuteNonQuery();
-
-                // Close the connection
                 con.Close();
 
                 if (rowsAffected > 0)
