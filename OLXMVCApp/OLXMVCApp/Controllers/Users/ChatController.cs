@@ -49,12 +49,54 @@ namespace OLXMVCApp.Controllers.Users
                 {
                     TempData["InsertMsg"] = "Data Inserted";
                     ModelState.Clear();
-                    return RedirectToAction("select", "Chat");
+                    return View("select");
                 }
             }
             Chat dbContext = new Chat();
             List<ChatMddual> chatList = dbContext.GetChatMdduals();
             return View(chatList);
+        }
+
+        public ActionResult chatmap( int userid, int advertiseid)
+        {
+
+            ChatMappingModel mappingModel = new ChatMappingModel()
+            {
+                Sellerid=userid,
+                advertiseid=advertiseid
+            };
+
+           Chat chat = new Chat();
+
+            chat.InsertInMap(mappingModel);
+
+            TempData["mapid"] = advertiseid;
+            return View("select");
+        }
+
+        [HttpPost]
+        public ActionResult chatmap()
+        {
+
+            string Message = Request.Form["msg"];
+            Chat chat = new Chat();
+            ChatsModel chatsModel = new ChatsModel();
+            if (Session["userid"]!=null) 
+            {
+
+                int advertiseid = (int)TempData["mapid"];
+                int mapid = chat.getMapid(advertiseid);
+                bool check=chat.EnterMessage(mapid, Message);
+                if (check)
+                {
+                    return View("chatmap");
+                }
+
+            }
+          
+            return View();
+                     
+
         }
     }
 }

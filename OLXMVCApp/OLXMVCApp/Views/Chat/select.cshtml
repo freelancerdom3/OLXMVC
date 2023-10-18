@@ -148,14 +148,14 @@
 
 </div>
 
-<div style="height: 400px; width: 29%;  float:left;">
-    <table class="table" style="float:right">
+<!--<div style="height: 400px; width: 29%;  float:left;">
+    <table class="table" style="float:right">-->
         @*@foreach (var userId in Model)*@
-        @foreach (var userId in Model.model.Where(item => item.BuyOrSellId == 0).Select(item => item.firstName).Distinct())
+        <!--foreach (var userId in Model.model.Where(item => item.BuyOrSellId == 0).Select(item => item.firstName).Distinct())
 
         {
             <tr>
-                <td style="float:right;">
+                <td style="float:right;">-->
                     @*@Html.DisplayFor(modelItem => userId.userId)<br />*@
 
                     @*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a><br />*@
@@ -163,23 +163,23 @@
                     @*<input type="submit" value="@userId" />*@
 
 
-                    <input type="submit" id="@userId" value="@userId" class="user-button" data-user-id="@userId" />
+                    <!--<input type="submit" id="userId" value="userId" class="user-button" data-user-id="userId" />-->
 
                     @*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a>*@
 
 
 
-                </td>
+                <!--</td>
             </tr>
             <tr></tr>
             <tr></tr>
         }
     </table>
-</div>
+</div>-->
 <div>
     <footer style=" height: 20px; width: 100%; float:right">
 
-        @using (Html.BeginForm("select", "chat", FormMethod.Post))
+        @using (Html.BeginForm("chatmap", "chat", FormMethod.Post))
         {
             <input type="submit" value="Send" id="send-button" class="send-button" style="float: right; width: 20%; padding: 10px; background-color: #007bff; border: none; color: #fff; transition:transform 0.2s ease" />
 
@@ -212,7 +212,7 @@
             $.ajax(
                 {
                     type: "post",
-                    URL: "~/Models/DBContext",
+                    URL: "/chat/chatmap",
                     data:
                     {
                         chat: $("#chat").val()
