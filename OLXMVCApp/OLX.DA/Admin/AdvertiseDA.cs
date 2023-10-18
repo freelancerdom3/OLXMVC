@@ -16,7 +16,7 @@ namespace OLX.DA.Admin
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
             List<MyAdvertiseModel> products = new List<MyAdvertiseModel>();
-            string query = "SELECT * FROM tbl_MyAdvertise";
+            string query = "SELECT * FROM tbl_MyAdvertise where advertiseapproved= 1 ";
             SqlCommand command = new SqlCommand(query, sqlConnection);
             sqlConnection.Open();
 
@@ -46,7 +46,7 @@ namespace OLX.DA.Admin
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
             List<AdvertiseImagesModel> products = new List<AdvertiseImagesModel>();
-            string query = "SELECT * FROM tbl_AdvertiseImages";
+            string query = "SELECT * FROM tbl_AdvertiseImages  ";
             SqlCommand command = new SqlCommand(query, sqlConnection);
             sqlConnection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -70,11 +70,11 @@ namespace OLX.DA.Admin
                 // Perform the delete operation using ADO.NET
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
-            string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId";
+            string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId and advertiseStatus=1";
             SqlCommand command = new SqlCommand(query, sqlConnection);
             command.Parameters.AddWithValue("@advertiseId", advertiseId);
 
-            string query1 = "DELETE FROM tbl_AdvertiseImages WHERE advertiseImageId = @advertiseImageId";
+            string query1 = "DELETE FROM tbl_AdvertiseImages WHERE advertiseImageId = @advertiseImageId ";
                 SqlCommand command1 = new SqlCommand(query1, sqlConnection);
                 command1.Parameters.AddWithValue("@advertiseImageId", advertiseImageId);
                 sqlConnection.Open();
