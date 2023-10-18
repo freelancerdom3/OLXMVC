@@ -290,7 +290,7 @@
 
         @if (Session["userid"] == null)
         {
-            <a href="User/loginType" style="color: black; font-weight:700; margin-left:40px;" id="log">Login</a>
+            <a href="@Url.Action("loginType", "User")" style="color: black; font-weight:700; margin-left:40px;" id="log">Login</a>
         }
 
         <div>
