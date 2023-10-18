@@ -1,0 +1,252 @@
+﻿@model OLXMVCApp.Models.UsersModel
+
+
+@using (Html.BeginForm("AddMoney", "Product", FormMethod.Post))
+{
+    <div>
+        <label for="userId">User ID:</label>
+        <input type="text" name="userId" id="userId" />
+    </div>
+    <div>
+        <label for="amountToAdd">Amount to Add:</label>
+        <input type="text" name="amountToAdd" id="amountToAdd" />
+    </div>
+    <div>
+        <input type="submit" value="Add Money" />
+    </div>
+}
+
+@using (Html.BeginForm("checkBuyerWallet", "Product", FormMethod.Post))
+{
+    <div>
+        <label for="userId">User ID:</label>
+        <input type="text" name="userId" id="userId" />
+    </div>
+
+    <div>
+        <input type="submit" value="Check Buyer Balance" />
+    </div>
+}
+
+
+
+<div id="message">@ViewBag.Message</div>
+
+@{
+    var transactions3 = ViewData["Transactions"] as List<OLX.Models.PaymentdetailsBuyerModel>;
+}
+
+@if (transactions3 != null && transactions3.Count > 0)
+{
+    <h3>Wallet Balance</h3>
+    <table>
+        <thead>
+            <tr>
+
+
+                <th>Buyer Wallet</th>
+
+                <th>User ID</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction3 in transactions3)
+            {
+                <tr>
+
+
+                    <td>@transaction3.BuyerWallet</td>
+
+                    <td>@transaction3.UserId</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+@using (Html.BeginForm("checkSellerWallet", "Product", FormMethod.Post))
+{
+    <div>
+        <label for="userId">User ID:</label>
+        <input type="text" name="userId" id="userId" />
+    </div>
+
+    <div>
+        <input type="submit" value="Check Seller Balance" />
+    </div>
+}
+
+@{
+    var transactions4 = ViewData["Transactions"] as List<OLX.Models.PaymentdetailsSellerModel>;
+}
+
+@if (transactions4 != null && transactions4.Count > 0)
+{
+    <h3>Wallet Balance</h3>
+    <table>
+        <thead>
+            <tr>
+
+
+                <th>Buyer Wallet</th>
+
+                <th>User ID</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction4 in transactions4)
+            {
+                <tr>
+
+
+                    <td>@transaction4.SellerWallet</td>
+
+                    <td>@transaction4.UserId</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+@using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
+{
+    <div>
+        <label for="transferUserId">Transfer To Buyer (User ID):</label>
+        <input type="text" name="transferUserId" id="transferUserId" />
+    </div>
+    <div>
+        <input type="submit" value="Transfer to Buyer" />
+    </div>
+}
+<!-- Form for BuyerStatement -->
+@using (Html.BeginForm("BuyerStatement", "Product", FormMethod.Post))
+{
+    <h2>Buyer Statement</h2>
+
+    <div class="form-group">
+        @Html.Label("User ID")
+        @Html.TextBox("userId", null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("From Date")
+        @Html.TextBox("fromDate", null, new { @class = "form-control", type = "date" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("To Date")
+        @Html.TextBox("toDate", null, new { @class = "form-control", type = "date" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">View Buyer Statement</button>
+}
+
+
+@{
+    var transactions = ViewData["Transactions"] as List<OLX.Models.BuyerTransactionHistoryModel>;
+}
+
+@if (transactions != null && transactions.Count > 0)
+{
+    <h3>Recent Transactions:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction Id</th>
+                <th>Total Amount Paid</th>
+                <th>Buyer Wallet</th>
+                <th>User ID</th>
+                <th>Advertise ID</th>
+                <th>Transaction Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in transactions)
+            {
+                <tr>
+                    <td>@transaction.TransactionId</td>
+                    <td>@transaction.TotalAmountPaid</td>
+                    <td>@transaction.BuyerWallet</td>
+                    <td>@transaction.UserId</td>
+                    <td>@transaction.advertiseId</td>
+                    <td>@transaction.TransactionTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+<!-- Form for SellerStatement -->
+@using (Html.BeginForm("SellerStatement", "Product", FormMethod.Post))
+{
+    <h2>Seller Statement</h2>
+
+    <div class="form-group">
+        @Html.Label("User ID")
+        @Html.TextBox("userId", null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("From Date")
+        @Html.TextBox("fromDate", null, new { @class = "form-control", type = "date" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("To Date")
+        @Html.TextBox("toDate", null, new { @class = "form-control", type = "date" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">View Seller Statement</button>
+}
+
+@{
+    var transactions2 = ViewData["Transactions"] as List<OLX.Models.SellerTransactionHistoryModel>;
+}
+
+@if (transactions2 != null && transactions2.Count > 0)
+{
+    <h3>Recent Transactions:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction Id</th>
+                <th>Total Amount Received</th>
+                <th>Seller Wallet</th>
+                <th>User ID</th>
+                <th>Advertise ID</th>
+                <th>Transaction Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction2 in transactions2)
+            {
+                <tr>
+                    <td>@transaction2.TransactionId</td>
+                    <td>@transaction2.TotalAmountReceived</td>
+                    <td>@transaction2.SellerWallet</td>
+                    <td>@transaction2.UserId</td>
+                    <td>@transaction2.advertiseId</td>
+                    <td>@transaction2.TransactionTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+<div id="message">@ViewBag.Message</div>
+
+
+

@@ -49,6 +49,8 @@
     <Compile Include="Class2.cs" />
     <Compile Include="Class3.cs" />
     <Compile Include="Class4.cs" />
+    <Compile Include="PaymentDA\RepositoryInvoice.cs" />
+    <Compile Include="PaymentDA\Repositorypayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\Chat.cs" />
     <Compile Include="User\SellDA.cs" />
