@@ -46,12 +46,24 @@ namespace OLXMVCApp.Controllers.Users
         // GET: Sell
         public ActionResult Sell()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("loginType", "User");
+            }
 
-            return View();
+            else
+            {
+
+                return View();
+
+            }
+           
         }
         [HttpPost]
         public ActionResult Sell(MyAdvertiseModel advertise, AdvertiseImagesModel image)
         {
+
+
             SellDA dataAccess = new SellDA();
             try
             {
