@@ -134,13 +134,13 @@ namespace OLXMVCApp.Controllers.Admin
         public ActionResult UserIndex()
         {
             IEnumerable<UserList> ul = uda.GetAllUser();
-            return View("UserIndex", "admin_layout", ul);
+            return View("UserIndex", "Admin_Layout", ul);
         }
 
         public ActionResult UserDetails(int? id)
         {
             UserList product = uda.GetUserData(id);
-            return View("UserDetails", "admin_layout", product);
+            return View("UserDetails", "Admin_Layout", product);
         }
 
         public ActionResult UserEdit(int id)
@@ -148,7 +148,7 @@ namespace OLXMVCApp.Controllers.Admin
 
             UserList user = uda.GetUserData(id);
             TempData["AlertMessage"] = "User Edited successfully......";
-            return View("UserEdit", "admin_layout", user);
+            return View("UserEdit", "Admin_Layout", user);
         }
 
         [HttpPost]
@@ -169,7 +169,7 @@ namespace OLXMVCApp.Controllers.Admin
         public ActionResult UserDelete(int? id)
         {
             UserList userList = uda.GetUserData(id);
-            return View("UserDelete", "admin_layout", userList);
+            return View("UserDelete", "Admin_Layout", userList);
         }
 
         [HttpPost]
@@ -187,7 +187,10 @@ namespace OLXMVCApp.Controllers.Admin
             }
         }
 
-
+        public ActionResult Dashboard()
+        {
+            return View("Dashboard", "Admin_Layout");
+        }
 
 
         public ActionResult ProductList(string SearchItem, int? i)
