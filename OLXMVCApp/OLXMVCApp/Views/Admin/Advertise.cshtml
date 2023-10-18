@@ -37,43 +37,50 @@
         .advertisement-details p {
             font-size: 0.9em;
         }
+        .scroll-container {
+            overflow: auto;
+            height: 500px;
+            max-height: 700px;
+        }
     </style>
 </head>
 <body>
-    <div class="flex-container">
-        <div class="advertisement-list">
-            @for (int i = 0; i < Model.Products.Count && i < Model.SubCategories.Count; i++)
-            {
-                var product = Model.Products[i];
-                var subCategory = Model.SubCategories[i];
+    <div class="scroll-container">
+        <div class="flex-container">
+            <div class="advertisement-list">
+                @for (int i = 0; i < Model.Products.Count && i < Model.SubCategories.Count; i++)
+                {
+                    var product = Model.Products[i];
+                    var subCategory = Model.SubCategories[i];
 
-                <div class="advertisement-card">
-                    <div class="advertisement-content">
-                        <img src="data:image/png;base64,@(Convert.ToBase64String(subCategory.ImageBytes))" alt="abc" />
-                       
-                        <p><h3>Product Name:&nbsp;@product.advertiseTitle</h3></p>
-                        <h3>Product Price:&nbsp;</h3>@product.advertisePrice
-                        <p><b>Product Description:&nbsp;</b>@product.advertiseDescription</p>
-                        <form action="@Url.Action("Delete", "Admin")" method="post">
-                            @if (Model.Products[i].advertiseapproved == false)
-                            {
-                                <input type="hidden" name="advertiseImageId" value="@subCategory.advertiseImageId" />
+                    <div class="advertisement-card">
+                        <div class="advertisement-content">
+                            <img src="data:image/png;base64,@(Convert.ToBase64String(subCategory.ImageBytes))" alt="abc" />
 
-                                <input type="hidden" name="advertiseId" value="@product.advertiseId" />
-                                <button type="submit" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-                            }
-                            else
-                            {
-                                <form action="@Url.Action("Delete", "Admin")" method="post">
-                                    <button type="button" onclick="confirm('This product cannot be deleted.')">Delete</button>
-                                </form>
-                            }
+                            <p><h3>Product Name:&nbsp;@product.advertiseTitle</h3></p>
+                            <h3>Product Price:&nbsp;</h3>@product.advertisePrice
+                            <p><b>Product Description:&nbsp;</b>@product.advertiseDescription</p>
+                            <form action="@Url.Action("Delete", "Admin")" method="post">
+                                @if (Model.Products[i].advertiseapproved == false)
+                                {
+                                    <input type="hidden" name="advertiseImageId" value="@subCategory.advertiseImageId" />
 
-                        </form>
+                                    <input type="hidden" name="advertiseId" value="@product.advertiseId" />
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                }
+                                else
+                                {
+                                    <form action="@Url.Action("Delete", "Admin")" method="post">
+                                        <button type="button" onclick="confirm('This product cannot be deleted.')">Delete</button>
+                                    </form>
+                                }
+
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
+</div>
 </body>
 </html>
