@@ -43,14 +43,14 @@ namespace OLXMVCApp.Controllers.Users
                 if (access.IsAdmin(loginModel.userEmail))
                 {
                     // return RedirectToAction("Index", "Home");
-                    return Json(2);
+                    return Json(new { result = 2 });
                 }
                 else
                 {
 
                     //return RedirectToAction("About", "Home");
                     Session["userid"] = id;
-                    return Json(1);
+                    return Json(new { result = 1 });
                 }
 
             }
@@ -59,7 +59,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 ViewBag.m = msg;
                 //return View("Index");
-                return Json(3);
+                return Json(new { result = 3, message = msg });
             }
 
 

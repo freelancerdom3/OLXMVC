@@ -85,19 +85,19 @@
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        if (data == 1) {
+                        if (data.result == 1) {
                             var url = window.location.href
                             url = '/Home/Index';
                             window.location.href = url;
                         }
-                        else if (data == 2) {
+                        else if (data.result == 2) {
                             var url = window.location.href
                             url = '/Admin/Dashboard';
                             window.location.href = url;
                         }
 
-                        else if (data == 3) {
-                            alert("Invalid Credential!!")
+                        else if (data.result == 3) {
+                            alert(data.message)
                         }
                       
                         //var url = window.location.href
