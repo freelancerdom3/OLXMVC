@@ -122,12 +122,14 @@ namespace OLX.DA.User
                 con.Open();
                 transaction = con.BeginTransaction();
 
+                List<byte[]> imageDataList = image.ImageDataList;
+               // SqlCommand cmd = new SqlCommand("INSERT INTO tbl_AdvertiseImages(advertiseId, imageData,createdOn, updatedOn) VALUES (@advertiseId, @imageData,GETDATE(), GETDATE())", con, transaction);
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO tbl_AdvertiseImages(advertiseId, imageData,createdOn, updatedOn) VALUES (@advertiseId, @imageData,GETDATE(), GETDATE())", con, transaction);
-                cmd.Parameters.AddWithValue("@advertiseId", image.advertiseId);
 
                 foreach (byte[] imageData in image.ImageDataList)
                 {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO tbl_AdvertiseImages(advertiseId, imageData, createdOn, updatedOn) VALUES (@advertiseId, @imageData, GETDATE(), GETDATE())", con, transaction);
+                    cmd.Parameters.AddWithValue("@advertiseId", image.advertiseId);
                     cmd.Parameters.Add("@imageData", SqlDbType.VarBinary, -1).Value = imageData;
 
                     cmd.ExecuteNonQuery();

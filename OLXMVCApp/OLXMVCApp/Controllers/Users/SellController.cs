@@ -24,9 +24,7 @@ namespace OLXMVCApp.Controllers.Users
 
             return View("EditAdvertiseDetails", myAdvertiseModel);
         }
-
-
-        [HttpPost]
+                [HttpPost]
         public ActionResult EditAdvertiseDetails(MyAdvertiseModel myAdvertiseModelforeditpost)
         {
 
@@ -57,6 +55,7 @@ namespace OLXMVCApp.Controllers.Users
                 return View();
 
             }
+          
            
         }
         [HttpPost]
