@@ -35,17 +35,19 @@ namespace OLX.DA.Admin
                 ProductListModel product = new ProductListModel();
                 product.advertiseId = Convert.ToInt32(rdr["advertiseId"]);
                 product.productSubCategoryId = Convert.ToInt32(rdr["productSubCategoryId"]);
+                product.productSubCategoryName = rdr["productSubCategoryName"].ToString();
                 product.advertiseTitle = rdr["advertiseTitle"].ToString();
                 product.advertiseDescription = rdr["advertiseDescription"].ToString();
                 product.advertisePrice = Convert.ToDecimal(rdr["advertisePrice"]);
                 product.areaId = Convert.ToInt32(rdr["areaId"]);
+                product.areaName = rdr["areaName"].ToString();
                 product.advertiseStatus = Convert.ToBoolean(rdr["advertiseStatus"]);
                 product.userId = Convert.ToInt32(rdr["userId"]);
+                product.firstName = rdr["firstName"].ToString();               
                 product.advertiseapproved = Convert.ToBoolean(rdr["advertiseapproved"]);
                 product.createdOn = Convert.ToDateTime(rdr["createdOn"]);
                 product.updatedOn = Convert.ToDateTime(rdr["updatedOn"]);
-                product.firstName = rdr["firstName"].ToString();
-                product.imageData = (byte[])(rdr["imageData"]);
+                product.imageData = rdr["imageData"] != DBNull.Value ? (byte[])rdr["imageData"] : null;
                 lstadv.Add(product);
             }
             con.Close();
@@ -56,7 +58,7 @@ namespace OLX.DA.Admin
         {
             connection();
             SqlCommand cmd = new SqlCommand("spUpdatetbl_MyAdvertise", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.StoredProcedure; 
             cmd.Parameters.AddWithValue("@advertiseId", product.advertiseId);
             cmd.Parameters.AddWithValue("@productSubCategoryId", product.productSubCategoryId);
             cmd.Parameters.AddWithValue("@advertiseTitle", product.advertiseTitle);
@@ -66,6 +68,7 @@ namespace OLX.DA.Admin
             cmd.Parameters.AddWithValue("@areaId", product.areaId);
             cmd.Parameters.AddWithValue("@userId", product.userId);
             cmd.Parameters.AddWithValue("@advapproved", product.advertiseapproved);
+            cmd.Parameters.AddWithValue("@updatedOn", DateTime.Now);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
@@ -90,7 +93,7 @@ namespace OLX.DA.Admin
                 product.userId = Convert.ToInt32(rdr["userId"]);
                 product.createdOn = Convert.ToDateTime(rdr["createdOn"]);
                 product.updatedOn = Convert.ToDateTime(rdr["updatedOn"]);
-                product.advertiseapproved = Convert.ToBoolean(rdr["advertiseapproved"]);
+               product.advertiseapproved = Convert.ToBoolean(rdr["advertiseapproved"]);
             }
             return product;
         }

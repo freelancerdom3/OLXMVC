@@ -9,13 +9,16 @@
     td {
         text-align: center;
     }
+    
 </style>
 <style>
 
     .scroll-container {
         overflow: auto;
         max-height: 700px;
+
     }
+
 </style>
 <div class="scroll-container">
     <div class="container">
@@ -39,10 +42,10 @@
     <table class="table table-striped table-bordered" style="width:auto">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.advertiseId)
+                @Html.DisplayNameFor(model => model.firstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productSubCategoryId)
+                @Html.DisplayNameFor(model => model.productSubCategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.advertiseTitle)
@@ -54,13 +57,10 @@
                 @Html.DisplayNameFor(model => model.advertisePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.areaId)
+                @Html.DisplayNameFor(model => model.areaName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.advertiseStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.userId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.advertiseapproved)
@@ -72,9 +72,6 @@
                 @Html.DisplayNameFor(model => model.updatedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.firstName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.imageData)
             </th>
             <th></th>
@@ -82,56 +79,67 @@
 
         @foreach (var item in Model)
         {
-            <tr class="SearchItem">
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertiseId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.productSubCategoryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertiseTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertiseDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertisePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.areaId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertiseStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.userId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.advertiseapproved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.createdOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.updatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.firstName)
-                </td>
-                <td>
-                    @if (item.imageData != null && item.imageData.Length > 0)
-                    {
-                        var base64Image = Convert.ToBase64String(item.imageData);
-                        <img src="data:image/png;base64, @base64Image" alt="Image" style="height:100px; width:100px " />
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "ProductListEdit", new { advertiseId = item.advertiseId })
-                    @Html.ActionLink("Details", "ProductListDetails", new { advertiseId = item.advertiseId })
-                    @Html.ActionLink("Delete", "ProductListDelete", new { advertiseId = item.advertiseId })
-                </td>
-            </tr>
+    <tr class="SearchItem">
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productSubCategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.advertiseTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.advertiseDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.advertisePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.areaName)
+        </td>
+        <td>
+            @*@Html.CheckBoxFor(modelItem => item.advertiseStatus, new { id = "myCheckbox", style = "transform: scale(2);" })*@
+            @if (!item.advertiseStatus)
+            {
+                <span>Pending</span>
+            }
+            else
+            {
+               <span>Approved</span>
+            }
+        </td>
+        <td>
+            @*@Html.CheckBoxFor(modelItem => item.advertiseapproved, new { id = "myCheckbox1", @style = "transform: scale(2);" })*@
+            @if (!item.advertiseapproved)
+            {
+                <span>Pending</span>
+            }
+            else
+            {
+                <span>Approved</span>
+            }
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.createdOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updatedOn)
+        </td>
+        <td>
+            @if (item.imageData != null && item.imageData.Length > 0)
+            {
+                var base64Image = Convert.ToBase64String(item.imageData);
+                <img src="data:image/png;base64, @base64Image" alt="Image" style="height:100px; width:100px " />
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "ProductListEdit", new { advertiseId = item.advertiseId })
+            @Html.ActionLink("Details", "ProductListDetails", new { advertiseId = item.advertiseId })
+            @Html.ActionLink("Delete", "ProductListDelete", new { advertiseId = item.advertiseId })
+        </td>
+    </tr>
         }
 
     </table>
