@@ -128,6 +128,7 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Users\ChatController.cs" />
+    <Compile Include="Controllers\Users\ProductController.cs" />
     <Compile Include="Controllers\Users\SellController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,7 +223,12 @@
     <Content Include="Views\Sell\Success.cshtml" />
     <Content Include="Views\Sell\ViewMyAds.cshtml" />
     <Content Include="Views\Home\Reloadcategory.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Sell\EditAdvertiseDetails.cshtml" />
+=======
+    <Content Include="Views\Product\PurchaseProduct.cshtml" />
+    <Content Include="Views\Product\AddMoney.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
