@@ -1,0 +1,62 @@
+﻿@model OLXMVCApp.Models.UsersModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Product</title>
+</head>
+<body>
+    <h2>Purchase Product</h2>
+
+    @using (Html.BeginForm("PurchaseProduct", "Product", FormMethod.Post))
+    {
+        <div>
+            <label for="userId">User ID:</label>
+            <input type="text" name="userId" id="userId" />
+        </div>
+        <div>
+            <label for="advertiseId">Advertise ID:</label>
+            <input type="text" name="advertiseId" id="advertiseId" />
+        </div>
+        <div>
+            <input type="submit" value="Purchase" />
+        </div>
+    }
+
+    <div id="message">@ViewBag.Message</div>
+
+    @{
+        var transactions = ViewData["Transactions"] as List<OLX.Models.PaymentdetailsBuyerModel>;
+    }
+
+    @if (transactions != null && transactions.Count > 0)
+    {
+        <h3>Recent Transactions:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Total Amount Paid</th>
+                    <th>Buyer Wallet</th>
+                    <th>Advertise ID</th>
+                    <th>User ID</th>
+                    <th>Transaction Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in transactions)
+                {
+                    <tr>
+                        <td>@transaction.PaymentIdB</td>
+                        <td>@transaction.TotalAmountPaid</td>
+                        <td>@transaction.BuyerWallet</td>
+                        <td>@transaction.AdvertiseId</td>
+                        <td>@transaction.UserId</td>
+                        <td>@transaction.TransactionTimeP</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>
