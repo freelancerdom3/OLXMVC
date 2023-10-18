@@ -3,13 +3,14 @@
 @{ ViewBag.Title = "Registration";
     Layout = null;}
 
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <div class="formbold-main-wrapper">
 
     <div class="formbold-form-wrapper">
 
         <img src="~/ImageLogo/OLX-Logo.png" style="height: 150px; width: 200px; margin: 0; padding: 5px;" class="class=" img-fluid"">
 
-        <form method="POST" onsubmit="return onSubmitForm();">
+        <form method="POST">
             <div class="formbold-form-title">
                 <h2 class="">Register now</h2>
 
@@ -20,7 +21,7 @@
                 <div>
                     <label class="formbold-form-label"> First Name</label>
 
-                    @Html.TextBoxFor(model => model.firstName, new { @class = "formbold-form-input" })
+                    @Html.TextBoxFor(model => model.firstName, new { id = "firstName", @class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "error-message" })
                 </div>
                 <div>
@@ -97,37 +98,11 @@
             </div>
 
 
-            <button type="submit" class="formbold-btn">Register Now</button>
+            <button id="btnSubmit" type="submit" class="formbold-btn">Register Now</button>
         </form>
     </div>
 </div>
-@*<script>//function onSubmitForm() {
-    //    event.preventDefault();
-    //    if (validateForm()) {
-    //        window.location.href = "/Home/About";
-    //    }
-    //}
-
-    //function validateForm() {
-
-    //    var firstName = document.getElementById('firstName').value;
-    //    var lastName = document.getElementById('lastName').value;
-    //    var userEmail = document.getElementById('userEmail').value;
-    //    var Password = document.getElementById('Password').value;
-    //    var MobileNo = document.getElementById('MobileNo').value;
-    //    var Gender = document.getElementById('Gender').value;
-    //    var Address = document.getElementById('Address').value;
-    //    var City = document.getElementById('City').value;
-
-    //    if (firstName.trim() === '' || lastName.trim() === '' || userEmail.trim() === '' || Password.trim() === '' ||
-    //        MobileNo.trim() === '' || Gender.trim() === '' || Address.trim() === '' || City.trim() === '') {
-    //        return false;
-    //    }
-    //    else {
-    //        return true;
-    //    }
-    //}
-
+@*<script>
     function onSubmitForm() {
         event.preventDefault();
 
@@ -177,18 +152,32 @@
         //$(".attachmentdiv").hide();
         $(function () {
             $('#btnSubmit').click(function (event) {
-                /*   debugger;*/
+                debugger;
                 event.preventDefault();
-                var authmodel = {
-                    firstName: $('#firstName').val(),
-                    lastName: $('#lastName').val(),
-                    userEmail: $('#userEmail').val(),
-                    Password: $('#Password').val(),
-                    MobileNo: $('#MobileNo').val(),
-                    Gender: $('input[name="Gender"]:checked').val(),
-                    Address: $('#Address').val(),
-                    City: $('#City').val()
 
+                var firstName = $('#firstName').val();
+                var lastName = $('#lastName').val();
+                var userEmail = $('#userEmail').val();
+                var Password = $('#Password').val();
+                var MobileNo = $('#MobileNo').val();
+                var Gender = $('input[name="Gender"]:checked').val();
+                var Address = $('#Address').val();
+                var City = $('#City').val();
+
+                if (!firstName || !lastName || !userEmail || !Password || !MobileNo || !Gender || !Address || !City) {
+                    alert("Please enter all details.");
+                    return;
+                }
+
+                var authmodel = {
+                    firstName= firstName,
+                    lastName=lastName,
+                    userEmail=userEmail,
+                    Password= password,
+                    MobileNo=MobileNo,
+                    Gender=Gender,
+                    Address=Address,
+                    City=City
                 };
                 $.ajax({
                     type: "POST",
@@ -197,24 +186,20 @@
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        if (data == 1) {
-                            var url = window.location.href
-                            url = '/Home/Index';
-                            window.location.href = url;
-                        }
-                        else if (data == 2) {
-                            var url = window.location.href
-                            url = '/User/loginType';
-                            window.location.href = url;
-                        }
+                        if (data.success) {
+                            console.log('Registration successful');
+                            window.location.replace("/User/loginType");
 
-                        else if (data == 3) {
-                            alert("Invalid Credential!!")
+                        } else {
+
+                            alert('Registration failed: ' + response.error);
                         }
                     },
-                    error: function () {
-                        alert("Please Enter Details!!")
+                    error: function (xhr, textStatus, errorThrown) {
+
+                        alert('Error occurred during registration.');
                     }
+
                 });
             });
         });

@@ -18,7 +18,8 @@ namespace OLX.Models.User
         public string lastName { get; set; }
 
         [Required(ErrorMessage = "Email Id is required.")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format.")]
+        //[RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format.")]
+        [EmailAddress]
         public string userEmail { get; set; }
 
         [Required(ErrorMessage = "Please Enter Password")]

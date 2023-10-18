@@ -166,27 +166,31 @@ namespace OLXMVCApp.Controllers.Users
         [HttpPost]
         public ActionResult Registration(RegistrationModel model)
         {
-            RegistrationDA repo = new RegistrationDA();
-            var isemailalreadyexists = repo.IsEmailAlreadyExists(model.@userEmail);
-            if (isemailalreadyexists)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("useremail", "this email already exists.");
-            }
-            else
-            {
-                bool registrationResult = repo.InsertUser(model);
-                if (registrationResult)
+                RegistrationDA repo = new RegistrationDA();
+                var isemailalreadyexists = repo.IsEmailAlreadyExists(model.@userEmail);
+                if (isemailalreadyexists)
                 {
-                    //ModelState.AddModelError(string.Empty, "Registration Success");
-                    return RedirectToAction("loginType");
+                    ModelState.AddModelError("useremail", "this email already exists.");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Registration failed. Please try again.");
-                    return View(model);
+                    bool registrationResult = repo.InsertUser(model);
+                    if (registrationResult)
+                    {
+                        //ModelState.AddModelError(string.Empty, "Registration Success");
+                        return RedirectToAction("loginType");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Registration failed. Please try again.");
+                        return View(model);
+                    }
                 }
             }
-            return View(model);
+                return View(model);
+            
         }
         public ActionResult Sell()
         {
