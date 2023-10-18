@@ -21,12 +21,12 @@
                 <div>
                     <label class="formbold-form-label"> First Name</label>
 
-                    @Html.TextBoxFor(model => model.firstName, new { id = "firstName", @class = "formbold-form-input" })
+                    @Html.TextBoxFor(model => model.firstName, new { @class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "error-message" })
                 </div>
                 <div>
                     <label class="formbold-form-label"> Last Name </label>
-                    @Html.TextBoxFor(model => model.lastName, new { id = "lastName", @class = "formbold-form-input" })
+                    @Html.TextBoxFor(model => model.lastName, new { @class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "error-message" })
 
                 </div>
@@ -35,14 +35,14 @@
             <div class="formbold-input-flex">
                 <div>
                     <label class="formbold-form-label"> Email </label>
-                    @Html.TextBoxFor(model => model.userEmail, new { id = "userEmail", @class = "formbold-form-input" })
+                    @Html.TextBoxFor(model => model.userEmail, new { @class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.userEmail, "", new { @class = "error-message" })
 
                 </div>
 
                 <div>
                     <label class="formbold-form-label"> Phone Number </label>
-                    @Html.TextBoxFor(model => model.MobileNo, new { id = "MobileNo", @class = "formbold-form-input" })
+                    @Html.TextBoxFor(model => model.MobileNo, new {@class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "error-message" })
 
                 </div>
@@ -50,21 +50,14 @@
 
             <div class="formbold-mb-3">
                 <label class="formbold-form-label"> Address </label>
-                @Html.TextAreaFor(model => model.Address, new { id = "Address", @class = "formbold-form-input" })
+                @Html.TextAreaFor(model => model.Address, new { @class = "formbold-form-input" })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "error-message" })
 
             </div>
 
             <div class="formbold-mb-3">
                 <label class="formbold-form-label"> city </label>
-                @Html.DropDownListFor(model => model.City, new SelectList(new[]
-                                         {
-                    new SelectListItem { Value = "Select City", Text = "Select City" },
-                    new SelectListItem { Value = "Ahmedabad", Text = "Ahmedabad" },
-                    new SelectListItem { Value = "Surat", Text = "Surat" },
-                    new SelectListItem { Value = "Vadodara", Text = "Vadodara" },
-                    new SelectListItem { Value = "Rajkot", Text = "Rajkot" }
-                }, "Value", "Text"), new { id = "City", @class = "formbold-form-input" })
+                @Html.TextAreaFor(model => model.City, new { @class = "formbold-form-input1" })
                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "error-message" })
             </div>
 
@@ -72,8 +65,8 @@
                 <div>
                     <label class="formbold-form-label"> Gender </label>
 
-                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "Gender" })<span> Male </span><br /><br />
-                    @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "Gender" })<span> Female </span><br />
+                    @Html.RadioButtonFor(model => model.Gender, "Male")<span> Male </span><br /><br />
+                    @Html.RadioButtonFor(model => model.Gender, "Female")<span> Female </span><br />
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "error-message" })
                 </div>
             </div>
@@ -81,7 +74,7 @@
             <div class="formbold-input-flex">
                 <div>
                     <label class="formbold-form-label"> Password </label>
-                    @Html.PasswordFor(model => model.Password, new { id = "Password", @class = "formbold-form-input" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "formbold-form-input" })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error-message" })
                 </div>
             </div>
@@ -294,6 +287,20 @@
     .formbold-form-input {
         text-align: center;
         width: 100%;
+        padding: 13px 22px;
+        border-radius: 5px;
+        border: 1px solid #dde3ec;
+        background: #ffffff;
+        font-weight: 500;
+        font-size: 16px;
+        color: #536387;
+        outline: none;
+        resize: none;
+    }
+    .formbold-form-input1 {
+        text-align: center;
+        width: 50%;
+        height:47px;
         padding: 13px 22px;
         border-radius: 5px;
         border: 1px solid #dde3ec;

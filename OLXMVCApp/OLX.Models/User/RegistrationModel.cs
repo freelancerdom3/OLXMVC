@@ -41,7 +41,7 @@ namespace OLX.Models.User
         [Required(ErrorMessage = "The Address field is required")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Please select a city")]
+        [Required(ErrorMessage = "Please Enter the city")]
         public string City { get; set; }
 
     }
