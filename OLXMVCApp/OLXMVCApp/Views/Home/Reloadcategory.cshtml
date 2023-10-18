@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
 
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
 }
 <style>
     .second-header {
@@ -23,45 +23,42 @@
     .second-header a {
         color: #2866c3;
     }
-</style>
-@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div class="second-header">
 
+    .CATEGORY{
+        height:500px;
+    }
+
+    
+</style>
+
+
+<div class="CATEGORY">
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            All Category
+            SELECT CATEGORY
         </button>
-        <ul class="dropdown-menu" style="color:black">
-
+        <ul class="dropdown-menu" style="color: black">
             @{
                 // Group the ModelProductSubCategory objects by productCategoryName
                 var groupedCategories = Model.GroupBy(item => item.productCategoryName);
-                //var groupedCategories1 = Model.GroupBy(item => item.productCategoryId);
             }
 
             @foreach (var group in groupedCategories)
             {
-
-                <a href="home/filterproduct?categoryId=@group.First().productCategoryId">
+                <a href="@Url.Action("filterproduct", "Home", new { categoryId = group.First().productCategoryId })">
                     <h2>@group.Key</h2>
                 </a>
                 <ul>
                     @foreach (var subcategory in group)
                     {
-                        <li><a href="home/filterproduct?subcategoryId=@subcategory.productSubCategoryId">@subcategory.productSubCategoryName</a></li>
+                        <li>
+                            <a href="@Url.Action("filterproduct", "Home", new { subcategoryId = subcategory.productSubCategoryId })">
+                                @subcategory.productSubCategoryName
+                            </a>
+                        </li>
                     }
                 </ul>
             }
-
         </ul>
-    </div>
-    <div class="navbar-nav">
-        <ul>
-       
-        </ul>
-
     </div>
 </div>
