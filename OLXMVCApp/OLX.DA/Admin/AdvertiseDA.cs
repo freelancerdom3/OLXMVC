@@ -16,7 +16,7 @@ namespace OLX.DA.Admin
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
             List<MyAdvertiseModel> products = new List<MyAdvertiseModel>();
-            string query = "SELECT * FROM tbl_MyAdvertise where advertiseapproved= 1 ";
+            string query = "SELECT * FROM tbl_MyAdvertise  ";
             SqlCommand command = new SqlCommand(query, sqlConnection);
             sqlConnection.Open();
 
@@ -70,7 +70,7 @@ namespace OLX.DA.Admin
                 // Perform the delete operation using ADO.NET
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
 
-            string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId and advertiseStatus=1";
+            string query = "DELETE FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId ";
             SqlCommand command = new SqlCommand(query, sqlConnection);
             command.Parameters.AddWithValue("@advertiseId", advertiseId);
 
