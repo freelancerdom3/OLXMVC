@@ -51,7 +51,6 @@
                 z-index: 2;
                 position: relative;
                 margin-left: 5.3%;
-        
             }
 
             .slider figure {
@@ -62,7 +61,6 @@
                 transition: 1s ease-in-out;
                 background-color: black;
                 justify-content: center;
-              
             }
 
             .slider .btn-next, .btn-prev {
@@ -134,6 +132,7 @@
             font-size: xx-large;
             color: red;
         }
+
         img {
             margin: 0 20% 0 20%;
         }
@@ -175,7 +174,7 @@
                 </div>
                 <div class="buttondiv">
                     <div>
-                        <a href="@Url.Action("select", "Chat", new {advertiseId = group.First().advertiseId, userId = group.First().userId  })" style="text-decoration:none; color:black">
+                        <a href="@Url.Action("chatmap", "Chat", new {advertiseId = group.First().advertiseId, userId = group.First().userId  })" style="text-decoration:none; color:black">
                             <button class="but">
                                 <h3 style="padding:10PX">Chat With Seller</h3>
                                 <h4>@Html.DisplayFor(item => group.First().firstName)</h4>
@@ -192,53 +191,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< Updated upstream
-=======
-
-        <div class="abcd">
-            <div class="ccc">
-                @Html.DisplayFor(modelItem => item.advertiseTitle)
-            </div>
-            <div class="ccc">
-                @Html.DisplayFor(modelItem => item.advertiseDescription)
-            </div>
-            <div class="ccc">
-                RS.@Html.DisplayFor(modelItem => item.advertisePrice)
-            </div>
-            <div class="ccc">
-
-                <p>@item.areaName</p>
-            </div>
-
-        </div>
-        <div class="buttondiv">
-            <div>
-                <a href="@Url.Action("chatmap", "Chat", new {advertiseId = item.advertiseId, userId = item.userId  })" style="text-decoration:none; color:black">
-                    <button class="but">
-                    <h3 style="padding:10PX">Chat With Seller</h3>
-                    <h4>@Html.DisplayFor(modelItem => item.firstName)</h4></button>
-                </a>
-
-
-                <a href="@Url.Action("PurchaseProduct","Product", new { advertiseId = item.advertiseId, userId = item.userId })" style="text-decoration:none; color:black">
-                    <button class="but"><h2> Buy Product</h2> </button>
-
-                </a>
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-       
-
-</div>
-    </div>
->>>>>>> Stashed changes
     }
 
     <script>

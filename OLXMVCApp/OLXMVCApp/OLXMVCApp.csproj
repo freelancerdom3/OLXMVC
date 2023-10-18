@@ -223,16 +223,16 @@
     <Content Include="Views\Sell\Success.cshtml" />
     <Content Include="Views\Sell\ViewMyAds.cshtml" />
     <Content Include="Views\Home\Reloadcategory.cshtml" />
-<<<<<<< Updated upstream
+
 
     <Content Include="Views\Sell\EditAdvertiseDetails.cshtml" />
 
     <Content Include="Views\Product\PurchaseProduct.cshtml" />
     <Content Include="Views\Product\AddMoney.cshtml" />
 
-=======
+
     <Content Include="Views\Chat\chatmap.cshtml" />
->>>>>>> Stashed changes
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
