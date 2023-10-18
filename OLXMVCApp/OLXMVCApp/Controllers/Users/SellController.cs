@@ -10,6 +10,31 @@ namespace OLXMVCApp.Controllers.Users
 {
     public class SellController : Controller
     {
+        [HttpGet]
+        public ActionResult EditAdvertiseDetails(int? advertiseId)
+        {
+            SellDA product = new SellDA();
+            MyAdvertiseModel myAdvertiseModel = product.getAdvertiseDetailsbyId(advertiseId);
+
+            // Load the list of product subcategories
+           // List<SelectListItem> productSubCategories = GetProductSubCategories(); // Implement this method to fetch the data
+
+            // Set the ViewBag with the list of product subcategories
+            //ViewBag.ProductSubCategories = productSubCategories;
+
+            return View("EditAdvertiseDetails", myAdvertiseModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditAdvertiseDetails(MyAdvertiseModel myAdvertiseModelforeditpost)
+        {
+
+            SellDA product = new SellDA();
+            product.EditAdvertiseDetails(myAdvertiseModelforeditpost);
+            return RedirectToAction(nameof(ViewMyAds));
+
+        }
         public ActionResult ViewMyAds()
         {
 

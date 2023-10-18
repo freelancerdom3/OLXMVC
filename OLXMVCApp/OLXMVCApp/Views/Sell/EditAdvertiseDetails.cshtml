@@ -1,0 +1,82 @@
+﻿@model OLX.Models.MyAdvertiseModel
+
+@{
+    ViewBag.Title = "EditAdvertiseDetails";
+}
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .form-border {
+        border: 2px solid #282828;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .form-horizontal {
+        margin-top: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    /* Add more custom styles as needed */
+</style>
+
+<div class="container">
+    <div class="form-border">
+        <h2>Edit Advertise Details</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+               
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.advertiseTitle, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.advertiseTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.advertiseTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.advertisePrice, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.advertisePrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.advertisePrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.advertiseDescription, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.advertiseDescription, new { @class = "form-control", rows = 4 })
+                        @Html.ValidationMessageFor(model => model.advertiseDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Add more form groups for other fields -->
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

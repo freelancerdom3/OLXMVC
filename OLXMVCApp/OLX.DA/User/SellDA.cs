@@ -22,6 +22,58 @@ namespace OLX.DA.User
             con = new SqlConnection(constr);
         }
 
+       
+        public MyAdvertiseModel getAdvertiseDetailsbyId(int? advertiseId)
+        {
+          
+            MyAdvertiseModel myAdvertiseModel = new MyAdvertiseModel();
+
+            if (advertiseId.HasValue)
+            {
+                string sqlQuery = "SELECT * FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId";
+                SqlCommand cmd = new SqlCommand(sqlQuery, con);
+                cmd.Parameters.AddWithValue("@advertiseId", advertiseId.Value);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    myAdvertiseModel.advertiseId = Convert.ToInt32(dr["advertiseId"]);
+                    myAdvertiseModel.productSubCategoryId = Convert.ToInt32(dr["productSubCategoryId"]);
+                    myAdvertiseModel.advertiseTitle = Convert.ToString(dr["advertiseTitle"]);
+                    myAdvertiseModel.advertiseDescription = Convert.ToString(dr["advertiseDescription"]);
+                    myAdvertiseModel.advertisePrice = Convert.ToDecimal(dr["advertisePrice"]);
+                    myAdvertiseModel.areaId = Convert.ToInt32(dr["areaId"]);
+                    myAdvertiseModel.userId = Convert.ToInt32(dr["userId"]);
+                }
+
+                con.Close();
+            }
+
+            return myAdvertiseModel;
+        }
+
+        public void EditAdvertiseDetails(MyAdvertiseModel productDetailsModel)
+        {
+           
+            SqlCommand com = new SqlCommand("EditAdvertiseDetails", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.AddWithValue("@advertiseId", productDetailsModel.advertiseId);
+            com.Parameters.AddWithValue("@productSubCategoryId", productDetailsModel.productSubCategoryId);
+            com.Parameters.AddWithValue("@advertiseTitle", productDetailsModel.advertiseTitle);
+            com.Parameters.AddWithValue("@advertiseDescription", productDetailsModel.advertiseDescription);
+            com.Parameters.AddWithValue("@advertisePrice", productDetailsModel.advertisePrice);
+            com.Parameters.AddWithValue("@areaId", productDetailsModel.areaId);
+            com.Parameters.AddWithValue("@userId", productDetailsModel.userId);
+
+
+            con.Open();
+            com.ExecuteNonQuery();
+            con.Close();
+        }
+
         public int InsertAdvertise(MyAdvertiseModel advertise)
         {
             int advertiseId = 0;
