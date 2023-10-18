@@ -1,50 +1,155 @@
-﻿@model OLX.Models.Admin.ProductSubCategoryModeljoin
+﻿@*@model OLX.Models.Admin.ProductSubCategoryModeljoin
+
+    @{
+        ViewBag.Title = "Add Product Subcategory";
+    }
+
+    <h2 style="text-align:center">Add Product Subcategory</h2>
+    <br />
+    <br />
+
+    @using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
+        {
+            new SelectListItem { Value = "Select Product", Text = "Select Product" },
+            new SelectListItem { Value = "1", Text = "Mobile" },
+            new SelectListItem { Value = "2", Text = "Bike" },
+            new SelectListItem { Value = "3", Text = "Car" }
+        }, "Value", "Text"), new { id = "productCategoryId", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "SubCategoryList")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+@model OLX.Models.Admin.ProductSubCategoryModeljoin
 
 @{
     ViewBag.Title = "Add Product Subcategory";
 }
 
-<h2 style="text-align:center">Add Product Subcategory</h2>
-<br />
-<br />
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product Subcategory</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
 
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
+        .form-border {
+            border: 2px solid #282828;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        .form-horizontal {
+            margin-top: 5px;
+        }
 
-<div class="form-group">
-    @Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-    @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
-    {
-        new SelectListItem { Value = "Select Product", Text = "Select Product" },
-        new SelectListItem { Value = "1", Text = "Mobile" },
-        new SelectListItem { Value = "2", Text = "Bike" },
-        new SelectListItem { Value = "3", Text = "Car" }
-    }, "Value", "Text"), new { id = "productCategoryId", @class = "form-control" })
-    @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
-</div>
+        .form-group {
+            margin-bottom: 10px;
+        }
 
-<div class="form-group">
-    @Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
+        .form-control {
+            width: 100%;
+        }
+
+        .field-label {
+            font-weight: bold;
+        }
+
+        /* Add more custom styles as needed */
+
+        .create-button {
+            background-color: #28a745; /* Green background color */
+            color: #fff; /* White text color */
+            padding: 10px 20px; /* Padding for better appearance */
+            border: none; /* Remove border */
+            cursor: pointer; /* Cursor on hover */
+            border-radius: 5px; /* Optional: Rounded corners */
+        }
+
+            .create-button:hover {
+                background-color: #218838; /* Darker green on hover */
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-border">
+            <h2 style="text-align:center; margin-bottom:10px">Add Product Subcategory</h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="field-label">@Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
+                            {
+                                new SelectListItem { Value = "Select Product", Text = "Select Product" },
+                                new SelectListItem { Value = "1", Text = "Mobile" },
+                                new SelectListItem { Value = "2", Text = "Bike" },
+                                new SelectListItem { Value = "3", Text = "Car" }
+                            }, "Value", "Text"), new { id = "productCategoryId", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">@Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="create-button" />
+                        </div>
+                    </div>
+                </div>
+            }
+            <div>
+                @Html.ActionLink("Back to List", "SubCategoryList")
+            </div>
+
+        </div>
     </div>
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "SubCategoryList")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

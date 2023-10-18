@@ -1,54 +1,167 @@
-﻿@model OLX.Models.Admin.ProductSubCategoryModeljoin
+﻿@*@model OLX.Models.Admin.ProductSubCategoryModeljoin
+
+    @{
+        ViewBag.Title = "Edit";
+    }
+
+    <h2>Edit Product Subcategory</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Product Subcategory Details</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
+                    {
+                        new SelectListItem { Value = "Select Product", Text = "Select Product" },
+                        new SelectListItem { Value = "1", Text = "Mobile" },
+                        new SelectListItem { Value = "2", Text = "Bike" },
+                        new SelectListItem { Value = "3", Text = "Car" }
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "SubCategoryList")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+@model OLX.Models.Admin.ProductSubCategoryModeljoin
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit Product Subcategory</h2>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+    }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    .form-border {
+        border: 2px solid #282828;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+    }
 
-    <div class="form-horizontal">
-        <h4>Product Subcategory Details</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    .form-horizontal {
+        margin-top: 5px;
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
-                {
-                    new SelectListItem { Value = "Select Product", Text = "Select Product" },
-                    new SelectListItem { Value = "1", Text = "Mobile" },
-                    new SelectListItem { Value = "2", Text = "Bike" },
-                    new SelectListItem { Value = "3", Text = "Car" }
-                }, "Value", "Text"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    /* Add more custom styles as needed */
+
+    .bold-label {
+        font-weight: bold;
+    }
+
+    .btn-save {
+        background-color: #4CAF50; /* Green background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for better appearance */
+        border: none; /* Remove border */
+        cursor: pointer; /* Cursor on hover */
+        border-radius: 5px; /* Optional: Rounded corners */
+    }
+
+        .btn-save:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+    .btn-edit {
+        background-color: #007BFF; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for better appearance */
+        border: none; /* Remove border */
+        cursor: pointer; /* Cursor on hover */
+        border-radius: 5px; /* Optional: Rounded corners */
+    }
+
+        .btn-edit:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+</style>
+
+<div class="container">
+    <div class="form-border">
+        <h2>Edit Subcategory List</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.productCategoryId, htmlAttributes: new { @class = "control-label col-md-2 bold-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.productCategoryId, new SelectList(new[]
+                        {
+                            new SelectListItem { Value = "Select Product", Text = "Select Product" },
+                            new SelectListItem { Value = "1", Text = "Mobile" },
+                            new SelectListItem { Value = "2", Text = "Bike" },
+                            new SelectListItem { Value = "3", Text = "Car" }
+                        }, "Value", "Text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.productCategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2 bold-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-save" />
+                        @*<button type="button" class="btn btn-edit">Edit</button>*@
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.productSubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.productSubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.productSubCategoryName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "SubCategoryList")
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "SubCategoryList")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
