@@ -66,9 +66,17 @@
             $('#btnSubmit').click(function (event) {
                 /*   debugger;*/
                 event.preventDefault();
+                var userEmail = $('#userEmail').val();
+                var password = $('#Password').val();
+
+                if (!userEmail || !password) {
+                    alert("Please enter both email and password.");
+                    return;
+                }
+
                 var authmodel = {
-                    userEmail: $('#userEmail').val(),
-                    Password: $('#Password').val()
+                    userEmail: userEmail,
+                    Password: password
                 };
                 $.ajax({
                     type: "POST",
