@@ -227,10 +227,13 @@
     <Content Include="Views\Product\PurchaseProduct.cshtml" />
     <Content Include="Views\Product\AddMoney.cshtml" />
     <Content Include="Views\Chat\chatmap.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Admin\productDisplay.cshtml" />
     <Content Include="Views\Admin\productDisplayDelete.cshtml" />
     <Content Include="Views\Admin\productDisplayAdd.cshtml" />
     <Content Include="Views\Home\showLocationfornavbar.cshtml" />
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

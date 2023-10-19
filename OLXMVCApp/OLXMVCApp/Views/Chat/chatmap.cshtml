@@ -1,7 +1,25 @@
-﻿
+﻿@model IEnumerable<OLX.Models.User.ChatMappingModel>
+
 @{
     ViewBag.Title = "chatmap";
 }
 
 <h2>chatmap</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@*@foreach (var item in Model) {*@
+   
+<div>
+    @*@Html.DisplayFor(modelItem => item.Sellerid)*@
+
+    @TempData["mapid"]
+    @TempData["sellid"]
+
+</div>
+}
+
 

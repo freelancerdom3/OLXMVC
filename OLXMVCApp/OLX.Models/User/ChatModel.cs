@@ -28,6 +28,7 @@ namespace OLX.Models.User
         public string Chat { get; set; }
 
         public DateTime CreatedOn { get; set; }
+        public List<ChatsModel> model { get; set; }
     }
 
     public class ChatMddual : users

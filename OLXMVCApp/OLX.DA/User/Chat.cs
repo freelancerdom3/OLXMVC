@@ -17,29 +17,45 @@ namespace OLX.DA.User
 
         public void InsertInMap( ChatMappingModel mappingModel/*int Buyerid, int Sellerid, int advertiseid*/)
         {
+            
             int Buyerid = Convert.ToInt32(HttpContext.Current.Session["userid"]);
             SqlConnection sqlConnection = new SqlConnection(cs);
+            string checkQuery = "SELECT COUNT(*) FROM ChatMaping WHERE BuyerId = @buyerid AND SellerId = @sellerid AND advertiseid = @advertiseid";
 
-            string query = "insert into ChatMaping (BuyerId,SellerId,advertiseid)" +
-                " values (@buyerid,@sellerid,@advertiseid)";
+            SqlCommand checkCmd = new SqlCommand(checkQuery, sqlConnection);
+            checkCmd.Parameters.AddWithValue("@buyerid", Buyerid);
+            checkCmd.Parameters.AddWithValue("@sellerid", mappingModel.Sellerid);
+            checkCmd.Parameters.AddWithValue("@advertiseid", mappingModel.advertiseid);
 
-            SqlCommand cmd = new SqlCommand(query, sqlConnection);
-            cmd.Parameters.AddWithValue("@buyerid", Buyerid);
-            cmd.Parameters.AddWithValue("@sellerid", mappingModel.Sellerid);
-            cmd.Parameters.AddWithValue("@advertiseid", mappingModel.advertiseid);
             sqlConnection.Open();
-            cmd.ExecuteNonQuery();
+            int existingRecordCount = (int)checkCmd.ExecuteScalar();
             sqlConnection.Close();
+
+
+            if (existingRecordCount == 0) {
+                string query = "insert into ChatMaping (BuyerId,SellerId,advertiseid)" +
+                       " values (@buyerid,@sellerid,@advertiseid)";
+
+                SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                cmd.Parameters.AddWithValue("@buyerid", Buyerid);
+                cmd.Parameters.AddWithValue("@sellerid", mappingModel.Sellerid);
+                cmd.Parameters.AddWithValue("@advertiseid", mappingModel.advertiseid);
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
 
         }
 
 
-        public int getMapid( int advertiseid)
+        public int getMapid( int advertiseid,int buyerid,int sellerid)
         {
             SqlConnection connection = new SqlConnection(cs);
-            string q = "select MapId from ChatMaping where AdvertiseId=@AdvertiseId";
+            string q = "select MapId from ChatMaping where AdvertiseId=@AdvertiseId and BuyerId=@buyerid and SellerId=@sellerid ";
             SqlCommand cmd = new SqlCommand(q,connection);
             cmd.Parameters.AddWithValue("@AdvertiseId", advertiseid);
+            cmd.Parameters.AddWithValue("@buyerid", buyerid);
+            cmd.Parameters.AddWithValue("@sellerid", sellerid);
             connection.Open();
           object count=cmd.ExecuteScalar();
             connection.Close();
@@ -52,15 +68,17 @@ namespace OLX.DA.User
             return 0;
         }
 
-        public bool EnterMessage(int mapid,string message )
+        public bool EnterMessage(int mapid,string message,bool buyorsell )
         {
 
             //int mappingid = getMapid(mapid);
             SqlConnection connection = new SqlConnection(cs);
-            string q = "insert into Chats(MapId, BuyOrSellId, Chat)values(@MapId, 1, @Chat)";
+            string q = "insert into Chats(MapId, BuyOrSellId, Chat)values(@MapId, @buyorsell, @Chat)";
             SqlCommand cmd = new SqlCommand(q, connection);
             cmd.Parameters.AddWithValue("@MapId", mapid);
             cmd.Parameters.AddWithValue("@Chat", message);
+            cmd.Parameters.AddWithValue("@buyorsell", buyorsell);
+
             connection.Open();
            int res= cmd.ExecuteNonQuery();
             connection.Close();
@@ -70,6 +88,63 @@ namespace OLX.DA.User
             }
             else
                 return false;
+
+        }
+        public List<ChatMappingModel> show()
+        {
+            List<ChatMappingModel> mappingModels = new List<ChatMappingModel>();
+            SqlConnection connection = new SqlConnection(cs);
+            string query = "select BuyerId,SellerId from ChatMaping";
+            SqlCommand sqlCommand = new SqlCommand(query,connection);
+            connection.Open();
+            SqlDataReader dr = sqlCommand.ExecuteReader();
+            while (dr.Read())
+            {
+                ChatMappingModel chatMappingModel = new ChatMappingModel()
+                {
+                    Buyerid = (int)dr["Buyerid"],
+                    Sellerid=(int)dr["Sellerid"]
+                };
+                mappingModels.Add(chatMappingModel);
+            }
+            connection.Close();
+            return mappingModels;
+        }
+
+
+        public List<ChatsModel> GetChatModel()
+        {
+            List<ChatsModel> chatList = new List<ChatsModel>();
+
+            SqlConnection con = new SqlConnection(cs);
+            SqlCommand cmd = new SqlCommand("select Chat,MapId,BuyOrSellId from Chats ", con);
+
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+
+                ChatsModel c = new ChatsModel()
+                {
+                    //Chatsec = (int)dr["Chatsec"],
+                    Mapid=(int)dr["Mapid"],
+                    BuyOrSellId=(bool)dr["BuyOrSellId"],
+                    Chat=dr["Chat"].ToString()
+                    //CreatedOn=(DateTime)dr["CreatedOn"]
+                };
+                //c.ChatId = Convert.ToInt32(dr.GetValue(0).ToString());
+                //c.UserId = Convert.ToInt32(dr.GetValue(1).ToString());
+                //c.ProductId = Convert.ToInt32(dr.GetValue(2).ToString());
+                //c.BuyOrSellId = Convert.ToInt32(dr.GetValue(3).ToString());
+                //c.Chat1 = dr.GetValue(4).ToString();
+
+
+                chatList.Add(c);
+
+            }
+            con.Close();
+
+            return chatList;
 
         }
 

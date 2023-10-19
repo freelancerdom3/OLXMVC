@@ -1,4 +1,5 @@
-﻿@model OLX.Models.User.ChatMddual
+﻿@model OLX.Models.User.ChatsModel
+
 
 @*@model OLXCHAT3.Models.ChatMddual*@
 
@@ -129,11 +130,11 @@
             foreach (var item in Model.model)
             {
 
-                <tr class="@(item.BuyOrSellId == 0  ? "light-blue-bg" : "")">
+                <tr class="@(item.BuyOrSellId != null  ? "light-blue-bg" : "")">
                     <td style="float:right;" class="ab">
-                        @Html.DisplayFor(modelItem => item.Chat1)<br />
+                        @Html.DisplayFor(modelItem => item.Chat)<br />
                         <div style="float:right;">
-                            @Html.DisplayFor(modelItem => item.firstName)
+                            @Html.DisplayFor(modelItem => item.Mapid)
                         </div>
                     </td>
 
@@ -148,28 +149,55 @@
 
 </div>
 
+
+@*<div class="Scroll_bar">
+        <table class="table" style="float:right; width:59% ">
+
+            @if (Model != null && Model.model != null)
+            {
+                foreach (var item in Model.model)
+                {
+
+                    <tr class="@(item.BuyOrSellId == 0  ? "light-blue-bg" : "")">
+                        <td style="float:right;" class="ab">
+                            @Html.DisplayFor(modelItem => item.Chat1)<br />
+                            <div style="float:right;">
+                                @Html.DisplayFor(modelItem => item.firstName)
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr></tr>
+                }
+            }
+
+        </table>
+
+    </div>*@
+
 <!--<div style="height: 400px; width: 29%;  float:left;">
     <table class="table" style="float:right">-->
-        @*@foreach (var userId in Model)*@
-        <!--foreach (var userId in Model.model.Where(item => item.BuyOrSellId == 0).Select(item => item.firstName).Distinct())
+@*@foreach (var userId in Model)*@
+<!--foreach (var userId in Model.model.Where(item => item.BuyOrSellId == 0).Select(item => item.firstName).Distinct())
 
-        {
-            <tr>
-                <td style="float:right;">-->
-                    @*@Html.DisplayFor(modelItem => userId.userId)<br />*@
+{
+    <tr>
+        <td style="float:right;">-->
+@*@Html.DisplayFor(modelItem => userId.userId)<br />*@
 
-                    @*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a><br />*@
+@*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a><br />*@
 
-                    @*<input type="submit" value="@userId" />*@
-
-
-                    <!--<input type="submit" id="userId" value="userId" class="user-button" data-user-id="userId" />-->
-
-                    @*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a>*@
+@*<input type="submit" value="@userId" />*@
 
 
+<!--<input type="submit" id="userId" value="userId" class="user-button" data-user-id="userId" />-->
+@*<a href="javascript:void(0);" class="user-link" data-user-id="@userId">@userId</a>*@
 
-                <!--</td>
+
+
+<!--</td>
             </tr>
             <tr></tr>
             <tr></tr>
