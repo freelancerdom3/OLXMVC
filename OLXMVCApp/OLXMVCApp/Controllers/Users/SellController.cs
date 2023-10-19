@@ -16,7 +16,7 @@ namespace OLXMVCApp.Controllers.Users
         {
             SellDA product = new SellDA();
             MyAdvertiseModel myAdvertiseModel = product.getAdvertiseDetailsbyId(advertiseId);
-            myAdvertiseModel.ImageDataList = product.GetAdvertiseImages(advertiseId);
+            //myAdvertiseModel.ImageDataList = product.GetAdvertiseImages(advertiseId);
             // Load the list of product subcategories
             // List<SelectListItem> productSubCategories = GetProductSubCategories(); // Implement this method to fetch the data
 
