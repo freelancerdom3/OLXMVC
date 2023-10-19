@@ -45,27 +45,28 @@
 <body>
     <div class="flex-container">
         <div class="advertisement-list">
-            @if (Model.Any()) {
-            foreach (var item in Model)
+            @if (Model.Any())
             {
-                <a href="@Url.Action("showAdvertiseDetails", new { advertiseId = item.advertiseId })" style="text-decoration:none; color:black">
-                    <div class="advertisement-card">
-                        <div class="advertisement-content">
-                            @if (item.imageData != null && item.imageData.Length > 0)
-                            {
-                                var base64Image = Convert.ToBase64String(item.imageData);
+                    foreach (var item in Model.GroupBy(item => item.advertiseId))
+                    {
+                        <a href="@Url.Action("showAdvertiseDetails", new { advertiseId = item.First().advertiseId })" style="text-decoration:none; color:black">
+                            <div class="advertisement-card">
+                                <div class="advertisement-content">
+                                    @if (item.First().imageData != null && item.First().imageData.Length > 0)
+                                    {
+                                        var base64Image = Convert.ToBase64String(item.First().imageData);
 
-                                <img src="data:image/JPG;base64, @base64Image" alt="Image" style="height:200px; width:200px" />
+                                        <img src="data:image/JPG;base64, @base64Image" alt="Image" style="height:200px; width:200px" />
 
-                            }
-                            <p> @Html.DisplayFor(modelItem => item.advertiseId)</p>
-                            <p> @Html.DisplayFor(modelItem => item.advertiseTitle)</p>
-                            <p> @Html.DisplayFor(modelItem => item.advertisePrice)</p>
-                            <p> @Html.DisplayFor(modelItem => item.advertiseDescription)</p>
-                        </div>
-                    </div>
-                </a>
-            }
+                                    }
+                                    <p> @Html.DisplayFor(modelItem => item.First().advertiseId)</p>
+                                    <p> @Html.DisplayFor(modelItem => item.First().advertiseTitle)</p>
+                                    <p> @Html.DisplayFor(modelItem => item.First().advertisePrice)</p>
+                                    <p> @Html.DisplayFor(modelItem => item.First().advertiseDescription)</p>
+                                </div>
+                            </div>
+                        </a>
+                    }
             }
             else
             {
