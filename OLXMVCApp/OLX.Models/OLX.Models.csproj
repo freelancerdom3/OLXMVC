@@ -45,6 +45,7 @@
     <Compile Include="Admin\AdvertiseImagesModel.cs" />
     <Compile Include="Admin\AdvertiseModel.cs" />
     <Compile Include="Admin\MyAdvertiseModel.cs" />
+    <Compile Include="Admin\product.cs" />
     <Compile Include="Admin\ProductListModel.cs" />
     <Compile Include="Admin\UserList.cs" />
     <Compile Include="Admin\ProductSubCategoryModeljoin.cs" />
@@ -53,9 +54,7 @@
     <Compile Include="UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\ChatModel.cs" />
-
     <Compile Include="PaymentdetailsBuyerModel.cs" />
-
     <Compile Include="User\RegistrationModel.cs" />
     <Compile Include="User\UserBuyModel.cs" />
   </ItemGroup>

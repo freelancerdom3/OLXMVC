@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OLX.Models.Admin.product>
+
+@{
+    ViewBag.Title = "ProductDisplay";
+}
+<style>
+
+    .scroll-container {
+        overflow: auto;
+        height: 500px;
+        max-height: 700px;
+    }
+</style>
+
+<h2>productDisplay</h2>
+
+<p>
+    @Html.ActionLink("Create New", "productDisplayAdd")
+</p>
+<div class="scroll-container">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productCategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.updatedOn)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productCategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.updatedOn)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "productDisplayDelete", new { productCategoryId = item.productCategoryId  })
+                </td>
+            </tr>
+        }
+        
+
+    </table>
+    </div>

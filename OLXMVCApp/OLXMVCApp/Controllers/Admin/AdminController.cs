@@ -12,8 +12,8 @@ namespace OLXMVCApp.Controllers.Admin
     {
         ProductListDA dataAccess = new ProductListDA();
         UserList_Data_Access uda = new UserList_Data_Access();
-        AdminDA productCatRepository = new AdminDA();     
-
+        AdminDA productCatRepository = new AdminDA();
+        productDA pd = new productDA();
 
         public ActionResult SubCategoryList()
         {
@@ -270,6 +270,60 @@ namespace OLXMVCApp.Controllers.Admin
             return RedirectToAction("Advertise");
         }
 
+        public ActionResult productDisplay()
+        {
+            IEnumerable<product> productDetails = pd.productDisplay();
+            return View("productDisplay", "Admin_Layout", productDetails);
+        }
+
+        public ActionResult productDisplayAdd()
+        {
+            return View("productDisplayAdd", "Admin_Layout");
+        }
+
+        [HttpPost]
+        public ActionResult productDisplayAdd(product product)
+        {
+            try
+            {
+                pd.productDisplayAdd(product);
+
+                return RedirectToAction(nameof(productDisplay));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+
+
+        public ActionResult productDisplayDetail(int productCategoryId)
+        {
+            product product = pd.productDisplayDetail(productCategoryId);
+            return View("productDisplayDetail", "Admin_Layout", product);
+        }
+
+        public ActionResult productDisplayDelete(int productCategoryId)
+        {
+            TempData["AlertMessage"] = "Product-List Data Deleted successfully......";
+            product product = pd.productDisplayDetail(productCategoryId);
+            return View("productDisplayDelete", "Admin_Layout", product);
+        }
+
+        [HttpPost]
+        public ActionResult productDisplayDelete(product product)
+        {
+            try
+            {
+                pd.productDisplayDelete(product.productCategoryId);
+                return RedirectToAction(nameof(productDisplay));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
     }
 
