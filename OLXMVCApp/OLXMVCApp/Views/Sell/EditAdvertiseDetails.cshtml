@@ -42,41 +42,55 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-               
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        @Html.LabelFor(model => model.advertiseTitle, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.advertiseTitle, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.advertiseTitle, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        @Html.LabelFor(model => model.advertisePrice, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.advertisePrice, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.advertisePrice, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        @Html.LabelFor(model => model.advertiseDescription, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.advertiseDescription, new { @class = "form-control", rows = 4 })
-                        @Html.ValidationMessageFor(model => model.advertiseDescription, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <!-- Add more form groups for other fields -->
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                    </div>
-                </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.advertiseTitle, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.advertiseTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.advertiseTitle, "", new { @class = "text-danger" })
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.advertisePrice, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.advertisePrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.advertisePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.advertiseDescription, htmlAttributes: new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.advertiseDescription, new { @class = "form-control", rows = 4 })
+                @Html.ValidationMessageFor(model => model.advertiseDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+           
+       
+        <div class="form-group">
+            <div class="col-md-12">
+
+                @if (Model.imageData != null && Model.imageData.Length > 0)
+                {
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.imageData)" alt="Ad Image" style="max-width:150px; max-height:150px;" />
+
+                }
+            </div>
+            <input type="file" name="Images" multiple="multiple" id="imageUpload" />
+        </div>
+        <!-- Add more form groups for other fields -->
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
         }
     </div>
 </div>

@@ -15,6 +15,8 @@ namespace OLX.DA.User
         private SqlConnection con;
         private SqlTransaction transaction;
 
+        public object imageData { get; private set; }
+
         public SellDA()
         {
 
@@ -22,15 +24,43 @@ namespace OLX.DA.User
             con = new SqlConnection(constr);
         }
 
-       
+        public List<byte[]> GetAdvertiseImages(int advertiseId)
+        {
+            List<byte[]> imageDataList = new List<byte[]>();
+
+            // Fetch images from the database based on the advertiseId
+            using (SqlCommand cmd = new SqlCommand("SELECT imageData FROM tbl_AdvertiseImages WHERE advertiseId = @advertiseId", con))
+            {
+                cmd.Parameters.AddWithValue("@advertiseId", advertiseId);
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader["imageData"] != DBNull.Value)
+                        {
+                            byte[] imageData = (byte[])reader["imageData"];
+                            imageDataList.Add(imageData);
+                        }
+                    }
+                }
+                con.Close();
+            }
+
+            return imageDataList;
+        }
         public MyAdvertiseModel getAdvertiseDetailsbyId(int? advertiseId)
         {
           
             MyAdvertiseModel myAdvertiseModel = new MyAdvertiseModel();
 
+
             if (advertiseId.HasValue)
             {
-                string sqlQuery = "SELECT * FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId";
+                string sqlQuery = "SELECT myad.advertiseId, myad.advertiseTitle, myad.advertiseDescription, myad.advertisePrice, myimg.imageData " +
+                          "FROM tbl_MyAdvertise AS myad " +
+                          "LEFT JOIN tbl_AdvertiseImages AS myimg ON myimg.advertiseId = myad.advertiseId " +
+                          "WHERE myad.advertiseId = @advertiseId";
                 SqlCommand cmd = new SqlCommand(sqlQuery, con);
                 cmd.Parameters.AddWithValue("@advertiseId", advertiseId.Value);
 
@@ -40,12 +70,16 @@ namespace OLX.DA.User
                 while (dr.Read())
                 {
                     myAdvertiseModel.advertiseId = Convert.ToInt32(dr["advertiseId"]);
-                    myAdvertiseModel.productSubCategoryId = Convert.ToInt32(dr["productSubCategoryId"]);
+                   // myAdvertiseModel.productSubCategoryId = Convert.ToInt32(dr["productSubCategoryId"]);
                     myAdvertiseModel.advertiseTitle = Convert.ToString(dr["advertiseTitle"]);
                     myAdvertiseModel.advertiseDescription = Convert.ToString(dr["advertiseDescription"]);
                     myAdvertiseModel.advertisePrice = Convert.ToDecimal(dr["advertisePrice"]);
-                    myAdvertiseModel.areaId = Convert.ToInt32(dr["areaId"]);
-                    myAdvertiseModel.userId = Convert.ToInt32(dr["userId"]);
+                    //myAdvertiseModel.areaId = Convert.ToInt32(dr["areaId"]);
+                   // myAdvertiseModel.userId = Convert.ToInt32(dr["userId"]);
+                    if (dr["imageData"] != DBNull.Value)
+                    {
+                        myAdvertiseModel.imageData = (byte[])dr["imageData"];
+                    }
                 }
 
                 con.Close();
@@ -68,6 +102,20 @@ namespace OLX.DA.User
             com.Parameters.AddWithValue("@areaId", productDetailsModel.areaId);
             com.Parameters.AddWithValue("@userId", productDetailsModel.userId);
 
+
+            if (productDetailsModel.imageData != null)
+            {
+                com.Parameters.Add("@imageData", SqlDbType.VarBinary, -1).Value = productDetailsModel.imageData;
+            }
+            else
+            {
+                com.Parameters.Add("@imageData", SqlDbType.VarBinary, -1).Value = DBNull.Value;
+            }
+
+           // com.Parameters.Add("@imageData", SqlDbType.VarBinary, -1).Value = productDetailsModel.imageData;
+            //SqlParameter imageDataParam = new SqlParameter("@imageData", SqlDbType.VarBinary, -1);
+            //imageDataParam.Value = productDetailsModel.imageData;
+            //com.Parameters.Add(imageDataParam);
 
             con.Open();
             com.ExecuteNonQuery();

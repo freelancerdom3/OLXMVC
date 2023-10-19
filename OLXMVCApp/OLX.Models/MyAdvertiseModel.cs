@@ -20,6 +20,7 @@ namespace OLX.Models
         public DateTime createdOn { get; set; }
         public DateTime updatedOn { get; set; }
         public byte[] imageData { get; set; }
+        public List<byte[]> ImageDataList { get; set; }
     }
     public class AdvertiseImagesModel
     {
