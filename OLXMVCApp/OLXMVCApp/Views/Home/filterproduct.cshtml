@@ -135,20 +135,54 @@
             </div>
 
             <div class="box1">
-                @using (Html.BeginForm("filterproduct", "Home", FormMethod.Get))
+                @using (Html.BeginForm("filterproduct", "Home", FormMethod.Get, new { id = "filterForm" }))
                 {
                     <div>
                         <label for="minPrice">Min Price:</label>
-                        <input type="number" name="minprice" />
+                        <input type="number" name="minprice" id="minprice" />
                     </div>
                     <div>
                         <label for="maxPrice">Max Price:</label>
-                        <input type="number" name="maxprice"/>
+                        <input type="number" name="maxprice" id="maxprice" />
                     </div>
                     <div>
-                        <input type="submit" value="Apply Filter" />
+                        @if (Request.QueryString["categoryid"] != null)
+                        {
+                            <input type="hidden" name="categoryid" value="@Request.QueryString["categoryid"]" />
+                        }
+                        @if (Request.QueryString["subcategoryid"] != null)
+                        {
+                            <input type="hidden" name="subcategoryid" value="@Request.QueryString["subcategoryid"]" />
+                        }
+                        @if (Request.QueryString["stateid"] != null)
+                        {
+                            <input type="hidden" name="stateid" value="@Request.QueryString["stateid"]" />
+                        }
+                        @if (Request.QueryString["cityid"] != null)
+                        {
+                            <input type="hidden" name="cityid" value="@Request.QueryString["cityid"]" />
+                        }
+                        @if (Request.QueryString["areaid"] != null)
+                        {
+                            <input type="hidden" name="areaid" value="@Request.QueryString["areaid"]" />
+                        }
+                        <input type="submit" value="Apply Filter" id="filterButton" />
                     </div>
                 }
+
+                <script>
+    document.getElementById("filterForm").onsubmit = function() {
+        var minPrice = document.getElementById("minprice").value;
+        var maxPrice = document.getElementById("maxprice").value;
+
+        if (minPrice.trim() === "" && maxPrice.trim() === "") {
+            alert("Please fill in at least one price field.");
+            return false;
+        }
+
+        return true;
+    };
+                </script>
 
             </div>
         </div>

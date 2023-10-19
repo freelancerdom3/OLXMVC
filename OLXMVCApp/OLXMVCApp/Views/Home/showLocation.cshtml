@@ -91,13 +91,15 @@
             @{
                 string categoryId = Request.QueryString["categoryId"];
                 string subcategoryId = Request.QueryString["subcategoryId"];
+                string minprice = Request.QueryString["minprice"];
+                string maxprice = Request.QueryString["maxprice"];
             }
             @{
                 var groupedStates = Model.GroupBy(item => item.stateName);
             }
             @foreach (var group in groupedStates)
             {
-                <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,stateId =@group.First().stateId})">
+                <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,stateId =@group.First().stateId,minprice=minprice,maxprice=maxprice})">
                     <h2>@group.Key</h2>
                 </a>
                 <ul>
@@ -107,7 +109,7 @@
                     }
                     @foreach (var cityGroup in groupedCitiesInState)
                     {
-                        <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,cityId =@cityGroup.First().cityId})">
+                        <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,cityId =@cityGroup.First().cityId,minprice=minprice,maxprice=maxprice})">
 
                             @*<a href="filterproduct?cityId=@cityGroup.First().cityId">*@
                             @cityGroup.Key
@@ -116,7 +118,7 @@
                             @foreach (var area in cityGroup)
                             {
                                 <li>
-                                    <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,areaId =@area.areaId})">
+                                    <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,areaId =@area.areaId,minprice=minprice,maxprice=maxprice})">
                                         @area.areaName
                                     </a>
                                 </li>
