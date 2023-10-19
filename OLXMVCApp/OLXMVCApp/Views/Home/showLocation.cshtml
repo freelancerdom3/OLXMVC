@@ -54,9 +54,10 @@
     Layout = null;
 }
 <style>
-    .location{
-        height:450px;
+    .location {
+        height: 450px;
     }
+
     .second-header {
         width: 100%;
         height: 40px;
@@ -66,12 +67,11 @@
         background-color: #f3f3f3;
         /* border:2px solid red; */
     }
-   
+
     .dropdown-menu.show {
         background-color: #f3f3f3;
         WIDTH: max-content;
         position: absolute;
-       
     }
 
     .second-header a {
@@ -89,11 +89,15 @@
         </button>
         <ul class="dropdown-menu" style="color: black">
             @{
+                string categoryId = Request.QueryString["categoryId"];
+                string subcategoryId = Request.QueryString["subcategoryId"];
+            }
+            @{
                 var groupedStates = Model.GroupBy(item => item.stateName);
             }
             @foreach (var group in groupedStates)
             {
-                <a href="filterproduct?stateId=@group.First().stateId">
+                <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,stateId =@group.First().stateId})">
                     <h2>@group.Key</h2>
                 </a>
                 <ul>
@@ -103,14 +107,16 @@
                     }
                     @foreach (var cityGroup in groupedCitiesInState)
                     {
-                        <a href="filterproduct?cityId=@cityGroup.First().cityId">
+                        <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,cityId =@cityGroup.First().cityId})">
+
+                            @*<a href="filterproduct?cityId=@cityGroup.First().cityId">*@
                             @cityGroup.Key
                         </a>
                         <ul>
                             @foreach (var area in cityGroup)
                             {
                                 <li>
-                                    <a href="filterproduct?areaId=@area.areaId">
+                                    <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,areaId =@area.areaId})">
                                         @area.areaName
                                     </a>
                                 </li>
@@ -120,6 +126,6 @@
                 </ul>
             }
         </ul>
-    </div>
+            </div>
 
-</div>
+        </div>
