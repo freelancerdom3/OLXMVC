@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
+       
+
     @*<link rel="stylesheet" type="text/css" href="styles.css">*@
     <style>
         .advertisement-list {
@@ -52,7 +55,7 @@
             height: 40%;
             position:relative;
             /* overflow-y: scroll;*/
-           float:left;
+            float:left;
         }
 
         .a {
@@ -70,13 +73,12 @@
         }
 
         .dropdown-content {
-        width:20%;
+            width:20%;
             display: block;
             margin-left: 60px;
             text-transform: capitalize;
             text-decoration: none;
             font-size: x-large;
-       
         }
 
         .box1 {
@@ -105,49 +107,6 @@
             float: left;
         }
 
-
-
-
-
-
-
-       /* .range-slider-container {
-            width: 200px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .range-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 15px;
-            background: #d3d3d3;
-            outline: none;
-            position: absolute;
-        }
-
-            .range-slider::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                appearance: none;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                background: #4CAF50;
-                cursor: pointer;
-                position: relative;
-                z-index: 1;
-            }
-
-            .range-slider::-moz-range-thumb {
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                background: #4CAF50;
-                cursor: pointer;
-                position: relative;
-                z-index: 1;
-            }*/
-
         .space {
             width: 100%;
         }
@@ -157,71 +116,6 @@
             align-items: center;
             float: left;
         }
-
-        /*price range filter css begin*/
-
-        .card {
-            width: 250px;
-            background-color: #9c9797;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-        h4 {
-            color: #000;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .price-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 30px;
-        }
-
-        label {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .range-slider {
-            width: 250px;
-            position: relative;
-            margin: 15px 0 30px 0;
-        }
-
-        input[type=range] {
-            width: 100%;
-            background: transparent;
-            position: absolute;
-            left: 0;
-        }
-
-            input[type=range]::-webkit-slider-thumb {
-                height: 15px;
-                width: 15px;
-                border-radius: 50%;
-                background: #03311e;
-                cursor: pointer;
-                margin-top: -5px;
-                position: relative;
-                z-index: 1;
-            }
-
-            input[type=range]::-webkit-slider-runnable-track {
-                width: 100%;
-                height: 5px;
-                background: #e8e8e8;
-                border-radius: 3px;
-                border: none;
-            }
-        /*price range filter css end*/
-
-
-
- 
     </style>
 </head>
 <body>
@@ -254,48 +148,20 @@
             </div>
 
             <div class="box1">
-
-                <!--<div class="range-slider-container">
-        <input type="range" min="0" max="100" value="30" class="range-slider" id="priceSliderMin">
-        <input type="range" min="0" max="100" value="70" class="range-slider" id="priceSliderMax">
-    </div>
-
-    <button id="applyButton">Apply</button>
-
-    <p id="selectedPriceRange">Selected Price Range: $30 - $70</p>
-
-    <div id="productList">-->
-                <!-- Products will be displayed here -->
-                <!--</div>-->
-
-                <meta charset="UTF-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
-
-                <div class="card">
-                    <h4>Price Range Slider</h4>
-
-                    <div class="price-content">
-                        <div>
-                            <label>Min</label>
-                            <p id="min-value">RS.50</p>
-                        </div>
-
-                        <div>
-                            <label>Max</label>
-                            <p id="max-value">RS.500</p>
-                        </div>
+                @using (Html.BeginForm("filterproduct", "Home", FormMethod.Get))
+                {
+                    <div>
+                        <label for="minPrice">Min Price:</label>
+                        <input type="number" name="minprice" />
                     </div>
-
-                    <div class="range-slider">
-                        <input type="range" class="min-price" value="100" min="10" max="500" step="10">
-                        <input type="range" class="max-price" value="250" min="10" max="500" step="10">
+                    <div>
+                        <label for="maxPrice">Max Price:</label>
+                        <input type="number" name="maxprice"/>
                     </div>
-                </div>
-                <button id="filterButton">Apply Filter</button>
-
+                    <div>
+                        <input type="submit" value="Apply Filter" />
+                    </div>
+                }
 
             </div>
         </div>
@@ -307,57 +173,6 @@
 
         </div>
     </div>
-
-    <script>
-    const minValue = document.getElementById("min-value");
-    const maxValue = document.getElementById("max-value");
-    const inputElements = document.querySelectorAll("input");
-
-    function validateRange(minPrice, maxPrice) {
-        if (minPrice > maxPrice) {
-            let tempValue = maxPrice;
-            maxPrice = minPrice;
-            minPrice = tempValue;
-        }
-
-        minValue.innerHTML = "RS." + minPrice;
-        maxValue.innerHTML = "RS." + maxPrice;
-    }
-
-    inputElements.forEach((element) => {
-        element.addEventListener("input", (e) => {
-            let minPrice = parseInt(inputElements[0].value);
-            let maxPrice = parseInt(inputElements[1].value);
-
-            validateRange(minPrice, maxPrice);
-        });
-    });
-
-    const filterButton = document.getElementById("filterButton");
-    filterButton.addEventListener("click", () => {
-        // Get the selected price range
-        const minPrice = parseInt(inputElements[0].value);
-        const maxPrice = parseInt(inputElements[1].value);
-
-        // Send the price range to the controller action using AJAX
-        fetch('@Url.Action("FilterByPriceRange", "Product")', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ minPrice, maxPrice })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response from the server, e.g., update the product list on the page
-        });
-    });
-
-    // Initial validation and range display
-    validateRange(inputElements[0].value, inputElements[1].value);
-    </script>
-
-
 </body>
 </html>
 
