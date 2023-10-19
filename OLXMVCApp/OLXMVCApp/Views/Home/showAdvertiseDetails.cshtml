@@ -8,10 +8,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <!-- Add your CSS and JavaScript links here -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
     <style>
         /* Your existing CSS styles here */
         * {
@@ -82,11 +90,12 @@
                 right: 0px;
             }
 
-            .slider .c {
+            .slider .slider-container .imgSpace .c {
                 position: absolute;
                 top: 8px;
                 right: 16px;
                 font-size: 18px;
+                width: 10%;
             }
 
         ul li {
@@ -136,6 +145,13 @@
         img {
             margin: 0 20% 0 20%;
         }
+
+        .imgSpace{
+            width:100%;
+        }
+        .slide{
+            width:80%;
+        }
     </style>
 </head>
 <body>
@@ -148,10 +164,21 @@
                         <div class="slider-container">
                             @foreach (var item in group)
                             {
+                                <div class="imgSpace">
                                 <div class="slide">
-                                    <img src="data:image/JPG;base64, @Convert.ToBase64String(item.imageData)" alt="Image" />
+                                    <img src="data:image/JPG;base64, @Convert.ToBase64String(item.imageData)" alt="Image" width="800px" />
                                 </div>
+                                <div class="c">
+                                    <ul>
+                                        <i class="fa-solid fa-square-share-nodes aaa "></i>
+                                        <i class="fa-solid fa-heart aaa"></i>
+                                    </ul>
+                                </div>
+
+                            </div>
                             }
+
+
                         </div>
                     </div>
                 </div>
@@ -168,7 +195,7 @@
                     </div>
                     <div class="ccc">
 
-                        RS.@Html.DisplayFor(item => group.First().areaName)
+                        @Html.DisplayFor(item => group.First().areaName)
                     </div>
 
                 </div>
@@ -205,3 +232,10 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
