@@ -95,7 +95,14 @@
         </form>
     </div>
 </div>
+
 <script>
+   
+    $('#firstName, #lastName, #userEmail, #MobileNo, #Address, #City, input[name="Gender"]').on('change', function () {
+    
+        $(this).next('.error-message').text('');
+    });
+
     function onSubmitForm() {
         event.preventDefault();
 
@@ -120,84 +127,83 @@
                         console.log('Registration successful');
                         window.location.replace("/User/loginType");
                     } else {
-
                         alert('Registration failed: ' + response.error);
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
-
                     alert('Error occurred during registration.');
                 }
             });
         } else {
-
             return false;
         }
     }
-    }</script>
+</script>
+
+
 
 @*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        //$(".attachmentdiv").hide();
-        $(function () {
-            $('#btnSubmit').click(function (event) {
-                debugger;
-                event.preventDefault();
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$(".attachmentdiv").hide();
+            $(function () {
+                $('#btnSubmit').click(function (event) {
+                    debugger;
+                    event.preventDefault();
 
-                var firstName = $('#firstName').val();
-                var lastName = $('#lastName').val();
-                var userEmail = $('#userEmail').val();
-                var Password = $('#Password').val();
-                var MobileNo = $('#MobileNo').val();
-                var Gender = $('input[name="Gender"]:checked').val();
-                var Address = $('#Address').val();
-                var City = $('#City').val();
+                    var firstName = $('#firstName').val();
+                    var lastName = $('#lastName').val();
+                    var userEmail = $('#userEmail').val();
+                    var Password = $('#Password').val();
+                    var MobileNo = $('#MobileNo').val();
+                    var Gender = $('input[name="Gender"]:checked').val();
+                    var Address = $('#Address').val();
+                    var City = $('#City').val();
 
-                if (!firstName || !lastName || !userEmail || !Password || !MobileNo || !Gender || !Address || !City) {
-                    alert("Please enter all details.");
-                    return;
-                }
-
-                var authmodel = {
-                    firstName= firstName,
-                    lastName=lastName,
-                    userEmail=userEmail,
-                    Password= password,
-                    MobileNo=MobileNo,
-                    Gender=Gender,
-                    Address=Address,
-                    City=City
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "/User/Registration",
-                    data: JSON.stringify(authmodel),
-                    dataType: "json",
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (data) {
-                        if (data.success) {
-                            console.log('Registration successful');
-                            window.location.replace("/User/loginType");
-
-                        } else {
-
-                            alert('Registration failed: ' + response.error);
-                        }
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-
-                        alert('Error occurred during registration.');
+                    if (!firstName || !lastName || !userEmail || !Password || !MobileNo || !Gender || !Address || !City) {
+                        alert("Please enter all details.");
+                        return;
                     }
 
+                    var authmodel = {
+                        firstName= firstName,
+                        lastName=lastName,
+                        userEmail=userEmail,
+                        Password= password,
+                        MobileNo=MobileNo,
+                        Gender=Gender,
+                        Address=Address,
+                        City=City
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "/User/Registration",
+                        data: JSON.stringify(authmodel),
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data.success) {
+                                console.log('Registration successful');
+                                window.location.replace("/User/loginType");
+
+                            } else {
+
+                                alert('Registration failed: ' + response.error);
+                            }
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+
+                            alert('Error occurred during registration.');
+                        }
+
+                    });
                 });
             });
         });
-    });
-</script>*@
+    </script>*@
 
 
 
@@ -297,10 +303,11 @@
         outline: none;
         resize: none;
     }
+
     .formbold-form-input1 {
         text-align: center;
         width: 50%;
-        height:47px;
+        height: 47px;
         padding: 13px 22px;
         border-radius: 5px;
         border: 1px solid #dde3ec;
@@ -312,10 +319,10 @@
         resize: none;
     }
 
-        .formbold-form-input:focus {
-            border-color: #6a64f1;
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-        }
+    .formbold-form-input:focus {
+        border-color: #6a64f1;
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
 
     .formbold-form-label {
         color: #536387;
