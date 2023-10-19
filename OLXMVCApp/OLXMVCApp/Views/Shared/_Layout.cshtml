@@ -123,7 +123,6 @@
             width: 100%;
             position: relative;
             bottom: 0;
-          
             background-color: rgb(253, 247, 247);
             display: flex;
             align-items: flex-start;
@@ -241,7 +240,26 @@
                 transform: translateY(-50%);
                 pointer-events: none;
             }
+
+
+      
+        /* Style for the button */
+        .custom-button {
+            background-color: #3498db; /* Blue background color */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        /* Hover effect for the button */
+        .custom-button:hover {
+            background-color: #2866c3; /* Darker blue on hover */
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -249,17 +267,15 @@
         <div class="logo">
             <img src="~/imagess/olx-logo-vector.png" alt="">
         </div>
-        <div class="inputboxl">
 
-            <select name="location" id="location" class="c">
-                <option value="" selected>Select Location</option>
-                <option value="mha">Maharashtra</option>
-                <option value="gj">Gujrat</option>
-                <option value="ap">Andhra Pradesh</option>
-                <option value="Uk">Uttarakhand</option>
-                <option value="UP">Uttar Pradesh</option>
-            </select>
-        </div>
+        <button class="custom-button" type="button" data-toggle="dropdown" style="margin-left:20px">
+            Location
+        </button>
+        @*<select name="location" id="location" class="c">*@
+        @{Html.RenderAction("showLocationfornavbar", "Home");}
+
+
+    
 
         <div class="inputbox2">
             <input type="text" placeholder="Serach Here...">
@@ -305,15 +321,15 @@
             }
         </div>
 
-           
-                <div class="sell">
-                    <a href="@Url.Action("Sell", "Sell")">
 
-                        <button class="sell-button">
-                            <i class="fa-solid fa-plus fa-beat">sell</i>
-                        </button>
-                    </a>
-                </div>
+        <div class="sell">
+            <a href="@Url.Action("Sell", "Sell")">
+
+                <button class="sell-button">
+                    <i class="fa-solid fa-plus fa-beat">sell</i>
+                </button>
+            </a>
+        </div>
     </header>
 
     <footer>

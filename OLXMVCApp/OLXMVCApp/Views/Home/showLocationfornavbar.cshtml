@@ -1,0 +1,81 @@
+﻿@model IEnumerable<OLX.Models.User.UserBuyModel>
+
+
+@{
+    Layout = null;
+}
+<style>
+    <style >
+    .location {
+        height: 450px;
+    }
+
+    .second-header {
+        width: 100%;
+        height: 40px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        background-color: #fff; /* White background */
+    }
+
+    .dropdown-menu.show {
+        background-color: #000; /* Black background */
+        width: max-content;
+        position: absolute;
+        color: #fff; /* White text color */
+    }
+
+    .second-header a {
+        color: #000; /* Black text color for links */
+        text-decoration: none; /* Remove underline from links */
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/graygrids/graygrids/css/grayscale.css">
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="locationstate">-->
+<div class="location">
+    <div class="dropdownlocation">
+
+
+        <ul class="dropdown-menu" style="color: black">
+            @{
+                var groupedStates = Model.GroupBy(item => item.stateName);
+            }
+            @foreach (var group in groupedStates)
+            {
+                <a href="Index?stateId=@group.First().stateId">
+                    <h2>@group.Key</h2>
+                </a>
+                <ul>
+                    @{
+                        // Group the cities within this state
+                        var groupedCitiesInState = group.GroupBy(item => item.cityName);
+                    }
+                    @foreach (var cityGroup in groupedCitiesInState)
+                    {
+                        <a href="Index?cityId=@cityGroup.First().cityId">
+                            @cityGroup.Key
+                        </a>
+                        <ul>
+                            @foreach (var area in cityGroup)
+                            {
+                                <li>
+                                    <a href="Index?areaId=@area.areaId">
+                                        @area.areaName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </ul>
+            }
+        </ul>
+    </div>
+
+</div>

@@ -149,5 +149,30 @@ namespace OLX.DA.User
             _connection.Close();
             return location;
         }
+        public List<UserBuyModel> GetLocationstate()
+        {
+            List<UserBuyModel> location = new List<UserBuyModel>();
+
+            SqlCommand cmd = new SqlCommand("DisplayLocation", _connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            _connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                UserBuyModel modelLocation = new UserBuyModel()
+                {
+                    stateId = Convert.ToInt32(reader["stateId"]),
+                    stateName = reader["stateName"].ToString(),
+                    cityId = Convert.ToInt32(reader["cityId"]),
+                    cityName = reader["cityName"].ToString(),
+                    areaId = Convert.ToInt32(reader["areaId"]),
+                    areaName = reader["areaName"].ToString(),
+                };
+                location.Add(modelLocation);
+            }
+            _connection.Close();
+            return location;
+        }
     }
 }

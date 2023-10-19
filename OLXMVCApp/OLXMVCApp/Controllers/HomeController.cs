@@ -74,6 +74,15 @@ namespace OLXMVCApp.Controllers
             List<UserBuyModel> categorywithsub = dataAccess.GetCategoryWithSubcategories();
 
             return View(categorywithsub);
+
+        }
+
+        public ActionResult showLocationfornavbar()
+        {
+
+            List<UserBuyModel> location = dataAccess.GetLocationstate();
+
+            return View(location);
         }
     }
 }
