@@ -225,10 +225,10 @@ namespace OLX.DA.User
                 //product.areaId=Convert.ToInt32(reader["areaId"]);
                 product.advertisePrice = reader.GetDecimal(reader.GetOrdinal("advertisePrice"));
 
-                //product.advertiseStatus= Convert.ToBoolean(reader["advertiseStatus"]);
+                product.advertiseStatus= Convert.ToBoolean(reader["advertiseStatus"]);
                 // product.firstName= Convert.ToString(reader["firstName"]);
                 //product.userId=Convert.ToInt32(reader["userId"]);
-                // product.advertiseapproved= Convert.ToBoolean(reader["advertiseapproved"]);
+                 product.advertiseapproved= Convert.ToBoolean(reader["advertiseapproved"]);
                 product.createdOn = Convert.ToDateTime(reader["createdOn"]);
                 product.updatedOn = Convert.ToDateTime(reader["updatedOn"]);
                 productList.Add(product);
