@@ -275,7 +275,7 @@
         @{Html.RenderAction("showLocationfornavbar", "Home");}
 
 
-    
+
 
         <div class="inputbox2">
             <input type="text" placeholder="Serach Here...">
@@ -317,6 +317,17 @@
                 using (Html.BeginForm("Logout", "User", FormMethod.Post))
                 {
                     <input type="submit" value="LogOut" />
+                }
+            }
+        </div>
+        <div>
+            @if (Session["userid"] != null)
+            {
+
+
+                using (Html.BeginForm("getname", "chat", FormMethod.Get))
+                {
+                 <button style='font-size:24px'><i class='fas fa-comment'></i></button>
                 }
             }
         </div>
