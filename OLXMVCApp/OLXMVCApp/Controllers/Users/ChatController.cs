@@ -95,7 +95,8 @@ namespace OLXMVCApp.Controllers.Users
             ChatMappingModel mappingModel = new ChatMappingModel()
             {
                 Buyerid=userid,
-                advertiseid=advertiseid
+                advertiseid=advertiseid,
+                Sellerid=ifseller
             };
 
            
@@ -128,7 +129,7 @@ namespace OLXMVCApp.Controllers.Users
                 }
                  
                     int advertiseid = (int)TempData.Peek("adid");
-                int mapid = chat.getMapid(advertiseid, buyid, sellid);
+                int mapid = chat.getMapidfromOR(advertiseid, buyid, sellid);
                
                 bool check = chat.EnterMessage(mapid, Message,buyorsell);
                     if (check)
@@ -140,7 +141,7 @@ namespace OLXMVCApp.Controllers.Users
           
             return View();
         }
-        public ActionResult getname(int adid)
+        public ActionResult getname(int? adid)
         {
             //int advid= (int)TempData.Peek("adid");
 

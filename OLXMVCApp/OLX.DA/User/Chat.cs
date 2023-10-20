@@ -71,7 +71,26 @@ namespace OLX.DA.User
             else
                 return 0;
         }
+        public int getMapidfromOR(int advertiseid, int buyerid, int sellerid)
+        {
+            connection();
+            //SqlConnection connection = new SqlConnection(cs);
+            string q = "SELECT MapId FROM ChatMaping WHERE(BuyerId=@buyerid OR BuyerId=@sellerid) AND(SellerId=@sellerid OR SellerId=@buyerid) and AdvertiseId=@advertiseid";
+            SqlCommand cmd = new SqlCommand(q, sqlConnection);
+            cmd.Parameters.AddWithValue("@AdvertiseId", advertiseid);
+            cmd.Parameters.AddWithValue("@buyerid", buyerid);
+            cmd.Parameters.AddWithValue("@sellerid", sellerid);
+            sqlConnection.Open();
+            object count = cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (count != null)
+            {
+                return (int)count;
+            }
+            else
 
+                return 0;
+        }
         public int getMapid( int advertiseid,int buyerid,int sellerid)
         {
             connection();
@@ -156,7 +175,7 @@ namespace OLX.DA.User
             return models;
         } 
 
-        public List<GetnameModel> getName(int adid)
+        public List<GetnameModel> getName(int? adid)
         {
             connection();
             List<GetnameModel> getnames = new List<GetnameModel>();

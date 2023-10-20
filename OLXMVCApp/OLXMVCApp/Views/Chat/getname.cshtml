@@ -8,10 +8,17 @@
 <h2>getname</h2>
 
 <div>
-    @foreach (var item in Model)
+    @if (Model.Any())
     {
-        <a href="@Html.ActionLink("select", "chat", new {adid=item.AdvertiseId})">@Html.DisplayFor(modelItem => item.firstName)</a>
+        foreach (var item in Model)
+        {
+        <a href="@Html.ActionLink("select", "chat", new { adid = item.AdvertiseId })">@Html.DisplayFor(modelItem => item.firstName)</a>
+        }
     }
+            else
+            {
+                <h2>No chat available</h2>
+            }
 </div>
 @*<h2>getname</h2>
 
