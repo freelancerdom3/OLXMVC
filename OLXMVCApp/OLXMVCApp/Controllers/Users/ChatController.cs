@@ -13,8 +13,8 @@ namespace OLXMVCApp.Controllers.Users
     public class ChatController : Controller
     {
         // GET: Chat
-     
 
+        Chat db = new Chat();
         public ActionResult select()
         {
             Chat c = new Chat();
@@ -85,7 +85,8 @@ namespace OLXMVCApp.Controllers.Users
 
             chat.InsertInMap(mappingModel);
 
-            TempData["mapid"] = advertiseid;
+            TempData["adid"] = advertiseid;
+
             TempData["sellid"] = userid;
             List<ChatMappingModel> chats = chat.show();
 
@@ -103,14 +104,14 @@ namespace OLXMVCApp.Controllers.Users
             if (Session["userid"]!=null)
             {
                 int buyid = (int)Session["userid"];
-                int sellid = (int)TempData["sellid"];
+                int sellid= (int)TempData.Peek("sellid");
                 if (buyid==sellid)
                 {
                      buyorsell = false;
                 }
                  
-                    int advertiseid = (int)TempData["mapid"];
-                    int mapid = chat.getMapid(advertiseid, buyid, sellid);
+                    int advertiseid = (int)TempData.Peek("adid");
+                int mapid = chat.getMapid(advertiseid, buyid, sellid);
                
                 bool check = chat.EnterMessage(mapid, Message,buyorsell);
                     if (check)
@@ -121,7 +122,12 @@ namespace OLXMVCApp.Controllers.Users
             }
           
             return View();
-                     
+        }
+        public ActionResult getname()
+        {
+            int advid= (int)TempData.Peek("adid");
+            List<GetnameModel> names = db.getName(advid);
+            return View(names);
 
         }
     }

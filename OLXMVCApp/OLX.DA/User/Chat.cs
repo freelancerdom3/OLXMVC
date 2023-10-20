@@ -13,13 +13,22 @@ namespace OLX.DA.User
 {
     public class Chat
     {
-        string cs = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private SqlConnection sqlConnection;
+
+
+        private void connection()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            sqlConnection = new SqlConnection(constr);
+
+        }
+        //string cs = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public void InsertInMap( ChatMappingModel mappingModel/*int Buyerid, int Sellerid, int advertiseid*/)
         {
-            
+            connection();
             int Buyerid = Convert.ToInt32(HttpContext.Current.Session["userid"]);
-            SqlConnection sqlConnection = new SqlConnection(cs);
+            //SqlConnection sqlConnection = new SqlConnection(cs);
             string checkQuery = "SELECT COUNT(*) FROM ChatMaping WHERE BuyerId = @buyerid AND SellerId = @sellerid AND advertiseid = @advertiseid";
 
             SqlCommand checkCmd = new SqlCommand(checkQuery, sqlConnection);
@@ -50,15 +59,16 @@ namespace OLX.DA.User
 
         public int getMapid( int advertiseid,int buyerid,int sellerid)
         {
-            SqlConnection connection = new SqlConnection(cs);
+            connection();
+            //SqlConnection connection = new SqlConnection(cs);
             string q = "select MapId from ChatMaping where AdvertiseId=@AdvertiseId and BuyerId=@buyerid and SellerId=@sellerid ";
-            SqlCommand cmd = new SqlCommand(q,connection);
+            SqlCommand cmd = new SqlCommand(q, sqlConnection);
             cmd.Parameters.AddWithValue("@AdvertiseId", advertiseid);
             cmd.Parameters.AddWithValue("@buyerid", buyerid);
             cmd.Parameters.AddWithValue("@sellerid", sellerid);
-            connection.Open();
+            sqlConnection.Open();
           object count=cmd.ExecuteScalar();
-            connection.Close();
+            sqlConnection.Close();
             if (count != null)
             {
                 return (int)count;
@@ -70,18 +80,18 @@ namespace OLX.DA.User
 
         public bool EnterMessage(int mapid,string message,bool buyorsell )
         {
-
+            connection();
             //int mappingid = getMapid(mapid);
-            SqlConnection connection = new SqlConnection(cs);
+            //SqlConnection connection = new SqlConnection(cs);
             string q = "insert into Chats(MapId, BuyOrSellId, Chat)values(@MapId, @buyorsell, @Chat)";
-            SqlCommand cmd = new SqlCommand(q, connection);
+            SqlCommand cmd = new SqlCommand(q, sqlConnection);
             cmd.Parameters.AddWithValue("@MapId", mapid);
             cmd.Parameters.AddWithValue("@Chat", message);
             cmd.Parameters.AddWithValue("@buyorsell", buyorsell);
 
-            connection.Open();
+            sqlConnection.Open();
            int res= cmd.ExecuteNonQuery();
-            connection.Close();
+            sqlConnection.Close();
             if (res != 0)
             {
                 return true;
@@ -90,13 +100,40 @@ namespace OLX.DA.User
                 return false;
 
         }
+        public List<GetnameModel> getName(int adid)
+        {
+            connection();
+            List<GetnameModel> getnames = new List<GetnameModel>();
+            SqlCommand cmd = new SqlCommand("getBuyerName",sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AdvertiseId",adid);
+            sqlConnection.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                GetnameModel getname = new GetnameModel()
+                {
+                    firstName=dr["firstName"].ToString(),
+                    AdvertiseId=Convert.ToInt32(dr["AdvertiseId"]),
+                    BuyOrSellId=Convert.ToBoolean(dr["BuyOrSellId"]),
+                    MapId=Convert.ToInt32(dr["MapId"]),
+                    userId=Convert.ToInt32(dr["userId"])
+                };
+                getnames.Add(getname);
+            }
+            sqlConnection.Close();
+            return getnames;
+
+        }
+
         public List<ChatMappingModel> show()
         {
+            connection();
             List<ChatMappingModel> mappingModels = new List<ChatMappingModel>();
-            SqlConnection connection = new SqlConnection(cs);
+            //SqlConnection connection = new SqlConnection(cs);
             string query = "select BuyerId,SellerId from ChatMaping";
-            SqlCommand sqlCommand = new SqlCommand(query,connection);
-            connection.Open();
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            sqlConnection.Open();
             SqlDataReader dr = sqlCommand.ExecuteReader();
             while (dr.Read())
             {
@@ -107,19 +144,20 @@ namespace OLX.DA.User
                 };
                 mappingModels.Add(chatMappingModel);
             }
-            connection.Close();
+            sqlConnection.Close();
             return mappingModels;
         }
 
 
         public List<ChatsModel> GetChatModel()
         {
+            connection();
             List<ChatsModel> chatList = new List<ChatsModel>();
 
-            SqlConnection con = new SqlConnection(cs);
-            SqlCommand cmd = new SqlCommand("select Chat,MapId,BuyOrSellId from Chats ", con);
+            //SqlConnection con = new SqlConnection(cs);
+            SqlCommand cmd = new SqlCommand("select Chat,MapId,BuyOrSellId from Chats", sqlConnection);
 
-            con.Open();
+            sqlConnection.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -142,7 +180,7 @@ namespace OLX.DA.User
                 chatList.Add(c);
 
             }
-            con.Close();
+            sqlConnection.Close();
 
             return chatList;
 
@@ -150,13 +188,14 @@ namespace OLX.DA.User
 
         public List<ChatMddual> GetChatMdduals()
         {
+            connection();
             List<ChatMddual> chatList = new List<ChatMddual>();
 
-            SqlConnection con = new SqlConnection(cs);
-            SqlCommand cmd = new SqlCommand("ChatSelect", con);
+            //SqlConnection con = new SqlConnection(cs);
+            SqlCommand cmd = new SqlCommand("ChatSelect", sqlConnection);
            
             cmd.CommandType = CommandType.StoredProcedure;
-            con.Open();
+            sqlConnection.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -180,7 +219,7 @@ namespace OLX.DA.User
                 chatList.Add(c);
 
             }
-            con.Close();
+            sqlConnection.Close();
 
             return chatList;
 
@@ -233,7 +272,8 @@ namespace OLX.DA.User
         }
         public bool InsertChat(string chatMessage)
         {
-            using (SqlConnection con = new SqlConnection(cs))
+            
+            using (SqlConnection con = new SqlConnection())
             {
                 try
                 {
