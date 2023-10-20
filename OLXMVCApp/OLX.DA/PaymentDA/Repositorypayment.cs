@@ -49,14 +49,14 @@ namespace OLX.DA.PaymentDA
             SqlCommand getpaymentidB = new SqlCommand("select paymentIdB from PaymentdetailsBuyer where userId = @userId", con);
             getpaymentidB.Parameters.AddWithValue("@userId", userId);
 
-
-            con.Open();
-
+           
+            con.Open();                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
             SqlDataReader reader = getpaymentidB.ExecuteReader();
 
-            if (reader.Read())
-            {
+            if (reader.Read())                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {                                   
                 paymentIdB = reader.GetInt32(0);
                 reader.Close();
 

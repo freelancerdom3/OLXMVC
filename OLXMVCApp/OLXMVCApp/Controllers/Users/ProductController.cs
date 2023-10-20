@@ -102,7 +102,25 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return View("login");
+                return RedirectToAction("loginType", "User");
+            }
+        }
+
+        public ActionResult checkBuyerWallet()
+        {
+            if (Session["userid"] != null)
+            {
+                int userId = (int)Session["userId"];
+
+                Repositorypayment repository = new Repositorypayment();
+                List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
+                ViewData["Transactions"] = recentTransactions;
+
+                return View("AddMoney");
+            }
+            else
+            {
+                return RedirectToAction("loginType", "User");
             }
         }
 
@@ -126,6 +144,7 @@ namespace OLXMVCApp.Controllers.Users
                     return View("login");
                 }
             }
+       
 
 
         [HttpPost]

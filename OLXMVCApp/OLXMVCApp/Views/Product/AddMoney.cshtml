@@ -3,7 +3,7 @@
 
 @using (Html.BeginForm("AddMoney", "Product", FormMethod.Post))
 {
-   
+
     <div>
         <label for="amountToAdd">Amount to Add:</label>
         <input type="text" name="amountToAdd" id="amountToAdd" />
@@ -15,7 +15,8 @@
 
 @using (Html.BeginForm("checkBuyerWallet", "Product", FormMethod.Post))
 {
-    
+
+  
 
     <div>
         <input type="submit" value="Check Buyer Balance" />
@@ -62,13 +63,13 @@
 }
 
 
-@using (Html.BeginForm("checkSellerWallet", "Product", FormMethod.Post))
+@using (Html.BeginForm("AddMoney", "Product", FormMethod.Post))
 {
-  
 
-    <div>
+
+    @*<div>
         <input type="submit" value="Check Seller Balance" />
-    </div>
+    </div>*@
 }
 
 @{
@@ -109,20 +110,20 @@
 
 @using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
 {
-    <div>
+    @*<div>
         <label for="transferUserId">Transfer To Buyer (User ID):</label>
         <input type="text" name="transferUserId" id="transferUserId" />
     </div>
     <div>
         <input type="submit" value="Transfer to Buyer" />
-    </div>
+    </div>*@
 }
 <!-- Form for BuyerStatement -->
 @using (Html.BeginForm("BuyerStatement", "Product", FormMethod.Post))
 {
     <h2>Buyer Statement</h2>
 
-   
+
 
     <div class="form-group">
         @Html.Label("From Date")
@@ -179,7 +180,7 @@
 {
     <h2>Seller Statement</h2>
 
-   
+
 
     <div class="form-group">
         @Html.Label("From Date")
@@ -237,7 +238,7 @@
 
 <style>
 
-  
+
     body {
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
@@ -313,11 +314,11 @@
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+
     .form-control {
         display: block;
         width: 50%;
     }
-
 </style>
 
 
