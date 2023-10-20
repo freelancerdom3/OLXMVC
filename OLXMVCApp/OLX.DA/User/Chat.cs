@@ -27,12 +27,12 @@ namespace OLX.DA.User
         public void InsertInMap( ChatMappingModel mappingModel/*int Buyerid, int Sellerid, int advertiseid*/)
         {
             connection();
-            int Buyerid = Convert.ToInt32(HttpContext.Current.Session["userid"]);
+            //int Buyerid = Convert.ToInt32(HttpContext.Current.Session["userid"]);
             //SqlConnection sqlConnection = new SqlConnection(cs);
             string checkQuery = "SELECT COUNT(*) FROM ChatMaping WHERE BuyerId = @buyerid AND SellerId = @sellerid AND advertiseid = @advertiseid";
 
             SqlCommand checkCmd = new SqlCommand(checkQuery, sqlConnection);
-            checkCmd.Parameters.AddWithValue("@buyerid", Buyerid);
+            checkCmd.Parameters.AddWithValue("@buyerid", mappingModel.Buyerid);
             checkCmd.Parameters.AddWithValue("@sellerid", mappingModel.Sellerid);
             checkCmd.Parameters.AddWithValue("@advertiseid", mappingModel.advertiseid);
 
@@ -46,7 +46,7 @@ namespace OLX.DA.User
                        " values (@buyerid,@sellerid,@advertiseid)";
 
                 SqlCommand cmd = new SqlCommand(query, sqlConnection);
-                cmd.Parameters.AddWithValue("@buyerid", Buyerid);
+                cmd.Parameters.AddWithValue("@buyerid", mappingModel.Buyerid);
                 cmd.Parameters.AddWithValue("@sellerid", mappingModel.Sellerid);
                 cmd.Parameters.AddWithValue("@advertiseid", mappingModel.advertiseid);
                 sqlConnection.Open();
@@ -94,6 +94,7 @@ namespace OLX.DA.User
         public int getMapid( int advertiseid,int buyerid,int sellerid)
         {
             connection();
+            ChatMappingModel mappingModel = new ChatMappingModel();
             //SqlConnection connection = new SqlConnection(cs);
             string q = "select MapId from ChatMaping where AdvertiseId=@AdvertiseId and BuyerId=@buyerid and SellerId=@sellerid ";
             SqlCommand cmd = new SqlCommand(q, sqlConnection);

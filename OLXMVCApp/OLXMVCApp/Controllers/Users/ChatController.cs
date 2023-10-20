@@ -60,43 +60,41 @@ namespace OLXMVCApp.Controllers.Users
             return View(chatList);
         }
 
-        public ActionResult seller(int userid, int advertiseid)
+        public ActionResult seller()
         {
+
             ChatMappingModel chatMappingModel = new ChatMappingModel()
             {
-                Sellerid = userid,
-                advertiseid=advertiseid
+                Buyerid = (int)TempData["buyid"],
+                advertiseid= (int)TempData["adid"],
+                Sellerid=(int)Session["userid"]
             };
+            TempData["buyid"] = chatMappingModel.Buyerid;
+            TempData["adid"] = chatMappingModel.advertiseid;
             Chat chat = new Chat();
             chat.InsertInMap(chatMappingModel);
-            return View("chatmap");
+            return View("select");
         }
 
         public ActionResult chatmap( int userid, int advertiseid)
         {
             Chat chat = new Chat();
             int loginid = (int)Session["userid"];
-
+            TempData["adid"] = advertiseid;
+            TempData["buyid"] = userid;
             int ifseller =chat.isseller(advertiseid);
             if (ifseller == loginid)
             {
-               
-
-                ChatMappingModel map = new ChatMappingModel()
-                {
-                    Sellerid = loginid
-                };
-
-                
-                    
+                return RedirectToAction("seller","chat");
+   
             }
-             
+          
             
             ChatMappingModel mappingModel = new ChatMappingModel()
             {
-                Buyerid=userid,
+                Sellerid=userid,
                 advertiseid=advertiseid,
-                Sellerid=ifseller
+               
             };
 
            
@@ -119,17 +117,19 @@ namespace OLXMVCApp.Controllers.Users
             string Message = Request.Form["msg"];
             Chat chat = new Chat();
             ChatsModel chatsModel = new ChatsModel();
+            ChatMappingModel map = new ChatMappingModel();
             if (Session["userid"]!=null)
             {
-                int buyid = (int)Session["userid"];
-                int sellid= (int)TempData.Peek("sellid");
-                if (buyid==sellid)
+                int buyid = (int)TempData.Peek("buyid");
+                int sellid= (int)Session["userid"];
+                int sess = (int)Session["userid"];
+                if (sess==sellid)
                 {
                      buyorsell = false;
                 }
                  
-                    int advertiseid = (int)TempData.Peek("adid");
-                int mapid = chat.getMapidfromOR(advertiseid, buyid, sellid);
+                    int advertiseid = (int)TempData["adid"];
+                int mapid = chat.getMapid(advertiseid, buyid, sellid);
                
                 bool check = chat.EnterMessage(mapid, Message,buyorsell);
                     if (check)
