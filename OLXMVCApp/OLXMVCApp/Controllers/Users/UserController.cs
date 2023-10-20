@@ -130,7 +130,7 @@ namespace OLXMVCApp.Controllers.Users
                 //bool otp = user.verifyOTP(userotp,out stored);
                 if (LoginOtp == stored)
                 {
-                    Session["idbyotp"] = id;
+                    Session["userid"] = id;
                     return Json(1);
                     //return Json(new { message = "login" });
                 }
