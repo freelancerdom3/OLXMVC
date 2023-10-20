@@ -292,7 +292,8 @@ namespace OLXMVCApp.Controllers.Admin
             }
             catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View("productDisplayAdd", "Admin_Layout", product);
             }
         }
 

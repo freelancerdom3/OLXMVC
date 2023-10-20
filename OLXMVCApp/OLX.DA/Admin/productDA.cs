@@ -53,17 +53,47 @@ namespace OLX.DA.Admin
         public void productDisplayAdd(product product)
         {
             connection();
+            try
+            {
+                connection();
 
-            SqlCommand cmd = new SqlCommand("AddNewproductCategory", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+                // Check if the updated product subcategory name already exists
+                SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_ProductCategory WHERE productCategoryId= @productCategoryId ", con);
+                checkCmd.Parameters.AddWithValue("@productCategoryId", product.productCategoryId);
+                checkCmd.Parameters.AddWithValue("@productCategoryName", product.productCategoryName);
+               
+                con.Open();
 
-            cmd.Parameters.AddWithValue("@productCategoryId", product.productCategoryId);
-            cmd.Parameters.AddWithValue("@productCategoryName", product.productCategoryName);
-            cmd.Parameters.AddWithValue("@createdOn",DateTime.Now);
-            cmd.Parameters.AddWithValue("@updatedOn", DateTime.Now);
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
+                int existingCount = (int)checkCmd.ExecuteScalar();
+           
+                if (existingCount > 0)
+                {
+                    throw new Exception("Product Category Name Already Exists.");
+                }
+
+                SqlCommand cmd = new SqlCommand("AddNewproductCategory", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@productCategoryId", product.productCategoryId);
+                cmd.Parameters.AddWithValue("@productCategoryName", product.productCategoryName);
+                cmd.Parameters.AddWithValue("@createdOn", DateTime.Now);
+                cmd.Parameters.AddWithValue("@updatedOn", DateTime.Now);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine("Rows affected: " + rowsAffected);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;  // Re-throw the exception to be caught in the controller
+            }
+           
+                con.Close();
+           
+           
 
         }
 
