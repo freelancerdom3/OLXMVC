@@ -232,6 +232,7 @@
     <Content Include="Views\Admin\productDisplayAdd.cshtml" />
     <Content Include="Views\Home\showLocationfornavbar.cshtml" />
     <Content Include="Views\Chat\getname.cshtml" />
+    <Content Include="Views\Chat\chatButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

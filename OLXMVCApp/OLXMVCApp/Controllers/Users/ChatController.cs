@@ -74,14 +74,31 @@ namespace OLXMVCApp.Controllers.Users
 
         public ActionResult chatmap( int userid, int advertiseid)
         {
+            Chat chat = new Chat();
+            int loginid = (int)Session["userid"];
 
+            int ifseller =chat.isseller(advertiseid);
+            if (ifseller == loginid)
+            {
+               
+
+                ChatMappingModel map = new ChatMappingModel()
+                {
+                    Sellerid = loginid
+                };
+
+                
+                    
+            }
+             
+            
             ChatMappingModel mappingModel = new ChatMappingModel()
             {
-                Sellerid=userid,
+                Buyerid=userid,
                 advertiseid=advertiseid
             };
 
-           Chat chat = new Chat();
+           
 
             chat.InsertInMap(mappingModel);
 
@@ -123,11 +140,25 @@ namespace OLXMVCApp.Controllers.Users
           
             return View();
         }
-        public ActionResult getname()
+        public ActionResult getname(int adid)
         {
-            int advid= (int)TempData.Peek("adid");
-            List<GetnameModel> names = db.getName(advid);
+            //int advid= (int)TempData.Peek("adid");
+
+            List<GetnameModel> names = db.getName(adid);
             return View(names);
+
+        }
+        public ActionResult chatButton()
+        {
+            int userid = (int)Session["userid"];
+            Chat chat = new Chat();
+            int adid = chat.getadvertiseid(userid);
+
+            List<GetnameModel> names = db.getName(adid);
+            return View(names);
+
+          
+         
 
         }
     }

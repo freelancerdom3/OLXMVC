@@ -55,7 +55,22 @@ namespace OLX.DA.User
             }
 
         }
-
+        public int isseller(int advertiseid)
+        {
+            connection();
+            string query = "select userId from tbl_MyAdvertise where AdvertiseId=@advertiseid";
+            SqlCommand cmd = new SqlCommand(query,sqlConnection);
+            cmd.Parameters.AddWithValue("@advertiseid", advertiseid);
+            sqlConnection.Open();
+            int count =(int) cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (count > 0)
+            {
+                return count;
+            }
+            else
+                return 0;
+        }
 
         public int getMapid( int advertiseid,int buyerid,int sellerid)
         {
@@ -100,6 +115,47 @@ namespace OLX.DA.User
                 return false;
 
         }
+        public int getadvertiseid(int userid)
+        {
+
+            connection();
+            //int userid= Convert.ToInt32(HttpContext.Current.Session["userid"]);
+            string q = "select advertiseId from tbl_MyAdvertise where userId=@userid";
+
+            SqlCommand cmd = new SqlCommand(q, sqlConnection);
+            cmd.Parameters.AddWithValue("@userid", userid);
+            sqlConnection.Open();
+           int adid= (int)cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (adid > 0)
+            {
+                return adid;
+            }
+            else
+                return 0;
+        }
+        public List<GetnameModel> getadid(int userid)
+        {
+            connection();
+            List<GetnameModel> models = new List<GetnameModel>();
+            string q = "select advertiseId from tbl_MyAdvertise where userId=@userid";
+            SqlCommand command = new SqlCommand(q,sqlConnection);
+            command.Parameters.AddWithValue("@userid",userid);
+            sqlConnection.Open();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                GetnameModel getnameModel = new GetnameModel()
+                {
+                    AdvertiseId = (int)dr["AdvertiseId"]
+                };
+                models.Add(getnameModel);
+
+            }
+            sqlConnection.Close();
+            return models;
+        } 
+
         public List<GetnameModel> getName(int adid)
         {
             connection();

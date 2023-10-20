@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OLX.Models.User.GetnameModel>
+
+@{
+    ViewBag.Title = "chatButton";
+}
+
+<h2>chatButton</h2>
+
+
+
+
+@foreach (var item in Model)
+{<a href="@Url.Action("chatmap", "Chat", new { advertiseid = item.AdvertiseId, userId = item.userId })">
+    @Html.DisplayFor(modelItem => item.firstName)
+</a>   <br />
+    @Html.DisplayFor(modelItem => item.AdvertiseId)
+    <br />
+    @Html.DisplayFor(modelItem => item.userId)
+
+
+
+
+}
+
+
+<!--<div>
+    foreach (var item in Model)
+    {
+
+             <button style='font-size:24px'><i class='fas fa-comment'></i>
+
+             <a href="Html.Action("getname", "chat", new {adid=item.AdvertiseId})">abc</a>
+              </button>-->
+@*<a href="@Url.Action("chatmap", "Chat", new {advertiseId = group.First().advertiseId, userId = group.First().userId  })" style="text-decoration:none; color:black">*@
+
+
+
+<!--}
+</div>-->
