@@ -60,7 +60,7 @@ namespace OLXMVCApp.Controllers.Users
             }
             else
             {
-                return View("login");
+                return RedirectToAction("loginType", "User");
             }
         }
 
