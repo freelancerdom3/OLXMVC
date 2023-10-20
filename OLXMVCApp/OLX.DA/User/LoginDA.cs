@@ -108,7 +108,7 @@ namespace OLX.DA.User
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", userId);
             con.Open();
-            int count = (int)(cmd.ExecuteScalar() ?? 0); // Use null coalescing to handle null results
+            int count = (int)(cmd.ExecuteScalar());
             con.Close();
             if (count == 0)
             {
