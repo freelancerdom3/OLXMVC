@@ -17,10 +17,17 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult SubCategoryList()
         {
-            IEnumerable<ProductSubCategoryModeljoin> productDetails = productCatRepository.GetProductDetailsLists();
-            
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("loginType", "User");
 
-            return View("SubCategoryList", "Admin_Layout", productDetails);
+            }
+            else
+            {
+                IEnumerable<ProductSubCategoryModeljoin> productDetails = productCatRepository.GetProductDetailsLists();
+
+                return View("SubCategoryList", "Admin_Layout", productDetails);
+            }
         }
 
         public ActionResult SubCategoryListCreate()
@@ -133,8 +140,16 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult UserIndex()
         {
-            IEnumerable<UserList> ul = uda.GetAllUser();
-            return View("UserIndex", "Admin_Layout", ul);
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("loginType", "User");
+
+            }
+            else
+            {
+                IEnumerable<UserList> ul = uda.GetAllUser();
+                return View("UserIndex", "Admin_Layout", ul);
+            }
         }
 
         public ActionResult UserDetails(int? id)
@@ -189,14 +204,30 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult Dashboard()
         {
-            return View("Dashboard", "Admin_Layout");
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("loginType", "User");
+
+            }
+            else
+            {
+                return View("Dashboard", "Admin_Layout");
+            }
         }
 
 
         public ActionResult ProductList(string SearchItem, int? i)
         {
-            IEnumerable<ProductListModel> products = dataAccess.GetAllProductList();
-            return View("ProductList", "Admin_Layout", products);
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("loginType", "User");
+
+            }
+            else
+            {
+                IEnumerable<ProductListModel> products = dataAccess.GetAllProductList();
+                return View("ProductList", "Admin_Layout", products);
+            }
         }
 
         public ActionResult ProductListDetails(int advertiseId)
@@ -247,19 +278,27 @@ namespace OLXMVCApp.Controllers.Admin
         }
         public ActionResult Advertise()
         {
-            AdvertiseDA d1 = new AdvertiseDA();
-            AdvertiseModel viewModel = new AdvertiseModel();
-
-            viewModel.Products = d1.GetProductsFromDatabase();
-            viewModel.SubCategories = d1.GetProductsFromDatabase1();
-
-            foreach (var subCategory in viewModel.SubCategories)
+            if (Session["userid"] == null)
             {
-                subCategory.ImageBytes = subCategory.imageData;
+                return RedirectToAction("loginType", "User");
+
             }
+            else
+            {
+                AdvertiseDA d1 = new AdvertiseDA();
+                AdvertiseModel viewModel = new AdvertiseModel();
+
+                viewModel.Products = d1.GetProductsFromDatabase();
+                viewModel.SubCategories = d1.GetProductsFromDatabase1();
+
+                foreach (var subCategory in viewModel.SubCategories)
+                {
+                    subCategory.ImageBytes = subCategory.imageData;
+                }
 
 
-            return View("Advertise", "Admin_Layout", viewModel);
+                return View("Advertise", "Admin_Layout", viewModel);
+            }
         }
         [HttpPost] 
         public ActionResult Delete(int advertiseId, int advertiseImageId)
