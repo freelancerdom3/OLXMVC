@@ -29,30 +29,41 @@ namespace OLXMVCApp.Controllers.Users
 
         public ActionResult PurchaseProduct()
         {
+           
             return View();
         }
         [HttpPost]
-        public ActionResult PurchaseProduct(int userId, int advertiseId)
+        public ActionResult PurchaseProduct(int advertiseId)
         {
-            Repositorypayment repository = new Repositorypayment();
-
-            bool purchaseResult = repository.PurchaseProduct(userId, advertiseId);
-
-            if (purchaseResult)
+            if (Session["userid"] != null)
             {
-                // Fetch recent transactions
-                List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
-                ViewData["Transactions"] = recentTransactions;
-                ViewBag.Message = "Purchase was successful!";
-                // Pass the recent transactions to the view
-                return View("PurchaseProduct"); // Updated view name to "PurchaseSuccess"
+                int userId = (int)Session["userid"];
+
+                // Now you can use the userId in your logic.
+                Repositorypayment repository = new Repositorypayment();
+                bool purchaseResult = repository.PurchaseProduct(userId, advertiseId);
+
+                if (purchaseResult)
+                {
+                    // Fetch recent transactions
+                    List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
+                    ViewData["Transactions"] = recentTransactions;
+                    ViewBag.Message = "Purchase was successful!";
+                    // Pass the recent transactions to the view
+                    return View("PurchaseProduct"); // Updated view name to "PurchaseSuccess"
+                }
+                else
+                {
+                    ViewBag.Message = "Purchase failed. Insufficient balance or product unavailable.";
+                    return View("PurchaseProduct");
+                }
             }
             else
             {
-                ViewBag.Message = "Purchase failed. Insufficient balance or product unavailable.";
-                return View("PurchaseProduct");
+                return View("login");
             }
         }
+
 
 
         public ActionResult AddMoney()
@@ -60,95 +71,147 @@ namespace OLXMVCApp.Controllers.Users
             return View();
         }
 
-        // POST: AddMoney
         [HttpPost]
-        public ActionResult AddMoney(int userId, int amountToAdd)
+        public ActionResult AddMoney(int amountToAdd)
         {
-            // You can replace "Repositorypayment" with your actual repository class
-            Repositorypayment repository = new Repositorypayment();
-
-            // Assuming AddingMoneyToBuyerWallet returns a boolean indicating success or failure
-            bool addMoneyResult = repository.AddingMoneyToBuyerWallet(userId, amountToAdd);
-
-            if (addMoneyResult)
+            if (Session["userid"] != null)
             {
-                List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
+                int userId = (int)Session["userid"];
+
+                // You can replace "Repositorypayment" with your actual repository class
+                Repositorypayment repository = new Repositorypayment();
+
+                // Assuming AddingMoneyToBuyerWallet returns a boolean indicating success or failure
+                bool addMoneyResult = repository.AddingMoneyToBuyerWallet(userId, amountToAdd);
+
+                if (addMoneyResult)
+                {
+                    List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
+                    ViewData["Transactions"] = recentTransactions;
+                    ViewBag.Message = "Money added successfully!";
+                }
+                else
+                {
+                    ViewBag.Message = "Failed to add money. Please try again.";
+                }
+
+                // Return a view or redirect to another action as needed.
+                return View("AddMoney");
+            }
+            else
+            {
+                // Handle the case where the user is not logged in or the session has expired.
+                // You might want to redirect to a login page or show an error message.
+                return View("login");
+            }
+        }
+
+        public ActionResult checkSellerWallet()
+        {
+            if (Session["userid"] != null)
+            {
+                int userId = (int)Session["userid"];
+
+                Repositorypayment repository = new Repositorypayment();
+                List<PaymentdetailsSellerModel> recentTransactions = repository.FetchRecentTransactionsSeller(userId);
                 ViewData["Transactions"] = recentTransactions;
-                ViewBag.Message = "Money added successfully!";
+
+                return View("AddMoney");
             }
-            else
-            {
-                ViewBag.Message = "Failed to add money. Please try again.";
+           
+               else
+                {
+                    // Handle the case where the user is not logged in or the session has expired.
+                    // You might want to redirect to a login page or show an error message.
+                    return View("login");
+                }
             }
-
-            return View();
-        }
-        public ActionResult checkBuyerWallet(int userId)
-        {
-            Repositorypayment repository = new Repositorypayment();
-            List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
-            ViewData["Transactions"] = recentTransactions;
-
-            return View("AddMoney");
-
-        }
-
-        public ActionResult checkSellerWallet(int userId)
-        {
-            Repositorypayment repository = new Repositorypayment();
-            List<PaymentdetailsSellerModel> recentTransactions = repository.FetchRecentTransactionsSeller(userId);
-            ViewData["Transactions"] = recentTransactions;
-
-            return View("AddMoney");
-
-        }
 
 
         [HttpPost]
-        public ActionResult TransferSellerWalletToBuyer(int transferUserId)
+        public ActionResult TransferSellerWalletToBuyer()
         {
-            // You can replace "Repositorypayment" with your actual repository class
-            Repositorypayment repository = new Repositorypayment();
-
-            // Assuming TransferSellerWalletAmountToBuyer returns a boolean indicating success or failure
-            bool transferResult = repository.TransferSellerWalletAmountToBuyer(transferUserId);
-
-            if (transferResult)
+            if (Session["userid"] != null)
             {
-                ViewBag.Message = "Money transferred to buyer successfully!";
+                int userId = (int)Session["userid"];
+                bool transferResult = false;
+
+           
+
+                // You can replace "Repositorypayment" with your actual repository class
+                Repositorypayment repository = new Repositorypayment();
+
+                // Assuming TransferSellerWalletAmountToBuyer returns a boolean indicating success or failure
+                transferResult = repository.TransferSellerWalletAmountToBuyer(userId);
+
+
+                if (transferResult)
+                {
+                    ViewBag.Message = "Money transferred to buyer successfully!";
+                }
+                else
+                {
+                    ViewBag.Message = "Failed to transfer money. Please try again.";
+                }
             }
             else
             {
-                ViewBag.Message = "Failed to transfer money. Please try again.";
+                // Handle the case where the user is not logged in or the session has expired.
+                // You might want to redirect to a login page or show an error message.
+                return View("login");
             }
-
             return View("AddMoney"); // Replace "YourViewName" with the appropriate view name.
         }
 
 
-        public ActionResult BuyerStatement(int userId, DateTime fromDate, DateTime toDate)
+
+        public ActionResult BuyerStatement(DateTime fromDate, DateTime toDate)
         {
-            // Your code to fetch data from the BuyerTransactionHistory table
-            RepositoryInvoice invoice = new RepositoryInvoice();
-            List<BuyerTransactionHistoryModel> transactions = invoice.FetchHistoryofBuyer(userId, fromDate, toDate);
+            if (Session["userid"] != null)
+            {
+                int userId = (int)Session["userid"];
 
-            ViewData["Transactions"] = transactions;
+                // Your code to fetch data from the BuyerTransactionHistory table
+                RepositoryInvoice invoice = new RepositoryInvoice();
+                List<BuyerTransactionHistoryModel> transactions = invoice.FetchHistoryofBuyer(userId, fromDate, toDate);
+
+                ViewData["Transactions"] = transactions;
 
 
-            // Pass the transactions to the view
-            return View("AddMoney");
+                // Pass the transactions to the view
+                return View("AddMoney");
+
+            }
+            else
+            {
+                // Handle the case where the user is not logged in or the session has expired.
+                // You might want to redirect to a login page or show an error message.
+                return View("login");
+            }
+
         }
 
-        public ActionResult SellerStatement(int userId, DateTime fromDate, DateTime toDate)
+        public ActionResult SellerStatement(DateTime fromDate, DateTime toDate)
         {
-            // Your code to fetch data from the SellerTransactionHistory table
-            RepositoryInvoice invoice = new RepositoryInvoice();
-            List<SellerTransactionHistoryModel> transactions = invoice.FetchHistoryofSeller(userId, fromDate, toDate);
+            if (Session["userid"] != null)
+            {
+                int userId = (int)Session["userid"];
+                // Your code to fetch data from the SellerTransactionHistory table
+                RepositoryInvoice invoice = new RepositoryInvoice();
+                List<SellerTransactionHistoryModel> transactions = invoice.FetchHistoryofSeller(userId, fromDate, toDate);
 
-            ViewData["Transactions"] = transactions;
+                ViewData["Transactions"] = transactions;
 
-            // Pass the transactions to the view
-            return View("AddMoney"); // You might need to change the view name as per your application
+                // Pass the transactions to the view
+                return View("AddMoney"); // You might need to change the view name as per your application
+            }
+
+            else
+            {
+                // Handle the case where the user is not logged in or the session has expired.
+                // You might want to redirect to a login page or show an error message.
+                return View("login");
+            }
         }
 
     }
