@@ -9,7 +9,9 @@ using System.Web.Mvc;
 namespace OLXMVCApp.Controllers.Admin
 {
     public class AdminController : Controller
-    {
+    { 
+
+       
         ProductListDA dataAccess = new ProductListDA();
         UserList_Data_Access uda = new UserList_Data_Access();
         AdminDA productCatRepository = new AdminDA();
@@ -17,17 +19,11 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult SubCategoryList()
         {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("loginType", "User");
-
-            }
-            else
-            {
+           
                 IEnumerable<ProductSubCategoryModeljoin> productDetails = productCatRepository.GetProductDetailsLists();
 
                 return View("SubCategoryList", "Admin_Layout", productDetails);
-            }
+            
         }
 
         public ActionResult SubCategoryListCreate()
@@ -140,16 +136,10 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult UserIndex()
         {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("loginType", "User");
-
-            }
-            else
-            {
+           
                 IEnumerable<UserList> ul = uda.GetAllUser();
                 return View("UserIndex", "Admin_Layout", ul);
-            }
+            
         }
 
         public ActionResult UserDetails(int? id)
@@ -204,30 +194,18 @@ namespace OLXMVCApp.Controllers.Admin
 
         public ActionResult Dashboard()
         {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("loginType", "User");
-
-            }
-            else
-            {
+           
                 return View("Dashboard", "Admin_Layout");
-            }
+            
         }
 
 
         public ActionResult ProductList(string SearchItem, int? i)
         {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("loginType", "User");
-
-            }
-            else
-            {
+      
                 IEnumerable<ProductListModel> products = dataAccess.GetAllProductList();
                 return View("ProductList", "Admin_Layout", products);
-            }
+            
         }
 
         public ActionResult ProductListDetails(int advertiseId)
@@ -278,13 +256,7 @@ namespace OLXMVCApp.Controllers.Admin
         }
         public ActionResult Advertise()
         {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("loginType", "User");
-
-            }
-            else
-            {
+           
                 AdvertiseDA d1 = new AdvertiseDA();
                 AdvertiseModel viewModel = new AdvertiseModel();
 
@@ -298,7 +270,7 @@ namespace OLXMVCApp.Controllers.Admin
 
 
                 return View("Advertise", "Admin_Layout", viewModel);
-            }
+            
         }
         [HttpPost] 
         public ActionResult Delete(int advertiseId, int advertiseImageId)
