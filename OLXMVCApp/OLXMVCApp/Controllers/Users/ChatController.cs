@@ -22,11 +22,14 @@ namespace OLXMVCApp.Controllers.Users
            // ChatMddual model = new ChatMddual();
             ChatsModel chats = new ChatsModel();
             // List<ChatsModel>model=c.GetChatModel();
+            showChatModel showChat = new showChatModel();
+            int map = (int)TempData.Peek("mapid");
+            showChat.model = c.showchat(map);
             chats.model = c.GetChatModel();
            // model.model = c.GetChatMdduals();
             //chatMddual.ChatList = new List<SelectListItem>();
 
-            return View(chats);
+            return View(showChat);
             //List<ChatMddual> obj = db.GetChatMdduals();
             //List<SelectListItem> selectList = new List<SelectListItem>();
             //return View(obj);
@@ -76,7 +79,7 @@ namespace OLXMVCApp.Controllers.Users
             return View("select");
         }
 
-        public ActionResult chatmap( int userid, int advertiseid)
+        public ActionResult chatmap( int userid, int advertiseid,int? mapid)
         {
             Chat chat = new Chat();
             int loginid = (int)Session["userid"];
@@ -93,7 +96,10 @@ namespace OLXMVCApp.Controllers.Users
                     Buyerid=userid,
                     Sellerid=(int)Session["userid"],
                     advertiseid=advertiseid
+                    
                 };
+              
+             
                 //return RedirectToAction("seller","chat");
    
             }
@@ -108,17 +114,25 @@ namespace OLXMVCApp.Controllers.Users
                 advertiseid=advertiseid,
                 
               };
+                mapid = chat.getMapid(advertiseid,loginid,userid);
             }
             chat.InsertInMap(mappingModel);
 
-
+            
+            
 
             TempData["adid"] = advertiseid;
 
+           // int? mappingid = (int)mapid;
             //TempData["sellid"] = userid;
             //List<ChatMappingModel> chats = chat.show();
+            if (mapid>0)
+            {
 
+                TempData["mapid"] = mapid;
+                return RedirectToAction("select","chat");
 
+            }
             return View("select");
         }
 
@@ -128,6 +142,10 @@ namespace OLXMVCApp.Controllers.Users
 
             bool buyorsell=true;
             string Message = Request.Form["msg"];
+            if (Message=="".Trim())
+            {
+                return RedirectToAction("select", "chat");
+            }
             Chat chat = new Chat();
             ChatsModel chatsModel = new ChatsModel();
             ChatMappingModel map = new ChatMappingModel();
@@ -137,21 +155,20 @@ namespace OLXMVCApp.Controllers.Users
                 int sell = (int)Session["userid"];
                 if (sell==user)
                 {
-                   
-
-                     buyorsell = false;
+                   buyorsell = false;
                 }
                  
                     int advertiseid = (int)TempData["adid"];
                 int mapid = chat.getMapid(advertiseid, session, user);
-               
-                bool check = chat.EnterMessage(mapid, Message,buyorsell);
+            TempData["mapid"] = mapid;
+            bool check = chat.EnterMessage(mapid, Message,buyorsell);
             
                     if (check)
                     {
-
-               // List<showChatModel> model = chat.showchat(mapid);
-                    return View("select");
+                    
+                //List<showChatModel> model = chat.showchat(mapid);
+                return RedirectToAction("select", "chat");
+                    //return View("select");
                     }
 
             
@@ -176,9 +193,15 @@ namespace OLXMVCApp.Controllers.Users
         {
             int userid = (int)Session["userid"];
             Chat chat = new Chat();
-            int adid = chat.getadvertiseid(userid);
-
-            List<GetnameModel> names = db.getName(adid);
+            //int adid = chat.getadvertiseid(userid);
+            List<int> adIds = chat.getAdvertiseIds(userid);
+            List<GetnameModel> names = new List<GetnameModel>();
+            foreach (int adid in adIds)
+            {
+                List<GetnameModel> adnames = db.getName(adid);
+                names.AddRange(adnames);
+            }
+          
             return View(names);
 
           

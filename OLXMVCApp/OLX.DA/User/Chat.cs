@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-
+using OLX.Models;
 namespace OLX.DA.User
 {
     public class Chat
@@ -26,6 +26,7 @@ namespace OLX.DA.User
         public List<showChatModel> showchat(int mapid)
         {
             connection();
+
             List<showChatModel> list = new List<showChatModel>();
             SqlCommand cmd = new SqlCommand("showChat", sqlConnection);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -158,6 +159,8 @@ namespace OLX.DA.User
                 return false;
 
         }
+
+       
         public int getadvertiseid(int userid)
         {
 
@@ -176,6 +179,34 @@ namespace OLX.DA.User
             }
             else
                 return 0;
+        }
+
+        public List<int> getAdvertiseIds(int userid)
+        {
+            connection();
+            List<int> adIds = new List<int>();
+
+
+            sqlConnection.Open();
+
+                string sqlQuery = "SELECT advertiseId FROM tbl_MyAdvertise WHERE userId=@userid";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
+                {
+                    command.Parameters.AddWithValue("@userId", userid);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int adId = (int)reader["AdvertiseId"];
+                            adIds.Add(adId);
+                        }
+                    }
+                }
+            
+
+            return adIds;
         }
         public List<GetnameModel> getadid(int userid)
         {

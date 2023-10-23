@@ -1,4 +1,4 @@
-﻿@model OLX.Models.User.ChatsModel
+﻿@model OLX.Models.User.showChatModel
 
 
 @*@model OLXCHAT3.Models.ChatMddual*@
@@ -129,13 +129,26 @@
         {
             foreach (var item in Model.model)
             {
+                <!--<tr class="@(item.BuyOrSellId == false  ? "yellow" : "")">
+                    <td style="float:right;" class="ab">
+                        @Html.DisplayFor(modelItem => item.Chat)<br />-->
+                        @*<div style="float:right;">
+                            @Html.DisplayFor(modelItem => item.firstName)
+                        </div>*@
+                    <!--</td>
 
-                <tr class="@(item.BuyOrSellId != null  ? "light-blue-bg" : "")">
+                </tr>
+                <tr>
+                </tr>
+                <tr></tr>-->
+
+
+                <tr class="@(item.BuyOrSellId != true  ? "light-blue-bg" : "")">
                     <td style="float:right;" class="ab">
                         @Html.DisplayFor(modelItem => item.Chat)<br />
-                        <div style="float:right;">
-                            @Html.DisplayFor(modelItem => item.Mapid)
-                        </div>
+                        @*<div style="float:right;">
+                            @Html.DisplayFor(modelItem => item.firstName)
+                        </div>*@
                     </td>
 
                 </tr>
@@ -284,7 +297,11 @@
         transform: scale(0.96)
     }
 
+    .yellow{
+        background-color:burlywood;
+        float:right;
 
+    }
     .light-blue-bg {
         background-color: #ceddff;
         float: left;

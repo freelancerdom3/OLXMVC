@@ -10,7 +10,7 @@
 
 
 @foreach (var item in Model)
-{<a href="@Url.Action("chatmap", "Chat", new { advertiseid = item.AdvertiseId, userId = item.userId })">
+{<a href="@Url.Action("chatmap", "Chat", new { advertiseid = item.AdvertiseId, userId = item.userId ,mapid=item.MapId})">
     @Html.DisplayFor(modelItem => item.firstName)
 </a>   <br />
     @Html.DisplayFor(modelItem => item.AdvertiseId)

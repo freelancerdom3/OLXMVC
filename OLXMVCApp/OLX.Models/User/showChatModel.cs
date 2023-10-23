@@ -13,5 +13,7 @@ namespace OLX.Models.User
         public bool BuyOrSellId { get; set; }
         public int userId { get; set; }
         public string Chat { get; set; }
+
+        public List<showChatModel> model { get; set; }
     }
 }

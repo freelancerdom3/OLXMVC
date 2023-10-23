@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OLX.Models.User.GetnameModel>
+﻿@model IEnumerable<OLX.Models.User.showChatModel>
 
 @{
     ViewBag.Title = "chatmap";
@@ -17,11 +17,39 @@
     @*@Html.DisplayFor(modelItem => item.Sellerid)*@
 
     @*@TempData["mapid"]
-    @TempData["sellid"]*@
+        @TempData["sellid"]*@
 
-    
+
+    <div class="chat-box">
+        @foreach (var message in Model)
+        {
+            <div class="message @(message.userId == message.AdvertiseId && message.BuyOrSellId ? "right" : "left")">
+                <p>@message.Chat</p>
+            </div>
+        }
+    </div>
+
 
 </div>
-}
+
+<style>
+
+    .message {
+        padding: 5px;
+        margin: 5px;
+    }
+
+        .message.left {
+            background-color: #e0e0e0;
+            float: left;
+        }
+
+        .message.right {
+            background-color: #4CAF50;
+            float: right;
+            color: white;
+        }
+
+</style>
 
 
