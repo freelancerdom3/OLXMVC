@@ -83,28 +83,40 @@ namespace OLXMVCApp.Controllers.Users
             TempData["adid"] = advertiseid;
             TempData["buyid"] = userid;
             int ifseller =chat.isseller(advertiseid);
+            ChatMappingModel mappingModel = null;
             if (ifseller == loginid)
             {
-                return RedirectToAction("seller","chat");
+                TempData["session"] = userid;
+                TempData["user"] = ifseller;
+                mappingModel = new ChatMappingModel()
+                {
+                    Buyerid=userid,
+                    Sellerid=(int)Session["userid"],
+                    advertiseid=advertiseid
+                };
+                //return RedirectToAction("seller","chat");
    
             }
-          
-            
-            ChatMappingModel mappingModel = new ChatMappingModel()
+            else 
             {
+                TempData["session"] = (int)Session["userid"];
+                TempData["user"] = userid;
+                mappingModel = new ChatMappingModel()
+               {
+                Buyerid=(int)Session["userid"],
                 Sellerid=userid,
                 advertiseid=advertiseid,
-               
-            };
-
-           
-
+                
+              };
+            }
             chat.InsertInMap(mappingModel);
+
+
 
             TempData["adid"] = advertiseid;
 
-            TempData["sellid"] = userid;
-            List<ChatMappingModel> chats = chat.show();
+            //TempData["sellid"] = userid;
+            //List<ChatMappingModel> chats = chat.show();
 
 
             return View("select");
@@ -113,33 +125,44 @@ namespace OLXMVCApp.Controllers.Users
         [HttpPost]
         public ActionResult chatmap()
         {
+
             bool buyorsell=true;
             string Message = Request.Form["msg"];
             Chat chat = new Chat();
             ChatsModel chatsModel = new ChatsModel();
             ChatMappingModel map = new ChatMappingModel();
-            if (Session["userid"]!=null)
-            {
-                int buyid = (int)TempData.Peek("buyid");
-                int sellid= (int)Session["userid"];
-                int sess = (int)Session["userid"];
-                if (sess==sellid)
+           
+                 int session = (int)TempData.Peek("session");
+            int user = (int)TempData.Peek("user");
+                int sell = (int)Session["userid"];
+                if (sell==user)
                 {
+                   
+
                      buyorsell = false;
                 }
                  
                     int advertiseid = (int)TempData["adid"];
-                int mapid = chat.getMapid(advertiseid, buyid, sellid);
+                int mapid = chat.getMapid(advertiseid, session, user);
                
                 bool check = chat.EnterMessage(mapid, Message,buyorsell);
+            
                     if (check)
                     {
-                        return View("select");
+
+               // List<showChatModel> model = chat.showchat(mapid);
+                    return View("select");
                     }
 
-            }
+            
           
             return View();
+        }
+      public ActionResult showchat(int mapid)
+        { 
+            Chat chat = new Chat();
+            List<showChatModel> model = chat.showchat(mapid);
+            return View(model);
         }
         public ActionResult getname(int? adid)
         {

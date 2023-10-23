@@ -23,7 +23,30 @@ namespace OLX.DA.User
 
         }
         //string cs = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        public List<showChatModel> showchat(int mapid)
+        {
+            connection();
+            List<showChatModel> list = new List<showChatModel>();
+            SqlCommand cmd = new SqlCommand("showChat", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Mapid",mapid);
+            sqlConnection.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                showChatModel showChatModel = new showChatModel();
 
+                showChatModel.AdvertiseId = Convert.ToInt32(dr["AdvertiseId"]);
+                showChatModel.userId = Convert.ToInt32(dr["userId"]);
+                showChatModel.BuyOrSellId = Convert.ToBoolean(dr["BuyOrSellId"]);
+                showChatModel.firstName = dr["firstName"].ToString();
+                showChatModel.Chat = dr["Chat"].ToString();
+
+                list.Add(showChatModel);
+            }
+            sqlConnection.Close();
+            return list;
+        }
         public void InsertInMap( ChatMappingModel mappingModel/*int Buyerid, int Sellerid, int advertiseid*/)
         {
             connection();

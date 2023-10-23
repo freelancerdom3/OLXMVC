@@ -57,6 +57,7 @@
     <Compile Include="PaymentdetailsBuyerModel.cs" />
     <Compile Include="User\GetnameModel.cs" />
     <Compile Include="User\RegistrationModel.cs" />
+    <Compile Include="User\showChatModel.cs" />
     <Compile Include="User\UserBuyModel.cs" />
   </ItemGroup>
   <ItemGroup>
