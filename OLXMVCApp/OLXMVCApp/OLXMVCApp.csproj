@@ -234,6 +234,7 @@
     <Content Include="Views\Chat\getname.cshtml" />
     <Content Include="Views\Chat\chatButton.cshtml" />
     <Content Include="Views\Chat\showchat.cshtml" />
+    <Content Include="Views\Home\search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -67,9 +67,9 @@
 {
 
 
-    @*<div>
+    <div>
         <input type="submit" value="Check Seller Balance" />
-    </div>*@
+    </div>
 }
 
 @{
@@ -110,13 +110,13 @@
 
 @using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
 {
-    @*<div>
+    <div>
         <label for="transferUserId">Transfer To Buyer (User ID):</label>
         <input type="text" name="transferUserId" id="transferUserId" />
     </div>
     <div>
         <input type="submit" value="Transfer to Buyer" />
-    </div>*@
+    </div>
 }
 <!-- Form for BuyerStatement -->
 @using (Html.BeginForm("BuyerStatement", "Product", FormMethod.Post))

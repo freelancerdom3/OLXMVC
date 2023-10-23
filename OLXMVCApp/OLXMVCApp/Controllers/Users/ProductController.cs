@@ -139,10 +139,10 @@ namespace OLXMVCApp.Controllers.Users
            
                else
                 {
-                    // Handle the case where the user is not logged in or the session has expired.
-                    // You might want to redirect to a login page or show an error message.
-                    return View("login");
-                }
+                // Handle the case where the user is not logged in or the session has expired.
+                // You might want to redirect to a login page or show an error message.
+                return RedirectToAction("loginType", "User");
+            }
             }
        
 
@@ -205,7 +205,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return View("login");
+                return RedirectToAction("loginType", "User");
             }
 
         }
@@ -229,7 +229,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return View("login");
+                return RedirectToAction("loginType", "User");
             }
         }
 

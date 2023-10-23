@@ -11,6 +11,11 @@ namespace OLXMVCApp.Controllers
     public class HomeController : Controller
     {
         UserBuyDA dataAccess = new UserBuyDA();
+
+        public ActionResult search()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();

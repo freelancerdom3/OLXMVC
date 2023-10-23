@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+@*<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search" class="form-control" style="width:40%">
+        </div>
+    </div>
+</div>*@
+
+<div class="inputbox2">
+
+
+    <span class="input-group-addon"><i></i></span>
+    <input id="Search" type="text" placeholder="Serach Here...">
+
+    <div class="searchbox"
+         style=" height: 45px; background-color: #000; display: flex; align-items: center;">
+
+        @*<a href="">
+                <i class="fa-solid fa-magnifying-glass fa-beat ab"
+                   style="color: #d4d4d4; margin-right: 40px; padding: 20px;"></i>
+            </a>
+            <img src="search7780.jpg" alt="" style="width: 20px; margin-left: 5px; margin-right: 30px;">*@
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+
+            });
+
+        });
+
+    });
+
+</script>

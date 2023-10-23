@@ -30,6 +30,9 @@
         color: #000; /* Black text color for links */
         text-decoration: none; /* Remove underline from links */
     }
+    a{
+        color:black;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/graygrids/graygrids/css/grayscale.css">
@@ -44,38 +47,21 @@
 
 
         <ul class="dropdown-menu" style="color: black">
+
+
+
             @{
                 var groupedStates = Model.GroupBy(item => item.stateName);
             }
             @foreach (var group in groupedStates)
             {
-                <a href="Index?stateId=@group.First().stateId">
-                    <h2>@group.Key</h2>
-                </a>
-                <ul>
-                    @{
-                        // Group the cities within this state
-                        var groupedCitiesInState = group.GroupBy(item => item.cityName);
+                <a href="@Url.Action("Index", "Home", new {stateId = group.First().stateId})">
+                    @*<a href="Index?stateId=@group.First().stateId" style="text-decoration:none;">*@
+                        <h2>@group.Key</h2>
+                    </a>
+               
                     }
-                    @foreach (var cityGroup in groupedCitiesInState)
-                    {
-                        <a href="Index?cityId=@cityGroup.First().cityId">
-                            @cityGroup.Key
-                        </a>
-                        <ul>
-                            @foreach (var area in cityGroup)
-                            {
-                                <li>
-                                    <a href="Index?areaId=@area.areaId">
-                                        @area.areaName
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    }
-                </ul>
-            }
-        </ul>
+            </ul>
     </div>
 
 </div>
