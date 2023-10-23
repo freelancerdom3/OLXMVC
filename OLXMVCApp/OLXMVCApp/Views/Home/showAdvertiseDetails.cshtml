@@ -47,10 +47,11 @@
         .slider {
             width: 100%;
             max-width: 100%;
-            height: auto;
+            max-height: 100%;
             box-shadow: 0px 0px 10px 3px grey;
             position: relative;
             overflow: hidden;
+            
         }
 
             .slider figure img {
@@ -58,7 +59,12 @@
                 max-height: auto;
                 z-index: 2;
                 position: relative;
-                margin-left: 5.3%;
+                object-fit: cover;
+
+
+
+
+
             }
 
             .slider figure {
@@ -69,6 +75,7 @@
                 transition: 1s ease-in-out;
                 background-color: black;
                 justify-content: center;
+                display: flex;
             }
 
             .slider .btn-next, .btn-prev {
@@ -80,6 +87,7 @@
                 padding: 20px;
                 font-size: 50px;
                 border: none;
+                z-index:2;
             }
 
             .slider .btn-prev {
@@ -113,6 +121,7 @@
             width: 77%;
             margin: 2px;
             padding: 2px;
+            float:left;
         }
 
         .ccc {
@@ -126,14 +135,15 @@
 
         .buttondiv {
             width: 20%;
+            float:left;
         }
 
         .but {
             width: 100%;
-            height: 50%;
-            margin: 2px;
-            padding: 2px;
-            border: none;
+            height: 100%;
+            margin: 30px;
+            padding: 50px;
+            border: 2px solid;
         }
 
         .aaa {
@@ -148,9 +158,16 @@
 
         .imgSpace{
             width:100%;
+          
         }
-        .slide{
-            width:80%;
+
+        .contentSpace{
+            width:100%;
+        }
+
+        .slide {
+            width: 80%;
+            margin-left: 10%;
         }
     </style>
 </head>
@@ -164,59 +181,68 @@
                         <div class="slider-container">
                             @foreach (var item in group)
                             {
-                                <div class="imgSpace">
-                                <div class="slide">
-                                    <img src="data:image/JPG;base64, @Convert.ToBase64String(item.imageData)" alt="Image" width="800px" />
-                                </div>
-                                <div class="c">
-                                    <ul>
-                                        <i class="fa-solid fa-square-share-nodes aaa "></i>
-                                        <i class="fa-solid fa-heart aaa"></i>
-                                    </ul>
-                                </div>
+                                <figure>
 
-                            </div>
+                                    <div class="imgSpace">
+                                        <div class="slide">
+                                            <img src="data:image/JPG;base64, @Convert.ToBase64String(item.imageData)" alt="Image" style="height:500px" />
+                                        </div>
+                                        <div class="c">
+                                            <ul>
+                                                <i class="fa-solid fa-square-share-nodes aaa "></i>
+                                                <i class="fa-solid fa-heart aaa"></i>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </figure>
                             }
 
 
                         </div>
                     </div>
                 </div>
+                <div class="contentSpace">
+                    <div class="abcd">
+                        <div class="ccc">
+                            @Html.DisplayFor(item => group.First().advertiseTitle)
+                        </div>
+                        <div class="ccc">
+                            @Html.DisplayFor(item => group.First().advertiseDescription)
+                        </div>
+                        <div class="ccc">
+                            RS.@Html.DisplayFor(item => group.First().advertisePrice)
+                        </div>
+                        <div class="ccc">
 
-                <div class="abcd">
-                    <div class="ccc">
-                        @Html.DisplayFor(item => group.First().advertiseTitle)
-                    </div>
-                    <div class="ccc">
-                        @Html.DisplayFor(item => group.First().advertiseDescription)
-                    </div>
-                    <div class="ccc">
-                        RS.@Html.DisplayFor(item => group.First().advertisePrice)
-                    </div>
-                    <div class="ccc">
+                            @Html.DisplayFor(item => group.First().areaName)
+                        </div>
 
-                        @Html.DisplayFor(item => group.First().areaName)
                     </div>
+                    <div class="buttondiv">
+                        <div>
+                            <a href="@Url.Action("chatmap", "Chat", new {advertiseId = group.First().advertiseId, userId = group.First().userId  })" style="text-decoration:none; color:black">
+                                <button class="but">
+                                    <h3 style="padding:10PX">Chat With Seller</h3>
+                                    <h4>@Html.DisplayFor(item => group.First().firstName)</h4>
+                                </button>
+                            </a>
 
+
+                            <form action="@Url.Action("PurchaseProduct", "Product")" method="post">
+                                @Html.Hidden("advertiseId", group.First().advertiseId)
+
+                                <button class="but" type="submit"><h2> Buy Product</h2></button>
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="buttondiv">
-                    <div>
-                        <a href="@Url.Action("chatmap", "Chat", new {advertiseId = group.First().advertiseId, userId = group.First().userId  })" style="text-decoration:none; color:black">
-                            <button class="but">
-                                <h3 style="padding:10PX">Chat With Seller</h3>
-                                <h4>@Html.DisplayFor(item => group.First().firstName)</h4>
-                            </button>
-                        </a>
 
 
-                        <form action="@Url.Action("PurchaseProduct", "Product")" method="post">
-                            @Html.Hidden("advertiseId", group.First().advertiseId)
-                         
-                            <button class="but" type="submit"><h2> Buy Product</h2></button>
-                        </form>
 
-                    </div>
-                </div>
+
             </div>
         </div>
     }
@@ -227,7 +253,7 @@
             $('.slider-container').slick({
                 arrows: true, // Show navigation arrows
                 nextArrow: '<button class="btn-next"><i class="fa fa-arrow-circle-right"></i></button>',
-                prevArrow: '<button class="btn-prev"><i class="fa fa-arrow-circle-left"></i></button>',
+                prevArrow: '<button class="btn-prev"><i class="fa fa-arrow-circle-left"></i></button>'
             });
         });
     </script>
