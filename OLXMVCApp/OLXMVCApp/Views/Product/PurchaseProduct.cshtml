@@ -4,56 +4,151 @@
 <html>
 <head>
     <title>Purchase Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 50%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+        #message {
+            color: green;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .form-control {
+            display: block;
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
     <h2>Purchase Product</h2>
 
     @using (Html.BeginForm("PurchaseProduct", "Product", FormMethod.Post))
     {
-       
-        @*<div>
-            <label for="advertiseId">Advertise ID:</label>
-            <input type="text" name="advertiseId" id="advertiseId" />
-        </div>
-        <div>
-            <input type="submit" value="Purchase" />
-        </div>*@
+        @* Your form content here *@
     }
 
     <div id="message">@ViewBag.Message</div>
 
     @{
         var transactions = ViewData["Transactions"] as List<OLX.Models.PaymentdetailsBuyerModel>;
+        var transactions2 = ViewData["Transactions2"] as List<OLX.Models.UsersModel>;
+        var transactions3 = ViewData["Transactions3"] as List<OLX.Models.MyAdvertiseModel>;
+        var transactions4 = ViewData["Transactions4"] as List<OLX.Models.UsersModel>;
     }
 
-    @if (transactions != null && transactions.Count > 0)
+    @if (transactions != null && transactions2 != null && transactions3 != null && transactions4 != null)
     {
-        <h3>Recent Transactions:</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Payment ID</th>
-                    <th>Total Amount Paid</th>
-                    <th>Buyer Wallet</th>
-                    <th>Advertise ID</th>
-                    <th>User ID</th>
-                    <th>Transaction Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var transaction in transactions)
-                {
+        int count = Math.Min(
+            Math.Min(transactions.Count, transactions2.Count),
+            Math.Min(transactions3.Count, transactions4.Count)
+        );
+
+        if (count > 0)
+        {
+            <h3>Recent Transactions:</h3>
+            <table>
+                <thead>
                     <tr>
-                        <td>@transaction.PaymentIdB</td>
-                        <td>@transaction.TotalAmountPaid</td>
-                        <td>@transaction.BuyerWallet</td>
-                        <td>@transaction.AdvertiseId</td>
-                        <td>@transaction.UserId</td>
-                        <td>@transaction.TransactionTimeP</td>
+                        <th>Payment ID</th>
+                        <th>Total Amount Paid</th>
+                        <th>Buyer Wallet</th>
+                        <th>Transaction Time</th>
+                        <th>Your Name</th>
+                        <th>Your Email</th>
+                        <th>advertise Title</th>
+                        <th>advertise Description</th>
+                        <th>Seller first name</th>
+                        <th>Seller Email</th>
+                        <th>Seller MobileNo</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < count; i++)
+                    {
+                        var transaction = transactions[i];
+                        var transaction2 = transactions2[i];
+                        var transaction3 = transactions3[i];
+                        var transaction4 = transactions4[i];
+                        <tr>
+                            <td>@transaction.PaymentIdB</td>
+                            <td>@transaction.TotalAmountPaid</td>
+                            <td>@transaction.BuyerWallet</td>
+                            <td>@transaction.TransactionTimeP</td>
+                            <td>@transaction2.firstname</td>
+                            <td>@transaction2.userEmail</td>
+                            <td>@transaction3.advertiseTitle</td>
+                            <td>@transaction3.advertiseDescription</td>
+                            <td>@transaction4.firstname</td>
+                            <td>@transaction4.userEmail</td>
+                            <td>@transaction4.MobileNo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     }
+
 </body>
 </html>

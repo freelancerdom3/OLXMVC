@@ -13,19 +13,21 @@
     </div>
 }
 
+
+<div id="message">@ViewBag.Message</div>
+
 @using (Html.BeginForm("checkBuyerWallet", "Product", FormMethod.Post))
 {
 
-  
+
 
     <div>
-        <input type="submit" value="Check Buyer Balance" />
+        <input type="submit" value="Check Buy Balance" />
     </div>
 }
 
 
 
-<div id="message">@ViewBag.Message</div>
 
 @{
     var transactions3 = ViewData["Transactions"] as List<OLX.Models.PaymentdetailsBuyerModel>;
@@ -39,7 +41,7 @@
             <tr>
 
 
-                <th>Buyer Wallet</th>
+                <th>Buy Wallet</th>
 
                 <th>User ID</th>
 
@@ -67,9 +69,9 @@
 {
 
 
-    <div>
-        <input type="submit" value="Check Seller Balance" />
-    </div>
+    @*<div>
+            <input type="submit" value="Check Seller Balance" />
+        </div>*@
 }
 
 @{
@@ -84,7 +86,7 @@
             <tr>
 
 
-                <th>Buyer Wallet</th>
+                <th>Buy Wallet</th>
 
                 <th>User ID</th>
 
@@ -108,20 +110,17 @@
 }
 
 
-@using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
+@*@using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
 {
+
     <div>
-        <label for="transferUserId">Transfer To Buyer (User ID):</label>
-        <input type="text" name="transferUserId" id="transferUserId" />
+        <input type="submit" value="Transfer to Buy Wallet" />
     </div>
-    <div>
-        <input type="submit" value="Transfer to Buyer" />
-    </div>
-}
+}*@
 <!-- Form for BuyerStatement -->
 @using (Html.BeginForm("BuyerStatement", "Product", FormMethod.Post))
 {
-    <h2>Buyer Statement</h2>
+    <h2>Buy Statement</h2>
 
 
 
@@ -135,7 +134,7 @@
         @Html.TextBox("toDate", null, new { @class = "form-control", type = "date" })
     </div>
 
-    <button type="submit" class="btn btn-primary">View Buyer Statement</button>
+    <button type="submit" class="btn btn-primary">View Buy Statement</button>
 }
 
 
@@ -151,7 +150,7 @@
             <tr>
                 <th>Transaction Id</th>
                 <th>Total Amount Paid</th>
-                <th>Buyer Wallet</th>
+                <th>Buy Wallet</th>
                 <th>User ID</th>
                 <th>Advertise ID</th>
                 <th>Transaction Time</th>
@@ -192,7 +191,7 @@
         @Html.TextBox("toDate", null, new { @class = "form-control", type = "date" })
     </div>
 
-    <button type="submit" class="btn btn-primary">View Seller Statement</button>
+    <button type="submit" class="btn btn-primary">View Sell Statement</button>
 }
 
 @{
@@ -207,7 +206,7 @@
             <tr>
                 <th>Transaction Id</th>
                 <th>Total Amount Received</th>
-                <th>Seller Wallet</th>
+                <th>Sell Wallet</th>
                 <th>User ID</th>
                 <th>Advertise ID</th>
                 <th>Transaction Time</th>

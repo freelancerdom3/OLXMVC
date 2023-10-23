@@ -47,7 +47,14 @@ namespace OLXMVCApp.Controllers.Users
                 {
                     // Fetch recent transactions
                     List<PaymentdetailsBuyerModel> recentTransactions = repository.FetchRecentTransactions(userId);
+                    List<UsersModel> recentTransactions2 = repository.FetchRecentTransactions2(userId);
+                    List<MyAdvertiseModel> recentTransactions3 = repository.FetchRecentTransactions3(advertiseId);
+                    List<UsersModel> recentTransactions4 = repository.FetchRecentTransactions4(advertiseId);
+
                     ViewData["Transactions"] = recentTransactions;
+                    ViewData["Transactions2"] = recentTransactions2;
+                    ViewData["Transactions3"] = recentTransactions3;
+                    ViewData["Transactions4"] = recentTransactions4;
                     ViewBag.Message = "Purchase was successful!";
                     // Pass the recent transactions to the view
                     return View("PurchaseProduct"); // Updated view name to "PurchaseSuccess"
@@ -177,7 +184,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return View("login");
+                return RedirectToAction("loginType", "User");
             }
             return View("AddMoney"); // Replace "YourViewName" with the appropriate view name.
         }
@@ -205,7 +212,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return RedirectToAction("loginType", "User");
+             return RedirectToAction("loginType", "User");
             }
 
         }
@@ -229,7 +236,7 @@ namespace OLXMVCApp.Controllers.Users
             {
                 // Handle the case where the user is not logged in or the session has expired.
                 // You might want to redirect to a login page or show an error message.
-                return RedirectToAction("loginType", "User");
+             return RedirectToAction("loginType", "User");
             }
         }
 

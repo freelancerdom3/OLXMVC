@@ -185,6 +185,9 @@ namespace OLX.DA.PaymentDA
 
                     if (rowsAffected > 0)
                     {
+
+
+
                         int statusChanging = 1;
 
                         using (SqlCommand updateAdStatusCommand = new SqlCommand("UPDATE tbl_MyAdvertise SET advertiseStatus = @StatusChanging WHERE advertiseId = @AdvertiseId", con))
@@ -349,6 +352,115 @@ namespace OLX.DA.PaymentDA
 
             return transactions;
         }
+
+
+        //user details
+        public List<UsersModel> FetchRecentTransactions2(int userId)
+        {
+            connection();
+            List<UsersModel> users = new List<UsersModel>();
+
+
+            con.Open();
+
+            string query = "SELECT * FROM Users WHERE userId = @userId";
+
+            using (SqlCommand recentTransaction2 = new SqlCommand(query, con))
+            {
+                recentTransaction2.Parameters.AddWithValue("@userId", userId);
+
+                using (SqlDataReader reader = recentTransaction2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        UsersModel transaction = new UsersModel
+                        {
+                            firstname = reader.IsDBNull(reader.GetOrdinal("firstname")) ? "0" : reader.GetString(reader.GetOrdinal("firstname")),
+                            userEmail = reader.IsDBNull(reader.GetOrdinal("userEmail")) ? "0" : reader.GetString(reader.GetOrdinal("userEmail"))
+
+                        };
+                        users.Add(transaction);
+                    }
+                }
+            }
+
+
+            return users;
+        }
+
+
+
+        // invoice product price and seller detailss
+        public List<MyAdvertiseModel> FetchRecentTransactions3(int advertiseId)
+        {
+            connection();
+
+            List<MyAdvertiseModel> advertise = new List<MyAdvertiseModel>();
+
+            con.Open();
+
+            string query = "SELECT * FROM tbl_MyAdvertise WHERE advertiseId = @advertiseId;";
+
+            using (SqlCommand recentTransaction3 = new SqlCommand(query, con))
+            {
+                recentTransaction3.Parameters.AddWithValue("@advertiseId", advertiseId);
+
+                using (SqlDataReader reader = recentTransaction3.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MyAdvertiseModel transaction3 = new MyAdvertiseModel
+                        {
+                            advertiseTitle = reader.IsDBNull(reader.GetOrdinal("advertiseTitle")) ? "0" : reader.GetString(reader.GetOrdinal("advertiseTitle")),
+                            advertiseDescription = reader.IsDBNull(reader.GetOrdinal("advertiseDescription")) ? "0" : reader.GetString(reader.GetOrdinal("advertiseDescription"))
+                        };
+                        advertise.Add(transaction3);
+                    }
+                }
+            }
+
+            return advertise;
+        }
+
+        public List<UsersModel> FetchRecentTransactions4(int advertiseId)
+        {
+            connection();
+
+            List<UsersModel> advertise2 = new List<UsersModel>();
+
+            con.Open();
+
+            string query = "SELECT * FROM Users u INNER JOIN tbl_MyAdvertise ma ON u.userId = ma.userId WHERE ma.advertiseId = @advertiseId;";
+
+            using (SqlCommand recentTransaction4 = new SqlCommand(query, con))
+            {
+                recentTransaction4.Parameters.AddWithValue("@advertiseId", advertiseId);
+
+                using (SqlDataReader reader = recentTransaction4.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        UsersModel transaction4 = new UsersModel
+                        {
+                            firstname = reader.IsDBNull(reader.GetOrdinal("firstname")) ? "0" : reader.GetString(reader.GetOrdinal("firstname")),
+                            userEmail = reader.IsDBNull(reader.GetOrdinal("userEmail")) ? "0" : reader.GetString(reader.GetOrdinal("userEmail")),
+                            MobileNo = reader.IsDBNull(reader.GetOrdinal("MobileNo")) ? "0" : reader.GetString(reader.GetOrdinal("MobileNo")),
+                        };
+                        advertise2.Add(transaction4);
+                    }
+                }
+            }
+
+            return advertise2;
+        }
+
+
+
+
+
+
+
+
         public List<PaymentdetailsSellerModel> FetchRecentTransactionsSeller(int userId)
         {
             connection();
