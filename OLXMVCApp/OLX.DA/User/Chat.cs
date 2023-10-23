@@ -245,7 +245,7 @@ namespace OLX.DA.User
                 {
                     firstName=dr["firstName"].ToString(),
                     AdvertiseId=Convert.ToInt32(dr["AdvertiseId"]),
-                    BuyOrSellId=Convert.ToBoolean(dr["BuyOrSellId"]),
+                    //BuyOrSellId=Convert.ToBoolean(dr["BuyOrSellId"]),
                     MapId=Convert.ToInt32(dr["MapId"]),
                     userId=Convert.ToInt32(dr["userId"])
                 };
