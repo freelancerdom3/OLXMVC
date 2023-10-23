@@ -77,6 +77,9 @@
     .second-header a {
         color: #2866c3;
     }
+    .no-decoration{
+        text-decoration:none;
+    }
 </style>
 @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -99,7 +102,7 @@
             }
             @foreach (var group in groupedStates)
             {
-                <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,stateId =@group.First().stateId,minprice=minprice,maxprice=maxprice})">
+                <a class="no-decoration" href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,stateId =@group.First().stateId,minprice=minprice,maxprice=maxprice})">
                     <h2>@group.Key</h2>
                 </a>
                 <ul>
@@ -109,7 +112,7 @@
                     }
                     @foreach (var cityGroup in groupedCitiesInState)
                     {
-                        <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,cityId =@cityGroup.First().cityId,minprice=minprice,maxprice=maxprice})">
+                        <a class="no-decoration" href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,cityId =@cityGroup.First().cityId,minprice=minprice,maxprice=maxprice})">
 
                             @*<a href="filterproduct?cityId=@cityGroup.First().cityId">*@
                             @cityGroup.Key
@@ -118,7 +121,7 @@
                             @foreach (var area in cityGroup)
                             {
                                 <li>
-                                    <a href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,areaId =@area.areaId,minprice=minprice,maxprice=maxprice})">
+                                    <a class="no-decoration" href="@Url.Action("filterproduct", "Home", new { categoryId = categoryId,subcategoryId=subcategoryId,areaId =@area.areaId,minprice=minprice,maxprice=maxprice})">
                                         @area.areaName
                                     </a>
                                 </li>

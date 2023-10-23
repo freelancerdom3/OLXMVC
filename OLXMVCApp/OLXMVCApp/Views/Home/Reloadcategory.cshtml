@@ -27,6 +27,9 @@
     .CATEGORY{
         height:500px;
     }
+    .no-decoration {
+        text-decoration: none;
+    }
 
     
 </style>
@@ -45,14 +48,14 @@
 
             @foreach (var group in groupedCategories)
             {
-                <a href="@Url.Action("filterproduct", "Home", new { categoryId = group.First().productCategoryId })">
+                <a class="no-decoration" href="@Url.Action("filterproduct", "Home", new { categoryId = group.First().productCategoryId })">
                     <h2>@group.Key</h2>
                 </a>
                 <ul>
                     @foreach (var subcategory in group)
                     {
                         <li>
-                            <a href="@Url.Action("filterproduct", "Home", new { subcategoryId = subcategory.productSubCategoryId })">
+                            <a class="no-decoration" href="@Url.Action("filterproduct", "Home", new {subcategoryId = subcategory.productSubCategoryId })">
                                 @subcategory.productSubCategoryName
                             </a>
                         </li>
