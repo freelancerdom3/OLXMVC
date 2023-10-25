@@ -65,13 +65,13 @@
 }
 
 
-@using (Html.BeginForm("AddMoney", "Product", FormMethod.Post))
+@using (Html.BeginForm("checkSellerWallet", "Product", FormMethod.Post))
 {
 
 
-    @*<div>
-            <input type="submit" value="Check Seller Balance" />
-        </div>*@
+    <div>
+            <input type="submit" value="Check Sell Balance" />
+        </div>
 }
 
 @{
@@ -86,7 +86,7 @@
             <tr>
 
 
-                <th>Buy Wallet</th>
+                <th>Sell Wallet</th>
 
                 <th>User ID</th>
 
@@ -110,13 +110,13 @@
 }
 
 
-@*@using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
+@using (Html.BeginForm("TransferSellerWalletToBuyer", "Product", FormMethod.Post))
 {
 
     <div>
         <input type="submit" value="Transfer to Buy Wallet" />
     </div>
-}*@
+}
 <!-- Form for BuyerStatement -->
 @using (Html.BeginForm("BuyerStatement", "Product", FormMethod.Post))
 {

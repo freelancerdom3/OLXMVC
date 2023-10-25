@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -201,20 +202,31 @@ namespace OLX.DA.PaymentDA
 
                         //this logic is about selling PaymentdetailsSeller and SellerTransactionHistory
 
-                        int PaymentIds = 0;
 
-                        using (SqlCommand getpaymentIds = new SqlCommand("SELECT paymentIds FROM PaymentdetailsSeller WHERE userId = @userId", con))
+
+
+
+                        int storeselleruserid = 0;
+                        using (SqlCommand getuseridseller = new SqlCommand("SELECT A.userId FROM PaymentdetailsSeller A INNER JOIN tbl_MyAdvertise B ON B.userId = A.userId WHERE B.advertiseId = @AdvertiseId", con))
                         {
-                            getpaymentIds.Parameters.AddWithValue("@userId", userId);
-
-                            using (SqlDataReader reader = getpaymentIds.ExecuteReader())
+                            getuseridseller.Parameters.AddWithValue("@AdvertiseId", advertiseId);
+                            using (SqlDataReader sellerReader = getuseridseller.ExecuteReader())
                             {
-                                if (reader.Read())
+
+                                if (sellerReader.Read())
                                 {
-                                    PaymentIds = reader.GetInt32(0);
+                                    storeselleruserid = sellerReader.GetInt32(0);
                                 }
+
                             }
+
                         }
+
+
+
+
+
+                       
                         // this storeAdvertisePrice and storeUserIdfromAd fetching and storing the value from tbl_MyAdvertise table
                         decimal storeAdvertisePrice = 0;
                         int storeUserIdfromAd = 0;
@@ -234,7 +246,7 @@ namespace OLX.DA.PaymentDA
                             }
                         }
                         // checking here already wallet is present or not if it is then it should be update 
-                        if (PaymentIds > 0)
+                        if (storeselleruserid > 0)
                         {
                             // and storeAdvertisePrice and storeUserIdfromAd and other data storing in PaymentdetailsSeller table
                             using (SqlCommand updateSellingtable = new SqlCommand("UPDATE PaymentdetailsSeller SET SellerWallet = SellerWallet + @storeAdvertisePrice, ReceivedAmount =@storeAdvertisePrice,  userId = @storeUserIdfromAd, advertiseId = @advertiseId WHERE userId = @storeUserIdfromAd", con))
